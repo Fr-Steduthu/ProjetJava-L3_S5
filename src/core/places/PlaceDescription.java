@@ -1,4 +1,4 @@
-package core;
+package core.places;
 
 enum PlaceDescription { //Package private
 	OLD, NEW,

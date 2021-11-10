@@ -1,7 +1,9 @@
 package core.items;
 
 import core.*;
-import core.Character;
+import core.character.Character;
+import core.character.Player;
+import core.places.Place;
 
 public abstract class Item {
 	private String name; //Variable pour ne pas avoir à recreer l'objet apres identification
