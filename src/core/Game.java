@@ -6,16 +6,6 @@ import core.quests.Quest;
 import hmi.HMI;
 
 public class Game {
-	@SuppressWarnings("unused")
-	private class PlayerAndQuest{
-		public final Player p;
-		public final Quest q;
-		public PlayerAndQuest(Quest q, Player p) {
-			this.p = p;
-			this.q = q;
-			
-		}
-	}
 	/*public Game(Player p1, Quest quest) {
 		
 		this.mainloop(p1, quest);
@@ -65,11 +55,13 @@ public class Game {
 	public static void save(Player p, Quest q) {
 		//TODO
 	}
-	/*
+	
 	public static void load() {
-		//PlayerAndQuest loadedSave = new PlayerAndSave(new Player);
+		Player p_loadedSave = null;
+		Quest q_loadedSave = null;
+		
 		//TODO
 		
-		Game.start(loadedSave.p, loadedSave.q);
-	}*/
+		Game.start(p_loadedSave, q_loadedSave);
+	}
 }
