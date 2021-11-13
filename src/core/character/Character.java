@@ -19,6 +19,9 @@ public abstract class Character implements Serializable{
 	protected float hp;
 	protected float ar;
 	
+	protected float attackDammage = 1.0f;
+	protected float defence = 0.0f;
+	
 	protected float manaRegen = 0.0f;
 	
 	protected Inventory inventory;
@@ -59,7 +62,7 @@ public abstract class Character implements Serializable{
 		}
 	}
 	public void hurt(int dammageTaken) {
-		this.hp -= dammageTaken;
+		this.hp -= dammageTaken - this.defence;
 		if(this.hp < 1) {
 			this.hp = 0;
 		}
@@ -71,16 +74,35 @@ public abstract class Character implements Serializable{
 	public int getAR() {
 		return (int) (this.ar +0.5f);
 	}
-	public void useAP(float amount) {
+	public void useAR(float amount) {
 		this.ar -= amount; // On accepte l'energie negative
 	}
-	public void giveAP(float amount) {
+	public void giveAR(float amount) {
 		this.ar += amount;
 		if(this.ar > this.maxAbilityRessource) {
 			this.ar = this.maxAbilityRessource;
 		}
 	}
-	public void regenAP() {
-		this.giveAP(this.manaRegen);
+	public void regenAR() {
+		this.giveAR(this.manaRegen);
 	}
+	
+	public void attack(Character target){
+		target.hurt(this.attackDamage);
+	}
+	public float getAttackDammage(){
+		return this.attakDammage;
+	}
+	public void setAttackDammage(float val){
+		this.attackDammage = val;
+	}
+	
+	public void setDefence(float val){
+		this.defense = val;
+	}
+	/*//Considere inutile
+	public int getDenfence(){
+		return this.defence;
+	}
+	/**/
 }
