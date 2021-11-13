@@ -1,10 +1,14 @@
 package core.items;
 
-import core.Container;
+import java.io.Serializable;
+
+import core.character.Inventory;
 import core.character.Player;
 import core.places.Place;
 
-public abstract class Item {
+public abstract class Item implements Serializable{
+	private static final long serialVersionUID = -2738172528031259592L;
+	
 	private String name; //Variable pour ne pas avoir à recreer l'objet apres identification
 	private Object location;
 
@@ -12,7 +16,7 @@ public abstract class Item {
 		this.name = name;
 	}
 	public void setLocation(Object owner_or_place) {
-		if(owner_or_place instanceof Place || owner_or_place instanceof Container) {
+		if(owner_or_place instanceof Place || owner_or_place instanceof Inventory) {
 			this.location = owner_or_place;
 		}else {
 			throw new IllegalArgumentException("Location of item cannot be other than Place or Container");
@@ -28,7 +32,7 @@ public abstract class Item {
 		if(this instanceof Takable) {
 			if(((Takable)this).isTakable()) {
 				player.give(this);
-				player.getRoom().removeItem(this);
+				player.getLocation().removeItem(this);
 				return "You take the "+this.name;
 			}else {
 				return "You may not "+this.name+" this item yet";

@@ -1,8 +1,13 @@
 package core.places;
 
+import java.io.Serializable;
+
 //import javax.annotation.*;
 
-public class Exit{
+public class Exit implements Serializable{
+
+	private static final long serialVersionUID = 5674585445142853986L;
+	
 	private Place[] connectedRooms = new Place[2];
 
 	//@ParametersAreNonnullByDefault
@@ -15,10 +20,10 @@ public class Exit{
 		}
 	}
 	
-	public String[] getRooms() {
-		String[] r = new String[2];
-		r[0] = this.connectedRooms[0].getName();
-		r[1] = this.connectedRooms[1].getName();
+	public Place[] getRooms() {
+		Place[] r = new Place[2];
+		r[0] = this.connectedRooms[0];
+		r[1] = this.connectedRooms[1];
 		return r;
 	}
 

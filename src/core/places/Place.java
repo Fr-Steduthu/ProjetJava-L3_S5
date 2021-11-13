@@ -1,12 +1,16 @@
 package core.places;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import core.character.Character;
 import core.items.Item;
 
-public class Place {
+public class Place  implements Serializable{
+
+	private static final long serialVersionUID = 6744297261182547691L;
+	
 	private final String NAME;
 	private List<Exit> exits = new ArrayList<>(); //List car a nombre eventuellement variable
 	
@@ -51,12 +55,8 @@ public class Place {
 		assert(this.itemList.contains(item));
 		this.itemList.remove(item);
 	}
-
-	/**MISC**/
-	public String getName() {
-		return this.NAME;
-	}
 	
+	/**Exits**/
 	public Exit[] getExits() {
 		return (Exit[]) this.exits.toArray();
 	}
@@ -68,6 +68,18 @@ public class Place {
 		}
 	}
 
+	/**MISC**/
+	public String getName() {
+		return this.NAME;
+	}
+	
+	@Override
+	public String toString() {
+		//TODO
+		return "Place.toString not coded yet";
+	}
+
+	/**Static**/
 	public static Place[] getRandomDungeon() {
 		System.out.println("Place.getRandomDungeon not coded yet");
 		assert(false);
