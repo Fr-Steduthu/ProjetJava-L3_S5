@@ -1,7 +1,6 @@
 package core.items;
 
-import core.*;
-import core.character.Character;
+import core.Container;
 import core.character.Player;
 import core.places.Place;
 
@@ -13,10 +12,10 @@ public abstract class Item {
 		this.name = name;
 	}
 	public void setLocation(Object owner_or_place) {
-		if(owner_or_place instanceof Place || owner_or_place instanceof Character) {
+		if(owner_or_place instanceof Place || owner_or_place instanceof Container) {
 			this.location = owner_or_place;
 		}else {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Location of item cannot be other than Place or Container");
 		}
 	}
 	public Object getLocation() {
@@ -36,6 +35,14 @@ public abstract class Item {
 			}
 		}else {
 			return "You can't pick up that !";
+		}
+	}
+	
+	public String use() {
+		if(this instanceof Usable) {
+			return ((Usable)this).onUse();
+		}else {
+			return "This cannot be used";
 		}
 	}
 }
