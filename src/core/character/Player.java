@@ -1,17 +1,16 @@
 package core.character;
 
 import core.items.Item;
-import core.places.Place;
 
 public class Player extends Character{
-	public static final float DEFAULT_MAXHP = 20f;
-	public static final float DEFAULT_ABILLITYRESOURCES = 20f;
-	public static final int DEFAULT_INVENTORY_CAPACITY = 20;
-	
-	private Place location = null;
-	
 
-	public Player(String name) {
+	private static final long serialVersionUID = -4378126790245045248L;
+	
+	public static final transient float DEFAULT_MAXHP = 20f;
+	public static final transient float DEFAULT_ABILLITYRESOURCES = 20f;
+	public static final transient int DEFAULT_INVENTORY_CAPACITY = 20;
+	
+	public Player(String name){
 		super(name, Player.DEFAULT_MAXHP, Player.DEFAULT_ABILLITYRESOURCES, Player.DEFAULT_INVENTORY_CAPACITY);
 	}
 	
@@ -20,21 +19,6 @@ public class Player extends Character{
 	}
 
 	public void give(Item item) {
-		// TODO Auto-generated method stub
-		
+		this.inventory.add(item);
 	}
-	
-	public void setLocation(Place location) {
-		this.location = location;
-	}
-
-	public Place getLocation() {
-		// TODO Auto-generated method stub
-		return this.location ;
-	}
-	
-	public void moveTo(Place l) {
-		this.location = l;
-	}
-
 }

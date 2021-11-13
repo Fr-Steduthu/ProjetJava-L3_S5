@@ -1,11 +1,15 @@
 package core.character;
 
-import core.Game;
+import java.io.Serializable;
+
 import core.items.Item;
 import core.places.Place;
 
 //import javax.annotation.ParametersAreNonnullByDefault;
-public abstract class Character {
+public abstract class Character implements Serializable{
+
+	private static final long serialVersionUID = 2171784611978154697L;
+	
 	private final String NAME;
 	private Place location;
 	
@@ -57,23 +61,26 @@ public abstract class Character {
 	public void hurt(int dammageTaken) {
 		this.hp -= dammageTaken;
 		if(this.hp < 1) {
-			Game.end("You lost. No health remaining", false);
+			this.hp = 0;
 		}
 	}
 	public int getHP() {
 		return (int)(this.hp +0.5f);
 	}
 	
-	public int getAP() {
+	public int getAR() {
 		return (int) (this.ar +0.5f);
 	}
-	public void useMana(float amount) {
-		this.ar -= amount;
+	public void useAP(float amount) {
+		this.ar -= amount; // On accepte l'energie negative
 	}
-	public void giveMana(float amount) {
+	public void giveAP(float amount) {
 		this.ar += amount;
+		if(this.ar > this.maxAbilityRessource) {
+			this.ar = this.maxAbilityRessource;
+		}
 	}
-	public void regenMana() {
-		this.giveMana(this.manaRegen);
+	public void regenAP() {
+		this.giveAP(this.manaRegen);
 	}
 }
