@@ -14,5 +14,12 @@ public class Exit{
 			this.connectedRooms[1] = roomB;
 		}
 	}
+	
+	public String[] getRooms() {
+		String[] r = new String[2];
+		r[0] = this.connectedRooms[0].getName();
+		r[1] = this.connectedRooms[1].getName();
+		return r;
+	}
 
 }
