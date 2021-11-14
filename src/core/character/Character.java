@@ -88,17 +88,17 @@ public abstract class Character implements Serializable{
 	}
 	
 	public void attack(Character target){
-		target.hurt(this.attackDamage);
+		target.hurt((int) this.attackDammage);
 	}
 	public float getAttackDammage(){
-		return this.attakDammage;
+		return this.attackDammage;
 	}
 	public void setAttackDammage(float val){
 		this.attackDammage = val;
 	}
 	
 	public void setDefence(float val){
-		this.defense = val;
+		this.defence = val;
 	}
 	/*//Considere inutile
 	public int getDenfence(){
