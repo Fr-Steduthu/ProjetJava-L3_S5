@@ -141,11 +141,11 @@ public abstract class Character implements Serializable{
 	
 	public void onDeath(Quest context, Player p){
 		if(this instanceof Lootable) {
-	        Item[] items = this.getLoot();
-	        Place location = this.getLocation();
-	        for (Item i : items) {
-	            location.addItem(i);
-	        }
+			Item[] items = this.getLoot();
+			Place location = this.getLocation();
+			for (Item i : items) {
+			    location.addItem(i);
+			}
 		}
 		
 		this.currentState = State.DEAD;
