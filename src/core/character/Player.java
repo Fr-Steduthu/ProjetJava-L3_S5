@@ -3,7 +3,7 @@ package core.character;
 import core.items.Item;
 import hmi.HMI;
 
-public class Player extends Character{
+public final class Player extends Character{
 
 	private static final long serialVersionUID = -4378126790245045248L;
 	
@@ -20,7 +20,9 @@ public class Player extends Character{
 	}
 
 	public void give(Item item) {
-		this.inventory.add(item);
+		if(this.inventory.add(item)) {
+			HMI.message("You couldn't pick" + item.getName() + " up; your inventory is full.");
+		}
 	}
 	
 	public void take(Item item) {

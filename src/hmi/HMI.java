@@ -1,6 +1,6 @@
 package hmi;
 
-public class HMI {
+public final class HMI {
 	
 	public static Command read() {
 		return Command.ATTACK;
