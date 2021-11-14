@@ -1,37 +1,25 @@
 package core.character;
 
-import core.items.Item;
-import core.places.Place;
 
-public class NPC extends Character implements AbleToSpeak, Lootable {
+public abstract class NPC extends Character implements AbleToSpeak, Lootable {
 
-    private String dialog;
+	private static final long serialVersionUID = 1134079016999922837L;
+	
+	private String dialog;
 
     public NPC(String name, int inventoryCapacity) {
         super(name, 20f, 0.0f, inventoryCapacity);
     }
     
+    @Override
     public void interact() {
         this.speak();
         this.getLocation().removeNpc(this);
-    }
-    
-    public void onDeath() {
-        Item[] items = this.getLoot();
-        Place location = this.getLocation();
-        for (Item i : items) {
-            location.addItem(i);
-        }
     }
 
     @Override
     public void speak() {
         System.out.println(this.dialog);
-    }
-
-    @Override
-    public Item[] getLoot() {
-        return this.getInventory();
     }
     
 }

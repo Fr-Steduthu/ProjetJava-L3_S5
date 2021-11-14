@@ -1,6 +1,7 @@
 package core.character;
 
 import core.items.Item;
+import core.quests.Quest;
 
 public class Player extends Character{
 
@@ -20,5 +21,15 @@ public class Player extends Character{
 
 	public void give(Item item) {
 		this.inventory.add(item);
+	}
+	
+	public void take(Item item) {
+		this.inventory.remove(item);
+	}
+
+	@Override
+	public void onDeath(Quest context, Player p) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import core.items.Item;
 import core.places.Place;
+import core.quests.Quest;
 
 //import javax.annotation.ParametersAreNonnullByDefault;
 public abstract class Character implements Serializable{
@@ -105,4 +106,15 @@ public abstract class Character implements Serializable{
 		return this.defence;
 	}
 	/**/
+	
+	public void onDeath(Quest context, Player p) throws Exception {
+		if(this instanceof Lootable) {
+	        Item[] items = ((Lootable)this).getLoot();
+	        Place location = this.getLocation();
+	        for (Item i : items) {
+	            location.addItem(i);
+	        }
+		}
+	}
+
 }
