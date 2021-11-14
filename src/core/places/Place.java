@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import core.character.Character;
+import core.character.monsters.Monster;
 import core.items.Item;
 
 public class Place  implements Serializable{
@@ -75,8 +76,34 @@ public class Place  implements Serializable{
 	
 	@Override
 	public String toString() {
-		//TODO
-		return "Place.toString not coded yet";
+		String out = "";
+		out += "A sign reads " + this.NAME + "\n";
+		
+		//Characters
+		if(this.getNpcs().length != 0) {
+			out += "\nYou can see creatures :\n";
+			for(Character c : this.getNpcs()) {
+			if(c instanceof Monster) {
+				out += "\t[Monster]";
+			}else {
+				out += "\t[NPC]    ";
+			}
+			out += c.getNAME() + "\n";
+			}
+		}
+		//items
+		if(this.getItems().length != 0) {
+			out += "\nYou can see something on the ground\n";
+			
+			for(Item i : this.getItems()) {
+				out += "\t" + i.getName() + "\n";
+			}
+		}
+		
+		if(this.getExits().length != 0) {
+			
+		}
+		return out;
 	}
 
 	/**Static**/

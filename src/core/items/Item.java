@@ -2,7 +2,7 @@ package core.items;
 
 import java.io.Serializable;
 
-import core.character.Inventory;
+import core.Inventory;
 import core.character.Player;
 import core.places.Place;
 
@@ -15,6 +15,14 @@ public abstract class Item implements Serializable{
 	protected Item(String name) {
 		this.name = name;
 	}
+	
+	public String getName() {
+		return this.name;
+	}
+	public void setName(String newName) {
+		this.name = newName;
+	}
+	
 	public void setLocation(Object owner_or_place) {
 		if(owner_or_place instanceof Place || owner_or_place instanceof Inventory) {
 			this.location = owner_or_place;

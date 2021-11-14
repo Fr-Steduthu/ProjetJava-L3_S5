@@ -1,4 +1,4 @@
-package core.character;
+package core;
 
 import java.io.Serializable;
 
