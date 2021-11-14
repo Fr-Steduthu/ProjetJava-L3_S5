@@ -8,7 +8,7 @@ import core.character.Character;
 import core.character.monsters.Monster;
 import core.items.Item;
 
-public class Place  implements Serializable{
+public final class Place implements Serializable{
 
 	private static final long serialVersionUID = 6744297261182547691L;
 	
@@ -24,7 +24,7 @@ public class Place  implements Serializable{
 		this.NAME = name;
 	}
 	
-	public void fill(List<Item> itemList, List<Character> npcList) throws Exception {
+	public final void fill(List<Item> itemList, List<Character> npcList) throws Exception {
 		if(this.hasBeenFilled) {
 			throw new Exception("Room cannot be initialized (filled) twice !");
 		}else {
@@ -36,33 +36,33 @@ public class Place  implements Serializable{
 	}
 	
 	/**NPCs**/
-	public Character[] getNpcs() {
+	public final Character[] getNpcs() {
 		return (Character[]) this.npcList.toArray();
 	}
-	public void addNpc(Character npc) {
+	public final void addNpc(Character npc) {
 		this.npcList.add(npc);
 	}
-	public void removeNpc(Character npc) {
+	public final void removeNpc(Character npc) {
 		this.npcList.remove(npc);
 	}
 	/**ITEMS**/
-	public Item[] getItems() {
+	public final Item[] getItems() {
 		return (Item[]) this.itemList.toArray();
 	}
-	public void addItem(Item item) {
+	public final void addItem(Item item) {
 		this.itemList.add(item);
 	}
-	public void removeItem(Item item) {
+	public final void removeItem(Item item) {
 		assert(this.itemList.contains(item));
 		this.itemList.remove(item);
 	}
 	
 	/**Exits**/
-	public Exit[] getExits() {
+	public final Exit[] getExits() {
 		return (Exit[]) this.exits.toArray();
 	}
 	
-	public void setExits(Exit[] exits) {
+	public final void setExits(Exit[] exits) {
 		this.exits = new ArrayList<>();
 		for(Exit e :  exits) {
 			this.exits.add(e);
@@ -70,12 +70,12 @@ public class Place  implements Serializable{
 	}
 
 	/**MISC**/
-	public String getName() {
+	public final String getName() {
 		return this.NAME;
 	}
 	
 	@Override
-	public String toString() {
+	public final String toString() {
 		String out = "";
 		out += "A sign reads " + this.NAME + "\n";
 		
@@ -88,7 +88,7 @@ public class Place  implements Serializable{
 			}else {
 				out += "\t[NPC]    ";
 			}
-			out += c.getNAME() + "\n";
+			out += c.getName() + "\n";
 			}
 		}
 		//items

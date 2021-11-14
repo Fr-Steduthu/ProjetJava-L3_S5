@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import core.places.Place;
 
-public class Quest implements Serializable{
+public final class Quest implements Serializable{
 	private static final long serialVersionUID = 4043237045943967915L;
 	
 	private final Place origin;

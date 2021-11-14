@@ -1,7 +1,6 @@
 package core.character.monsters;
 
 import core.character.Character;
-import hmi.HMI;
 
 public class Monster extends Character{
 
@@ -14,6 +13,6 @@ public class Monster extends Character{
 
 	@Override
 	public void interact() {
-		HMI.message(getNAME() + " : " + this.getHP() + "/" + ((int)(this.maxHP+0.5)) + "health points\n\t"+(int)this.armor+" armor"); 
+		this.inspect();
 	}
 }

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 //import javax.annotation.*;
 
-public class Exit implements Serializable{
+public final class Exit implements Serializable{
 
 	private static final long serialVersionUID = 5674585445142853986L;
 	
@@ -20,7 +20,7 @@ public class Exit implements Serializable{
 		}
 	}
 	
-	public Place[] getRooms() {
+	public final Place[] getRooms() {
 		Place[] r = new Place[2];
 		r[0] = this.connectedRooms[0];
 		r[1] = this.connectedRooms[1];

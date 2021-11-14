@@ -13,121 +13,121 @@ public abstract class Character implements Serializable{
 
 	private static final long serialVersionUID = 2171784611978154697L;
 	
+	//Misc
 	private final String NAME;
 	private Place location;
 	
-	protected float maxHP;
-	protected float maxAbilityRessource;
-	
-	protected float hp;
-	protected float ar;
-	
-	protected float attackDammage = 1.0f;
-	protected float armor = 0.0f;
-	
-	protected float manaRegen = 0.0f;
+	protected String dialogue = "[ERROR] No dialogue set";
 	
 	protected Inventory inventory;
 	
 	protected State currentState = State.ALIVE;
-
-	protected String dialogue = "[ERROR] No dialogue set";
+	
+	//Combat
+	protected float maxHP;
+	protected float maxAbilityRessource;
+	
+	protected float hp = this.maxHP;
+	protected float ar = this.maxAbilityRessource;
+	
+	protected float arRegen = 0.0f;
+	
+	protected float attackDammage = 1.0f;
+	protected float armor = 0.0f;
+	
 	
 	//@ParametersAreNonnullByDefault
 	public Character(String name, float maxHP, float maxAbilityRessource, int inventoryCapacity) {
 		this.NAME = name;
 		this.maxHP = maxHP;
 		this.maxAbilityRessource = maxAbilityRessource;
-		
-		this.hp = this.maxHP;
-		this.ar = this.maxAbilityRessource;
-		
+
 		this.inventory = new Inventory(inventoryCapacity);
 	}
 
-	public String getNAME() {
+	/**SETTERS & GETTERS**/
+	public final String getName() {
 		return NAME;
 	}
-	
-	public Item[] getInventory() {
+
+	public final Item[] getInventory() {
 		return this.inventory.toArray();
 	}
-	
-	public Place getLocation() {
+
+	public final Place getLocation() {
 		return this.location;
 	}
 
-	public void setLocation(Place location) {
+	public final void setLocation(Place location) {
 		this.location = location;
 	}
-	
-	
-	public void heal(int amount) {
+
+	public final void heal(int amount) {
 		this.hp += amount;
 		if(this.hp > this.maxHP) {
 			this.hp = this.maxHP;
 		}
 	}
-	public void hurt(int dammageTaken) {
-		this.hp -= dammageTaken - this.armor;
-		if(this.hp < 1) {
-			this.hp = 0;
-			this.currentState = State.DEAD;
+
+	public final void hurt(int dammageTaken) {
+		float temp = this.hp - dammageTaken - this.armor;
+		if(temp < this.hp) {//On evite les soins par armure trop forte
+			this.hp = temp;
+			if(this.hp < 1) {
+				this.hp = 0;
+				this.currentState = State.DEAD;
+			}
 		}
 	}
-	public int getHP() {
-		return (int)(this.hp +0.5f);
+
+	public final float getHP() {
+		return this.hp;
 	}
-	
-	public int getAR() {
-		return (int) (this.ar +0.5f);
+
+	public final float getAR() {
+		return this.ar;
 	}
-	public void useAR(float amount) {
-		this.ar -= amount; // On accepte l'energie negative
+
+	public final void useAR(float amount) {
+		this.ar -= amount; // On accepte l'energie negative; plus de flexibilite
 	}
-	public void giveAR(float amount) {
+
+	public final void giveAR(float amount) {
 		this.ar += amount;
 		if(this.ar > this.maxAbilityRessource) {
 			this.ar = this.maxAbilityRessource;
 		}
 	}
-	public void regenAR() {
-		this.giveAR(this.manaRegen);
+
+	public final void regenAR() {
+		this.giveAR(this.arRegen);
 	}
-	
-	public void attack(Character target){
+
+	public final void setArmor(float val){
+		this.armor = val;
+	}
+
+	public final void setState(State state) {
+		this.currentState = state;
+	}
+
+	public final State getState() {
+		return this.currentState;
+	}
+
+	/**Methods**/
+
+	public final void attack(Character target){
 		target.hurt((int) this.attackDammage);
 	}
 	
-	public float getAttackDammage(){
-		return this.attackDammage;
-	}
-	public void setAttackDammage(float val){
-		this.attackDammage = val;
-	}
-	
-	public void setArmor(float val){
-		this.armor = val;
-	}
-	
-
-	public void setState(State state) {
-		this.currentState = state;
-	}
-	public State getState() {
-		return this.currentState;
-	}
-	
-	/*//Considere inutile
-	public int getDenfence(){
-		return this.defence;
-	}
-	/**/
-	
 	public abstract void interact();
-	//public abstract void interact(Object target);
 	
-	public void speak() {
+	public final void inspect() {
+		HMI.message(getName() + " : " + this.getHP() + "/" + ((int)(this.maxHP+0.5)) + "health points\n\t"+(int)this.armor+" armor"); 
+	}
+	
+	public final void speak() {
 		if(this instanceof AbleToSpeak) {
 			HMI.message(this.dialogue);
 		}else {
@@ -135,7 +135,7 @@ public abstract class Character implements Serializable{
 		}
 	}
 	
-	public Item[] getLoot(){
+	public final Item[] getLoot(){
 		return ((Character)this).getInventory();	
 	}
 	
@@ -150,6 +150,5 @@ public abstract class Character implements Serializable{
 		
 		this.currentState = State.DEAD;
 	}
-
 
 }
