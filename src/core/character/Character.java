@@ -2,9 +2,11 @@ package core.character;
 
 import java.io.Serializable;
 
+import core.Inventory;
 import core.items.Item;
 import core.places.Place;
 import core.quests.Quest;
+import hmi.HMI;
 
 //import javax.annotation.ParametersAreNonnullByDefault;
 public abstract class Character implements Serializable{
@@ -21,11 +23,15 @@ public abstract class Character implements Serializable{
 	protected float ar;
 	
 	protected float attackDammage = 1.0f;
-	protected float defence = 0.0f;
+	protected float armor = 0.0f;
 	
 	protected float manaRegen = 0.0f;
 	
 	protected Inventory inventory;
+	
+	protected State currentState = State.ALIVE;
+
+	protected String dialogue = "[ERROR] No dialogue set";
 	
 	//@ParametersAreNonnullByDefault
 	public Character(String name, float maxHP, float maxAbilityRessource, int inventoryCapacity) {
@@ -63,9 +69,10 @@ public abstract class Character implements Serializable{
 		}
 	}
 	public void hurt(int dammageTaken) {
-		this.hp -= dammageTaken - this.defence;
+		this.hp -= dammageTaken - this.armor;
 		if(this.hp < 1) {
 			this.hp = 0;
+			this.currentState = State.DEAD;
 		}
 	}
 	public int getHP() {
@@ -91,6 +98,7 @@ public abstract class Character implements Serializable{
 	public void attack(Character target){
 		target.hurt((int) this.attackDammage);
 	}
+	
 	public float getAttackDammage(){
 		return this.attackDammage;
 	}
@@ -98,23 +106,50 @@ public abstract class Character implements Serializable{
 		this.attackDammage = val;
 	}
 	
-	public void setDefence(float val){
-		this.defence = val;
+	public void setArmor(float val){
+		this.armor = val;
 	}
+	
+
+	public void setState(State state) {
+		this.currentState = state;
+	}
+	public State getState() {
+		return this.currentState;
+	}
+	
 	/*//Considere inutile
 	public int getDenfence(){
 		return this.defence;
 	}
 	/**/
 	
-	public void onDeath(Quest context, Player p) throws Exception {
+	public abstract void interact();
+	//public abstract void interact(Object target);
+	
+	public void speak() {
+		if(this instanceof AbleToSpeak) {
+			HMI.message(this.dialogue);
+		}else {
+			HMI.message("It doesn't seem to respond");
+		}
+	}
+	
+	public Item[] getLoot(){
+		return ((Character)this).getInventory();	
+	}
+	
+	public void onDeath(Quest context, Player p){
 		if(this instanceof Lootable) {
-	        Item[] items = ((Lootable)this).getLoot();
+	        Item[] items = this.getLoot();
 	        Place location = this.getLocation();
 	        for (Item i : items) {
 	            location.addItem(i);
 	        }
 		}
+		
+		this.currentState = State.DEAD;
 	}
+
 
 }

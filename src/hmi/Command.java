@@ -24,4 +24,14 @@ public enum Command {
 			return null;
 		}
 	}
+	
+	/*
+	Command(Command use, int item1) {
+		if(use == Command.USE);
+	}*/
+
+	public static void help() {
+		// TODO Auto-generated method stub
+		
+	}
 }

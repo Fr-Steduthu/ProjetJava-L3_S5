@@ -1,7 +1,7 @@
 package core.character;
 
 import core.items.Item;
-import core.quests.Quest;
+import hmi.HMI;
 
 public class Player extends Character{
 
@@ -28,8 +28,7 @@ public class Player extends Character{
 	}
 
 	@Override
-	public void onDeath(Quest context, Player p) {
-		// TODO Auto-generated method stub
-		
+	public void interact() {
+		HMI.message("[ERROR] UNREACHABLE CODE REACHED");
 	}
 }
