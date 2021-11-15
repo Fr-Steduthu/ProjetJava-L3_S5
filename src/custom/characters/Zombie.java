@@ -1,19 +1,17 @@
 package custom.characters;
 
 import core.character.Monster;
-import core.character.Character;
 
 public class Zombie extends Monster {
 
     public Zombie() {
-        super("Zombie", 5.0f, 1.5f, 1);
+        super("Zombie", 6.0f, 1.5f, 1);
         this.isLootable = true;
-        // TODO : this.inventory.add()
+        // TODO si la flesh reste : this.inventory.add()
     }
     
-    // TODO, on fait quoi avec le zombie?
-    /*@Override
-    public final void attack(Character target){
-	target.hurt((int) this.attackDammage);
-    }*/
+    @Override
+    public void heal(int amount) {
+        this.hurt(amount);
+    }
 }
