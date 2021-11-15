@@ -40,9 +40,11 @@ public class Game {
 			//Action en consequence
 			switch(action) {
 			case ATTACK:
-				break;
+				HMI.message("Choisissez une cible a attaquer :\n");
+                                break;
 			case GO:
-				break;
+				HMI.message("Choisissez une porte ouverte a passer");
+                                break;
 			case HELP:
 				Command.help();
 			case LOOK:
