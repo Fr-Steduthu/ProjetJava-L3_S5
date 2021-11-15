@@ -1,9 +1,9 @@
 package custom.items;
 
-import core.items.Item;
+import core.items.Equipment;
 
 
-public class WoodGloves extends Item {
+public class WoodGloves extends Equipment {
 
     private static final long serialVersionUID = 1L;
 
@@ -17,8 +17,13 @@ public class WoodGloves extends Item {
     }
 
     @Override
-    protected void onUse(Object target) {
-        //TODO
+    protected void onEquip(Object target) {
+        // TODO
+    }
+
+    @Override
+    protected void onDeEquip() {
+        // TODO
     }
 
     
