@@ -93,7 +93,7 @@ public class Game {
 				c.setState(State.DEAD); //Redondant
 			}
 			
-			if(c instanceof Monster) {
+			if(c instanceof Monster && c.getState() != State.STUNNED) {
 				c.attack(p);
 			}
 		}

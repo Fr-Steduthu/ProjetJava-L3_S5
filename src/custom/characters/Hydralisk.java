@@ -9,7 +9,7 @@ public class Hydralisk extends Monster {
 
 	public Hydralisk() {
 		super("Hydralisk", 20.0f, 0, 1.5f);
-		this.currentState = State.IMMUNE;
+		this.currentState = State.IMMUNE_ALL;
 	}
 
 }
