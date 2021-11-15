@@ -31,7 +31,7 @@ public class Game {
 			
 			//Gestion input
 			Command action = HMI.read();
-			//Action en consequance
+			//Action en consequence
 			switch(action) {
 			case ATTACK:
 				break;
@@ -118,7 +118,7 @@ public class Game {
 	
 	/*
 	 * http://blog.paumard.org/cours/java/chap10-entrees-sorties-serialization.html
-	 * Guide pour la sérialization
+	 * Guide pour la sï¿½rialization
 	 */
 	public static void save(Player p, Quest q) {
 		//TODO
