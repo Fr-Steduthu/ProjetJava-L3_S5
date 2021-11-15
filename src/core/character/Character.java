@@ -142,7 +142,7 @@ public abstract class Character implements Serializable{
 		return ((Character)this).getInventory();	
 	}
 	
-	public void onDeath(Quest<?> context, Player p){
+	public void onDeath(Quest context, Player p){
 		if(this.isLootable) {
 	        Item[] items = this.getLoot();
 	        Place location = this.getLocation();

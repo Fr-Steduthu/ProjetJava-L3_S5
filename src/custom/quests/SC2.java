@@ -5,7 +5,7 @@ import core.character.Monster;
 import core.places.Place;
 import custom.characters.Infestator;
 
-public class SC2 extends Quest<core.character.Monster> {
+public class SC2 extends Quest {
 
 	private static final long serialVersionUID = 6466432659359348694L;
 
