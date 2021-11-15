@@ -1,28 +1,17 @@
 package custom.items;
 
-import core.items.Equipment;
-import core.character.Character;
+import core.items.DamageEnhancer;
 
-public class WoodGloves extends Equipment {
+public class WoodGloves extends DamageEnhancer {
 
 	private static final long serialVersionUID = -580192015404933315L;
 
 	public WoodGloves() {
-        super("Wood Gloves");
+        super("Wood Gloves", 1.5f);
     }
 
     @Override
     public String look() {
         return "Some wood gloves. Using them gives you 1.5 additional damage points.";
-    }
-
-    @Override
-    public void onEquip(Character target) {
-    	target.setDammage(target.getDammage() + 1.5f);
-    }
-
-    @Override
-    public void onUnequip(Character target) {
-    	target.setDammage(target.getDammage() - 1.5f);
     }
 }

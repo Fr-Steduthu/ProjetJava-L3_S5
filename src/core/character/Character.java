@@ -58,7 +58,7 @@ public abstract class Character implements Serializable{
 	}
 
 	public final Item[] getInventory() {
-		return this.inventory.toArray();
+		return this.inventory.getItems();
 	}
 
 	public final Place getLocation() {
@@ -177,13 +177,25 @@ public abstract class Character implements Serializable{
                     Place location = this.getLocation();
                     for (Item i : items) {
                         location.addItem(i);
-                        this.inventory.remove(i);
+                        this.inventory.removeItem(i);
                     }
                     for (Equipment e : this.equiped_items) {
                         location.addItem(e);
                     }
 		}
 		this.currentState = State.DEAD;
+	}
+	
+	public void give(Item item) {
+		if(this.inventory.addItem(item)) {
+			HMI.message("You couldn't pick" + item.getName() + " up; your inventory is full.");
+		}
+	}
+	
+	public void take(Item item) {
+		if(!this.inventory.removeItem(item)) {
+			HMI.message("\t\t[ERROR>Player] An error has occured, you drop that");
+		};
 	}
 
 }

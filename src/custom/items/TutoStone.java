@@ -2,6 +2,7 @@ package custom.items;
 
 import core.items.Item;
 import core.places.Place;
+import custom.characters.npcs.TutoMan;
 import core.Inventory;
 import core.character.Character;
 

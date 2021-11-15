@@ -1,6 +1,6 @@
 package core.character;
 
-import core.items.Item;
+
 import hmi.HMI;
 
 public final class Player extends Character{
@@ -21,18 +21,8 @@ public final class Player extends Character{
 		super(name, hp, mana, inventorySize, 0);
 	}
 
-	public void give(Item item) {
-		if(this.inventory.add(item)) {
-			HMI.message("You couldn't pick" + item.getName() + " up; your inventory is full.");
-		}
-	}
-	
-	public void take(Item item) {
-		this.inventory.remove(item);
-	}
-
 	@Override
 	public void interact() {
-		HMI.message("[ERROR] UNREACHABLE CODE REACHED");
+		HMI.message("\t\t[ERROR>Player] UNREACHABLE CODE REACHED");
 	}
 }
