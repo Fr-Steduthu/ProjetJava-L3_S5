@@ -82,6 +82,7 @@ public class Quest implements Serializable{
 	public Player getPlayer() {
 		return this.player;
 	}
+        
 	protected void setPlayer(Player p) {
 		this.player = p;
 	}
