@@ -1,13 +1,12 @@
 package custom.items;
 
-import core.character.Character;
-import core.items.Equipment;
+import core.items.DamageEnhancer;
 
-public class IronGloves extends Equipment {
+public class IronGloves extends DamageEnhancer {
 	private static final long serialVersionUID = 4278020827991155988L;
 
 	public IronGloves() {
-		super("Iron gloves");
+		super("Iron gloves", 3.0f);
 	}
 
 	@Override
@@ -15,15 +14,4 @@ public class IronGloves extends Equipment {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public void onEquip(Character target) {
-		target.setDammage(target.getDammage() + 3.0f);
-	}
-
-	@Override
-	public void onUnequip(Character target) {
-		target.setDammage(target.getDammage() - 3.0f);
-	}
-
 }

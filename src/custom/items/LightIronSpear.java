@@ -1,14 +1,13 @@
 package custom.items;
 
-import core.character.Character;
-import core.items.Equipment;
+import core.items.DamageEnhancer;
 
-public class LightIronSpear extends Equipment {
+public class LightIronSpear extends DamageEnhancer {
 
 	private static final long serialVersionUID = 4372661349974790950L;
 
 	public LightIronSpear() {
-		super("Light iron spear");
+		super("Light iron spear", 2.0f);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -17,16 +16,4 @@ public class LightIronSpear extends Equipment {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public void onEquip(Character target) {
-		target.setDammage(target.getDammage() + 2.0f);
-	}
-
-	@Override
-	public void onUnequip(Character target) {
-		target.setDammage(target.getDammage() - 2.0f);
-
-	}
-
 }
