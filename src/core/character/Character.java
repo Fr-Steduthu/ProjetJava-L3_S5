@@ -125,7 +125,7 @@ public abstract class Character implements Serializable{
 
 	/**Methods**/
 
-	public final void attack(Character target){
+	public void attack(Character target){
 		target.hurt((int) this.attackDammage);
 	}
 	
@@ -157,13 +157,16 @@ public abstract class Character implements Serializable{
 	
 	public void onDeath(Quest context, Player p){
 		if(this.isLootable) {
-	        Item[] items = this.getLoot();
-	        Place location = this.getLocation();
-	        for (Item i : items) {
-	            location.addItem(i);
-	        }
+                    Item[] items = this.getLoot();
+                    Place location = this.getLocation();
+                    for (Item i : items) {
+                        location.addItem(i);
+                        this.inventory.remove(i);
+                    }
+                    for (Equipment e : this.equiped_items) {
+                        location.addItem(e);
+                    }
 		}
-		
 		this.currentState = State.DEAD;
 	}
 

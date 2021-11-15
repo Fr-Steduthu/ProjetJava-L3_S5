@@ -3,7 +3,7 @@ package custom.quests;
 import core.Quest;
 import core.character.Monster;
 import core.places.Place;
-import custom.characters.Infestator;
+import custom.characters.monsters.Infestator;
 
 public class SC2 extends Quest {
 
