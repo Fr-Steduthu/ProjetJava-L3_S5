@@ -10,7 +10,7 @@ import hmi.HMI;
 public abstract class Item implements Serializable{
 	private static final long serialVersionUID = -2738172528031259592L;
 	
-	private String name; //Variable pour ne pas avoir à recreer l'objet apres "identification"
+	private String name; //Variable pour ne pas avoir ï¿½ recreer l'objet apres "identification"
 	private Object location;
 
 	private boolean takable = true;
@@ -47,7 +47,7 @@ public abstract class Item implements Serializable{
 				player.getLocation().removeItem(this);
 				HMI.message("You take the "+this.name);
 			}else {
-				HMI.message("You may not " + this.name + " this item yet");
+				HMI.message("You may not take this item yet");
 			}
 		}else {
 			HMI.message("You can't pick up that !");

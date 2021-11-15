@@ -16,7 +16,7 @@ public class Game {
 		this.mainloop(p1, quest);
 	}*/
 
-	public static void start(Quest<?> q){
+	public static void start(Quest q){
 		Object destination = q.getObjectiveObject();
 		Place current = q.getStartingPoint();
 		Player p = q.getPlayer();
@@ -31,7 +31,7 @@ public class Game {
 			
 			//Gestion input
 			Command action = HMI.read();
-			//Action en consequance
+			//Action en consequence
 			switch(action) {
 			case ATTACK:
 				break;
@@ -59,7 +59,7 @@ public class Game {
 		}
 	}
 	
-	private static boolean checkWinningConditions(Place current, Quest<?> q) {
+	private static boolean checkWinningConditions(Place current, Quest q) {
 		Object objective = q.getObjectiveObject();
 		if(objective instanceof Place) {
 			if(current == objective) {
@@ -86,7 +86,7 @@ public class Game {
 		return false;
 	}
 
-	private static void charactersActions(Player p, Quest<?> q, Place current) {
+	private static void charactersActions(Player p, Quest q, Place current) {
 		for(Character c : current.getNpcs()) {
 			if(c.getHP() <= 0) {
 				c.onDeath(q, p);
@@ -98,7 +98,7 @@ public class Game {
 			}
 		}
 	}
-	private static void checkLoosingConditions(Player p, Quest<?> q) {
+	private static void checkLoosingConditions(Player p, Quest q) {
 		if(p.getState() == State.DEAD) {
 			Game.end("You lost all hp!", false);
 		}else if(p.getLocation().getExits().length == 0) {
@@ -118,9 +118,9 @@ public class Game {
 	
 	/*
 	 * http://blog.paumard.org/cours/java/chap10-entrees-sorties-serialization.html
-	 * Guide pour la sérialization
+	 * Guide pour la sï¿½rialization
 	 */
-	public static void save(Player p, Quest<?> q) {
+	public static void save(Player p, Quest q) {
 		//TODO
 	}
 	
