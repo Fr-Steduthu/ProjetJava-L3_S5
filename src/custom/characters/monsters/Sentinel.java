@@ -1,4 +1,4 @@
-package custom.characters;
+package custom.characters.monsters;
 
 import core.character.Monster;
 import hmi.HMI;
