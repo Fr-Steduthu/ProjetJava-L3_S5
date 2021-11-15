@@ -125,7 +125,7 @@ public abstract class Character implements Serializable{
 
 	/**Methods**/
 
-	public final void attack(Character target){
+	public void attack(Character target){
 		target.hurt((int) this.attackDammage);
 	}
 	
