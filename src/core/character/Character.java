@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import core.Inventory;
 import core.Quest;
+import core.items.Equipment;
 import core.items.Item;
 import core.places.Place;
 import hmi.HMI;
@@ -38,14 +39,17 @@ public abstract class Character implements Serializable{
 	protected boolean isLootable = false;
 	protected boolean isAbleToSpeak = false;
 	
+	protected Equipment[] equiped_items;
+	
 	
 	//@ParametersAreNonnullByDefault
-	public Character(String name, float maxHP, float maxAbilityRessource, int inventoryCapacity) {
+	public Character(String name, float maxHP, float maxAbilityRessource, int inventoryCapacity, int equipment_size) {
 		this.NAME = name;
 		this.maxHP = maxHP;
 		this.maxAbilityRessource = maxAbilityRessource;
 
 		this.inventory = new Inventory(inventoryCapacity);
+		this.equiped_items = new Equipment[equipment_size];
 	}
 
 	/**SETTERS & GETTERS**/
