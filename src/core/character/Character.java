@@ -3,9 +3,9 @@ package core.character;
 import java.io.Serializable;
 
 import core.Inventory;
+import core.Quest;
 import core.items.Item;
 import core.places.Place;
-import core.quests.Quest;
 import hmi.HMI;
 
 //import javax.annotation.ParametersAreNonnullByDefault;
@@ -35,6 +35,9 @@ public abstract class Character implements Serializable{
 	protected float attackDammage = 1.0f;
 	protected float armor = 0.0f;
 	
+	protected boolean isLootable = false;
+	protected boolean isAbleToSpeak = false;
+	
 	
 	//@ParametersAreNonnullByDefault
 	public Character(String name, float maxHP, float maxAbilityRessource, int inventoryCapacity) {
@@ -62,14 +65,14 @@ public abstract class Character implements Serializable{
 		this.location = location;
 	}
 
-	public final void heal(int amount) {
+	public void heal(int amount) {
 		this.hp += amount;
 		if(this.hp > this.maxHP) {
 			this.hp = this.maxHP;
 		}
 	}
 
-	public final void hurt(int dammageTaken) {
+	public void hurt(int dammageTaken) {
 		float temp = this.hp - dammageTaken - this.armor;
 		if(temp < this.hp) {//On evite les soins par armure trop forte
 			this.hp = temp;
@@ -128,7 +131,7 @@ public abstract class Character implements Serializable{
 	}
 	
 	public final void speak() {
-		if(this instanceof AbleToSpeak) {
+		if(this.isAbleToSpeak) {
 			HMI.message(this.dialogue);
 		}else {
 			HMI.message("It doesn't seem to respond");
@@ -139,13 +142,13 @@ public abstract class Character implements Serializable{
 		return ((Character)this).getInventory();	
 	}
 	
-	public void onDeath(Quest context, Player p){
-		if(this instanceof Lootable) {
-			Item[] items = this.getLoot();
-			Place location = this.getLocation();
-			for (Item i : items) {
-			    location.addItem(i);
-			}
+	public void onDeath(Quest<?> context, Player p){
+		if(this.isLootable) {
+	        Item[] items = this.getLoot();
+	        Place location = this.getLocation();
+	        for (Item i : items) {
+	            location.addItem(i);
+	        }
 		}
 		
 		this.currentState = State.DEAD;

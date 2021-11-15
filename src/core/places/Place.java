@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import core.character.Character;
-import core.character.monsters.Monster;
+import core.character.Monster;
 import core.items.Item;
 
 public final class Place implements Serializable{

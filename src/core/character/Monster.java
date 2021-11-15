@@ -1,6 +1,4 @@
-package core.character.monsters;
-
-import core.character.Character;
+package core.character;
 
 public class Monster extends Character{
 
