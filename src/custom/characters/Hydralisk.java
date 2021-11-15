@@ -1,5 +1,6 @@
-package core.character.monsters;
+package custom.characters;
 
+import core.character.Monster;
 import core.character.State;
 
 public class Hydralisk extends Monster {
