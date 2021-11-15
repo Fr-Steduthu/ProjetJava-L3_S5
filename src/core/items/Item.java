@@ -15,8 +15,8 @@ public abstract class Item implements Serializable{
 
 	private boolean takable = true;
 	private boolean isPickupable = true;
-  private boolean isUsable = false;
-  private boolean actuallyUsable = false;
+	private boolean isUsable = false;
+	private boolean actuallyUsable = false;
 
 
 	public Item(String name) {
