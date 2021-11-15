@@ -37,6 +37,7 @@ public abstract class Character implements Serializable{
 	
 	protected boolean isLootable = false;
 	protected boolean isAbleToSpeak = false;
+        protected boolean canUseItems = false;
 	
 	
 	//@ParametersAreNonnullByDefault
@@ -129,6 +130,14 @@ public abstract class Character implements Serializable{
 	public final void inspect() {
 		HMI.message(getName() + " : " + this.getHP() + "/" + ((int)(this.maxHP+0.5)) + "health points\n\t"+(int)this.armor+" armor"); 
 	}
+        
+        public final void use() {
+            if (this.canUseItems) {
+                
+            } else {
+                HMI.message(this.getClass().getSimpleName() + " tried to use an item.. except it can't.");
+            }
+        }
 	
 	public final void speak() {
 		if(this.isAbleToSpeak) {
