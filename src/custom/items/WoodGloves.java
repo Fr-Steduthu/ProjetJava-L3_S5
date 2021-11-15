@@ -1,31 +1,28 @@
 package custom.items;
 
 import core.items.Equipment;
-
+import core.character.Character;
 
 public class WoodGloves extends Equipment {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -580192015404933315L;
 
-    public WoodGloves() {
+	public WoodGloves() {
         super("Wood Gloves");
     }
 
     @Override
     public String look() {
-        return "Some wood gloves. Using them gives you 1.5 more damage points.";
+        return "Some wood gloves. Using them gives you 1.5 additional damage points.";
     }
 
     @Override
-    protected void onEquip(Object target) {
-        // TODO
+    public void onEquip(Character target) {
+    	target.setDammage(target.getDammage() + 1.5f);
     }
 
     @Override
-    protected void onDeEquip() {
-        // TODO
+    public void onUnequip(Character target) {
+    	target.setDammage(target.getDammage() - 1.5f);
     }
-
-    
-    
 }

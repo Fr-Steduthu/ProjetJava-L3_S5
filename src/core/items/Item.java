@@ -13,10 +13,10 @@ public abstract class Item implements Serializable{
 	private String name; //Variable pour ne pas avoir � recreer l'objet apres "identification"
 	private Object location;
 
-	private boolean takable = true;
-	private boolean isPickupable = true;
-	private boolean isUsable = false;
-	private boolean actuallyUsable = false;
+	protected boolean isTakable = true;
+	protected boolean currentlyTakable = true;
+	protected boolean isUsable = false;
+	protected boolean currentlyUsable = false;
 
 
 	public Item(String name) {
@@ -30,12 +30,11 @@ public abstract class Item implements Serializable{
 		this.name = newName;
 	}
 	
-	public final void setLocation(Object owner_or_place) {
-		if(owner_or_place instanceof Place || owner_or_place instanceof Inventory) {
-			this.location = owner_or_place;
-		}else {
-			throw new IllegalArgumentException("Location of item cannot be other than Place or Container");
-		}
+	public final void setLocation(Inventory inventory) {
+		this.location = inventory;
+	}
+	public final void setLocation(Place location) {
+		this.location = location;
 	}
 	public final Object getLocation() {
 		return this.location;
@@ -44,8 +43,8 @@ public abstract class Item implements Serializable{
 	public abstract String look();
 	
 	public final void take(Player player) {
-		if(this.takable) {
-			if(this.isPickupable) {
+		if(this.isTakable) {
+			if(this.currentlyTakable) {
 				player.give(this);
 				player.getLocation().removeItem(this);
 				HMI.message("You take the "+this.name);
@@ -59,7 +58,7 @@ public abstract class Item implements Serializable{
 	
 	public final void use(Object target) {
 		if(this.isUsable) {
-                    if(this.actuallyUsable) {
+                    if(this.currentlyUsable) {
                         this.onUse(target);
                     } else {
                         HMI.message("This item cannot be used yet");
