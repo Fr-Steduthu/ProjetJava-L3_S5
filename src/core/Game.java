@@ -32,7 +32,7 @@ public class Game {
 		
 		while(current !=  destination && victoryState == null) {
 			
-			//TODO
+			HMI.message("\n\nUn nouveau tour commence : choisissez une action à effectuer.");
 			//Affichage
 			
 			//Gestion input
