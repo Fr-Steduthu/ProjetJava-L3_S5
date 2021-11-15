@@ -13,8 +13,8 @@ public abstract class Item implements Serializable{
 	private String name; //Variable pour ne pas avoir � recreer l'objet apres "identification"
 	private Object location;
 
-	private boolean takable = true;
-	private boolean isPickupable = true;
+	protected boolean takable = true;
+	protected boolean isPickupable = true;
 
 	public Item(String name) {
 		this.name = name;

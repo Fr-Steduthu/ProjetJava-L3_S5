@@ -6,14 +6,12 @@ public abstract class Equipment extends Item {
 
 	public Equipment(String name) {
 		super(name);
-		// TODO Auto-generated constructor stub
+		this.takable = true;
+		this.isPickupable = true;
 	}
 
 	@Override
-	public String look() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public abstract String look();
 
 	@Override
 	protected void onUse() {
