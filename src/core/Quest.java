@@ -2,10 +2,13 @@ package core;
 
 import java.io.Serializable;
 
+import core.character.Monster;
+import core.character.NPC;
 import core.character.Player;
+import core.items.Item;
 import core.places.Place;
 
-public class Quest<ObjectiveType> implements Serializable{
+public class Quest implements Serializable{
 	private static final long serialVersionUID = 4043237045943967915L;
 	
 	private final Place origin;
@@ -20,8 +23,29 @@ public class Quest<ObjectiveType> implements Serializable{
 		this.origin = this.dungeon[0];
 		//this.objective_object = this.dungeon[this.dungeon.length-1];
 	}*/
+	
+	public Quest(Place origin, Place[] dungeon, String objective, Monster objective_object) {
+		this.origin = origin;
+		this.dungeon = dungeon;
+		this.objective = objective;
+		this.objective_object = objective_object;
+	}
+	
+	public Quest(Place origin, Place[] dungeon, String objective, Item objective_object) {
+		this.origin = origin;
+		this.dungeon = dungeon;
+		this.objective = objective;
+		this.objective_object = objective_object;
+	}
+	
+	public Quest(Place origin, Place[] dungeon, String objective, NPC objective_object) {
+		this.origin = origin;
+		this.dungeon = dungeon;
+		this.objective = objective;
+		this.objective_object = objective_object;
+	}
 
-	public Quest(Place origin, Place[] dungeon, String objective, ObjectiveType objective_object) {
+	public Quest(Place origin, Place[] dungeon, String objective, Place objective_object) {
 		this.origin = origin;
 		this.dungeon = dungeon;
 		this.objective = objective;

@@ -18,8 +18,8 @@ public class Main {
 		Place[] dungeon = {origin, outside};
 		
 		@SuppressWarnings("unused")
-		Quest<Place> game = new Quest<Place>(origin, dungeon, "Corridor", outside);
-		Quest<?> sc2 = new SC2();
+		Quest game = new Quest(origin, dungeon, "Corridor", outside);
+		Quest sc2 = new SC2();
 		
 		Game.start(sc2);
 	}

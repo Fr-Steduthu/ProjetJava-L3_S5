@@ -93,7 +93,7 @@ public class Game {
 				c.setState(State.DEAD); //Redondant
 			}
 			
-			if(c instanceof Monster) {
+			if(c instanceof Monster && c.getState() != State.STUNNED) {
 				c.attack(p);
 			}
 		}
@@ -125,7 +125,7 @@ public class Game {
 	}
 	
 	public static void load(File saveFile) {
-		Quest<?> q_loadedSave = null;
+		Quest q_loadedSave = null;
 		
 		//TODO
 		
