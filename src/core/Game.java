@@ -9,6 +9,12 @@ import core.character.State;
 import core.items.Item;
 import core.places.Place;
 import hmi.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public class Game {
 	/*public Game(Player p1, Quest quest) {
@@ -120,15 +126,22 @@ public class Game {
 	 * http://blog.paumard.org/cours/java/chap10-entrees-sorties-serialization.html
 	 * Guide pour la s�rialization
 	 */
-	public static void save(Player p, Quest q) {
-		//TODO
+	public static void save(Quest q) throws IOException {
+            String path = "saves/";
+            String saveName = "savegame_" + q.getClass().getSimpleName() + ".qa_sav";
+            File saveFile = new File(path + saveName);
+            
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(saveFile));
+            
+            oos.writeObject(q);
+            
 	}
 	
-	public static void load(File saveFile) {
-		Quest q_loadedSave = null;
+	public static void load(File saveFile) throws FileNotFoundException, IOException, ClassNotFoundException {
+		Quest q_loadedSave;
 		
-		//TODO
-		
+                ObjectInputStream ois = new ObjectInputStream(new FileInputStream(saveFile));
+                q_loadedSave = (Quest)ois.readObject();
 		Game.start(q_loadedSave);
 	}
 }
