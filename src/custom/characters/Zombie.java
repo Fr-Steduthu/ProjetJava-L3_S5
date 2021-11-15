@@ -11,8 +11,9 @@ public class Zombie extends Monster {
         // TODO : this.inventory.add()
     }
     
-    @Override
+    // TODO, on fait quoi avec le zombie?
+    /*@Override
     public final void attack(Character target){
 	target.hurt((int) this.attackDammage);
-    }
+    }*/
 }
