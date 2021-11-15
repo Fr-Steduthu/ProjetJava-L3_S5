@@ -17,8 +17,8 @@ public class WoodGloves extends Item {
     }
 
     @Override
-    protected void onUse() {
-        // TODO
+    protected void onUse(Object target) {
+        //TODO
     }
 
     

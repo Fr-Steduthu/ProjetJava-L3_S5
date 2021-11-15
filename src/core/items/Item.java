@@ -15,6 +15,8 @@ public abstract class Item implements Serializable{
 
 	private boolean takable = true;
 	private boolean isPickupable = true;
+        private boolean isUsable = false;
+        private boolean actuallyUsable = false;
 
 	public Item(String name) {
 		this.name = name;
@@ -54,13 +56,17 @@ public abstract class Item implements Serializable{
 		}
 	}
 	
-	public final void use() {
-		if(this instanceof Usable) {
-			this.onUse();
+	public final void use(Object target) {
+		if(this.isUsable) {
+                    if(this.actuallyUsable) {
+                        this.onUse(target);
+                    } else {
+                        HMI.message("This item cannot be used yet");
+                    }
 		}else {
 			HMI.message("This cannot be used");
 		}
 	}
 
-	protected abstract void onUse();
+	protected abstract void onUse(Object target);
 }
