@@ -14,11 +14,11 @@ public abstract class Equipment extends Item {
 	public abstract String look();
 
 	@Override
-	protected void onUse() {
-		this.onEquip();
+	protected void onUse(Object target) {
+		this.onEquip(target);
 	}
 	
-	protected abstract void onEquip();
+	protected abstract void onEquip(Object target);
 	
 	protected abstract void onDeEquip();
 
