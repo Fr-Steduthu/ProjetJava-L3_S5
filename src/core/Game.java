@@ -37,35 +37,45 @@ public class Game {
 			HMI.message("\n\nUn nouveau tour commence : choisissez une action à effectuer.");
 			//Affichage
 			
-			//Gestion input
-			Command action = HMI.read();
-			//Action en consequence
-			switch(action) {
-			case ATTACK:
-				HMI.message("Choisissez une cible a attaquer :\n");
-                                break;
-			case GO:
-				HMI.message("Choisissez une porte ouverte a passer");
-                                break;
-			case HELP:
-				Command.help();
-			case LOOK:
-				HMI.message(current.toString());
-			case QUIT:
-				break;
-			case TAKE:
-				break;
-			case USE:
-				break;
-			default:
-				break;
-			}
+                        boolean hasFinishedTurn = false;
+                        while (hasFinishedTurn == false) {
+
+                            //Gestion input
+                            Command action = HMI.read();
+                            //Action en consequence
+                            switch(action) {
+                            case ATTACK:
+                                    HMI.message("Choisissez une cible a attaquer :\n");
+                                    hasFinishedTurn = true;
+                                    break;
+                            case GO:
+                                    HMI.message("Choisissez une porte ouverte a passer");
+                                    hasFinishedTurn = true;
+                                    break;
+                            case HELP:
+                                    Command.help();
+                                    break;
+                            case LOOK:
+                                    HMI.message(current.toString());
+                                    break;
+                            case QUIT:
+                                    break;
+                            case TAKE:
+                                    hasFinishedTurn = true;
+                                    break;
+                            case USE:
+                                    hasFinishedTurn = true;
+                                    break;
+                            default:
+                                    break;
+                            }
+                        }
 			
 			//Verification morts + tour des monstres
 			Game.charactersActions(p, q, current);
 			
 			victoryState = Game.checkWinningConditions(current, q);
-			Game.checkLoosingConditions(p, q);
+			Game.checkLoosingConditions(q);
 		}
 	}
 	
@@ -108,7 +118,8 @@ public class Game {
 			}
 		}
 	}
-	private static void checkLoosingConditions(Player p, Quest q) {
+	private static void checkLoosingConditions(Quest q) {
+            Player p = q.getPlayer();
 		if(p.getState() == State.DEAD) {
 			Game.end("You lost all hp!", false);
 		}else if(p.getLocation().getExits().length == 0) {
