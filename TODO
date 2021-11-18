@@ -1,0 +1,15 @@
+Ajouter salles
+https://docs.google.com/document/d/1CsfVQjBxe98bOJs_fQGlyVx8-9uCCI5MoH2vtoSl-Hs/edit
+
+Ajotuer Entity
+https://docs.google.com/document/d/1NEN-B0XvWGR0u0ER5d9Sn3tdZpZMSNAbKWYUsWQqvTI/edit
+
+Ajouter Items
+https://docs.google.com/document/d/1fBLZtnGVfhyFzM_HAM9ZQMgIGxS03u1AClbwYt7Pjac/edit
+
+--CODE--
+Ajouter
+  > HMI.read > Scanner w/ pattern correspondant aux commandes.
+  > Affichage de la boucle de gameplay
+  > Affichage de l'inventaire
+  > Affichage des équipés
