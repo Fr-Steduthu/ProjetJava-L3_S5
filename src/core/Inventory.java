@@ -118,7 +118,7 @@ public class Inventory implements Serializable{
 	}
 	
 	public boolean equip(Equipment i) {
-		if(this.contains(i)) {
+		if(this.contains(i) && !this.isFullyGeared()) {
 			this.removeItem(i);
 			i.setLocation(this);
 			
@@ -132,7 +132,7 @@ public class Inventory implements Serializable{
 	}
 	
 	public boolean unequip(Equipment e) {
-		if(this.isEquiped(e)) {
+		if(this.isEquiped(e) && !(this.isFull())) {
 			
 			this.equiped.remove(e);
 			e.setLocation((Place)null);
