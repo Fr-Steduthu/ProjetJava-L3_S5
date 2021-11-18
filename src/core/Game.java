@@ -17,7 +17,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.Scanner;
 
 public class Game {
 	/*public Game(Player p1, Quest quest) {
@@ -38,53 +37,54 @@ public class Game {
 		while(current !=  destination && victoryState == null && hasQuitted == false) {
 			
 			HMI.message("\n\nUn nouveau tour commence : choisissez une action à effectuer.");
-                        
+                    
 			//Affichage
-			
-                        boolean hasFinishedTurn = false;
-                        while (hasFinishedTurn == false) {
-
-                            //Gestion input
-                            Command action = HMI.read();
-                            //Action en consequence
-                            switch(action) {
-                            case ATTACK:
-                                    HMI.message("Choisissez une cible a attaquer :\n");
-                                    hasFinishedTurn = true;
-                                    break;
-                            case GO:
-                                    HMI.message("Choisissez une porte ouverte a passer");
-                                    hasFinishedTurn = true;
-                                    break;
-                            case HELP:
-                                    Command.help();
-                                    break;
-                            case LOOK:
-                                    HMI.message(current.toString());
-                                    break;
-                            case QUIT:
-                                    String s1 = ("Voulez vous vraiment quitter le jeu ?");
-                                    if (askYes(s1)) {
-                                        String s2 = ("Voulez-vous sauvegarder la partie ?");
-                                        if (askYes(s2)) {
-                                            save (q);
-                                        }
-                                        hasQuitted = true;
-                                        hasFinishedTurn = true;
-                                    }
-                                    break;
-                            case TAKE:
-                                    hasFinishedTurn = true;
-                                    break;
-                            case USE:
-                                    hasFinishedTurn = true;
-                                    break;
-                            default:
-                                    break;
+		
+            boolean hasFinishedTurn = false;
+            while (hasFinishedTurn == false) {
+            	
+                Command action = Command.toCommand(HMI.read());
+                //Command action = Command.toCommand(commandLine[0]);
+                
+                switch(action) {
+                    case ATTACK:
+                        HMI.message("Choisissez une cible a attaquer :\n");
+                        hasFinishedTurn = true;
+                        break;
+                    case GO:
+                        HMI.message("Choisissez une porte ouverte a passer");
+                        //hasFinishedTurn = false; // se fait agresser en entrant dans la salle suivante si false
+                        //TODO
+                        break;
+                    case HELP:
+                        Command.help();
+                        break;
+                    case LOOK:
+                        HMI.message(current.toString());
+                        break;
+                    case QUIT:
+                        if (HMI.confirm("Voulez vous vraiment quitter le jeu ?")) {
+                            if (HMI.confirm("Voulez-vous sauvegarder la partie ?")) {
+                                Game.save(q);
                             }
+                            hasQuitted = true;
+                            hasFinishedTurn = true;
                         }
+                        break;
+                    case TAKE:
+                        hasFinishedTurn = true;
+                        //TODO
+                        break;
+                    case USE:
+                    	hasFinishedTurn = true;
+                    	//TODO
+                        break;
+                    default:
+                    	HMI.error("Game.start() -> unknown Command value -> no behavior defined -> please try again");
+                        break;
+                }
+            }
 			
-			//Verification morts + tour des monstres
 			Game.charactersActions(p, q, current);
 			
 			victoryState = Game.checkWinningConditions(current, q);
@@ -172,19 +172,4 @@ public class Game {
             }
 		Game.start(q_loadedSave);
 	}
-        
-        public static boolean askYes(String s) {
-            HMI.message(s);
-            boolean returnedBool = false;
-            Scanner sc = new Scanner(System.in);
-            String answer = sc.next();
-            if (answer.equals ("Oui") |
-                    answer.equals("O") | 
-                    answer.equals("o") |
-                    answer.equals("OUI") |
-                    answer.equals("oui")) {
-                returnedBool = true;
-            }
-            return returnedBool;
-        }
 }
