@@ -191,7 +191,7 @@ public abstract class Character implements Serializable{
 	}
 	
 	public void give(Item item) {
-		if(this.inventory.addItem(item)) {
+		if(!this.inventory.addItem(item)) {
 			HMI.message("You couldn't pick" + item.getName() + " up; your inventory is full.");
 		}
 	}

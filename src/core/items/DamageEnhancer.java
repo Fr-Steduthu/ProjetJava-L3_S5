@@ -25,5 +25,8 @@ public abstract class DamageEnhancer extends Equipment {
 	public final void onUnequip(Character target) {
 		target.setDamage(target.getDamage() + this.damage);
 	}
-
+        
+        public float getDamage() {
+            return this.damage;
+        }
 }
