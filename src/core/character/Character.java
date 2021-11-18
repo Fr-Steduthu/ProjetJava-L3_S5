@@ -136,6 +136,10 @@ public abstract class Character implements Serializable{
 		target.hurt((int) this.attackDammage);
 	}
 	
+	public void kill() {
+		this.hp = 0.0f;
+	}
+	
 	public abstract void interact();
 	
 	public final void inspect() {
