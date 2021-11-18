@@ -35,7 +35,13 @@ public class Inventory implements Serializable{
 	}
 	
 	public Item[] getItems() {
-		return (Item[]) this.contents.toArray();
+                Item[] items = new Item[]{};
+                int cmpt = 0;
+		for (Item i : this.contents) {
+                    items[cmpt] = i;
+                    cmpt++;
+                }
+                return items;
 	}
 	
 	public Equipment[] getEquipment() {
