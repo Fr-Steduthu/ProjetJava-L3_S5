@@ -13,10 +13,7 @@ import core.Quest;
 import core.character.Monster;
 import core.places.Exit;
 import core.places.Place;
-import custom.characters.monsters.Blob;
-import custom.characters.monsters.Slime;
 import custom.characters.monsters.WarhammerZombie;
-import custom.characters.monsters.Zombie;
 
 public class TutorialQuest extends Quest {
 
