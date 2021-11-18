@@ -33,7 +33,7 @@ public abstract class Character implements Serializable{
 	
 	protected float arRegen = 0.0f;
 	
-	protected float attackDammage = 1.0f;
+	protected float attackDamage = 1.0f;
 	protected float armor = 0.0f;
 	
 	protected boolean isLootable = false;
@@ -122,18 +122,18 @@ public abstract class Character implements Serializable{
 		return this.currentState;
 	}
 	
-	public final float getDammage() {
-		return this.attackDammage;
+	public final float getDamage() {
+		return this.attackDamage;
 	}
 	
-	public void setDammage(float value) {
-		this.attackDammage = value;
+	public void setDamage(float value) {
+		this.attackDamage = value;
 	}
 
 	/**Methods**/
 
 	public void attack(Character target){
-		target.hurt((int) this.attackDammage);
+		target.hurt((int) this.attackDamage);
 	}
 	
 	public void kill() {
