@@ -1,4 +1,4 @@
-package builtin;
+package builtin.places;
 
 import core.places.Place;
 
