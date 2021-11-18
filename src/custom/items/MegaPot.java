@@ -20,7 +20,7 @@ public class MegaPot extends Item {
 	@Override
 	protected void onUse(Object target) {
 		if(target instanceof Character) {
-			((Character) target).heal(10.0f);
+			((Character) target).heal(10.0);
 		}
 	}
 

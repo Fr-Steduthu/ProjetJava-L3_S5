@@ -27,7 +27,7 @@ public class TutoStone extends Item {
 		}else if(target instanceof Character) {
 			((Character) target).getLocation().addNpc(new TutoMan());
 		}
-		((Inventory)this.getLocation()).getOwner().hurt(5.0f);
+		((Inventory)this.getLocation()).getOwner().hurt(5.0);
 	}
 
 }

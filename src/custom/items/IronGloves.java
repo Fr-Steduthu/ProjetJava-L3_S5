@@ -6,7 +6,7 @@ public class IronGloves extends DamageEnhancer {
 	private static final long serialVersionUID = 4278020827991155988L;
 
 	public IronGloves() {
-		super("Iron gloves", 3.0f);
+		super("Iron gloves", 3.0);
 	}
 
 	@Override

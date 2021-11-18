@@ -21,7 +21,7 @@ public class SmallPot extends Item {
 	@Override
 	protected void onUse(Object target) {
 		if(target instanceof Character) {
-			((Character) target).heal(3.0f);
+			((Character) target).heal(3.0);
 		}
 	}
 
