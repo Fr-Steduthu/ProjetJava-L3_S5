@@ -55,7 +55,7 @@ public class Inventory implements Serializable{
 	}
 	
 	public boolean isEquiped(Equipment e) {
-		return this.findItem(e) != -1;
+		return this.findItem(e) == -1;
 	}
 	
 	public int findItem(Item e) {

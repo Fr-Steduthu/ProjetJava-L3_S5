@@ -30,7 +30,7 @@ public class DamageEnhancerIT {
     @Before
     public void setUp () {
         p1 = new Player("Patate");
-        m1 = new Monster("Epluche-patate", 10.0f, 20.0f, 1000);
+        m1 = new Monster("Epluche-patate", 10.0, 20.0, 1000);
         n1 = new NPC("Carotte", "Pour la carotte !", 1000);
         spear = new LightIronSpear();
         gloves = new ReinforcedGloves();
@@ -38,9 +38,9 @@ public class DamageEnhancerIT {
     
     @Test
     public void testOnEquip () {
-        float dmgPlayer = p1.getDamage();
-        float dmgMonster = m1.getDamage();
-        float dmgNPC = n1.getDamage();
+        double dmgPlayer1 = p1.getDamage();
+        double dmgMonster1 = m1.getDamage();
+        double dmgNPC1 = n1.getDamage();
         
         p1.give(spear);
         p1.equip(spear);
@@ -49,9 +49,9 @@ public class DamageEnhancerIT {
         n1.give(gloves);
         n1.equip(gloves);
         
-        assertSame(p1.getDamage(), dmgPlayer + spear.getDamage());
-        assertSame(m1.getDamage(), dmgMonster + spear.getDamage());
-        assertSame(n1.getDamage(), dmgNPC + gloves.getDamage());
+        assertEquals(p1.getDamage(), dmgPlayer1 + spear.getDamage(), 0.0);
+        assertEquals(m1.getDamage(), dmgMonster1 + spear.getDamage(), 0.0);
+        assertEquals(n1.getDamage(), dmgNPC1 + gloves.getDamage(), 0.0);
         
         p1.unequip(spear);
         m1.unequip(spear);
@@ -68,16 +68,16 @@ public class DamageEnhancerIT {
         n1.give(gloves);
         n1.equip(gloves);
         
-        float dmgPlayer = p1.getDamage();
-        float dmgMonster = m1.getDamage();
-        float dmgNPC = n1.getDamage();
+        double dmgPlayer2 = p1.getDamage();
+        double dmgMonster2 = m1.getDamage();
+        double dmgNPC2 = n1.getDamage();
         
         p1.unequip(spear);
         m1.unequip(spear);
         n1.unequip(gloves);
         
-        assertSame(p1.getDamage(), dmgPlayer - spear.getDamage());
-        assertSame(m1.getDamage(), dmgMonster - spear.getDamage());
-        assertSame(n1.getDamage(), dmgNPC - gloves.getDamage());
+        assertEquals(p1.getDamage(), dmgPlayer2 - spear.getDamage(), 0.0);
+        assertEquals(m1.getDamage(), dmgMonster2 - spear.getDamage(), 0.0);
+        assertEquals(n1.getDamage(), dmgNPC2 - gloves.getDamage(), 0.0);
     }
 }

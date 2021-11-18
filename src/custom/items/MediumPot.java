@@ -20,7 +20,7 @@ public class MediumPot extends Item {
 	@Override
 	protected void onUse(Object target) {
 		if(target instanceof Character) {
-			((Character) target).heal(5.0f);
+			((Character) target).heal(5.0);
 		}
 	}
 

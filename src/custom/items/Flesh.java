@@ -20,7 +20,7 @@ public class Flesh extends Item {
 	@Override
 	protected void onUse(Object target) {
 		if(target instanceof Character) {
-			((Character) target).giveAR(2.0f);;
+			((Character) target).giveAR(2.0);;
 		}
 	}
 

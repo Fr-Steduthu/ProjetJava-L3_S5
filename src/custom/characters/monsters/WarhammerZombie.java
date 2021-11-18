@@ -7,13 +7,13 @@ public class WarhammerZombie extends Monster {
 	private static final long serialVersionUID = 1885438475971672982L;
 
 	public WarhammerZombie() {
-        super("Healthy Zombie", 5.0f, 1.5f, 1);
+        super("Healthy Zombie", 5.0, 1.5, 1);
         this.isLootable = true;
         // TODO si la flesh reste : this.inventory.add()
     }
     
     @Override
-    public void heal(float amount) {
+    public void heal(double amount) {
         this.hurt(amount);
     }
     
