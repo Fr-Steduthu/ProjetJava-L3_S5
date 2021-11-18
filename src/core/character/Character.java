@@ -201,5 +201,4 @@ public abstract class Character implements Serializable{
 			HMI.error("An error has occured, you drop that");
 		};
 	}
-
 }
