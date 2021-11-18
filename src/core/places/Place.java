@@ -83,13 +83,13 @@ public final class Place implements Serializable{
 		if(this.getNpcs().length != 0) {
 			out += "\nYou can see creatures :\n";
 			for(Character c : this.getNpcs()) {
-			if(c instanceof Monster) {
-				out += "\t[Monster]";
-			}else {
-				out += "\t[NPC]    ";
-			}
-			out += c.getName() + "\n";
-			}
+                            if(c instanceof Monster) {
+                                        out += "\t[Monster] ";
+                            }else {
+                                        out += "\t[NPC]     ";
+                            }
+                            out += c.getName() + "\n";
+                            }
 		}
 		//items
 		if(this.getItems().length != 0) {

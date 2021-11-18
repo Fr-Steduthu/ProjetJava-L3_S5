@@ -17,6 +17,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Scanner;
 
 public class Game {
 	/*public Game(Player p1, Quest quest) {
@@ -24,46 +25,70 @@ public class Game {
 		this.mainloop(p1, quest);
 	}*/
 
-	public static void start(Quest q){
+	public static void start(Quest q) throws IOException{
 		Object destination = q.getObjectiveObject();
 		Place current = q.getStartingPoint();
 		Player p = q.getPlayer();
+                
+                boolean hasQuitted = false;
 		
 		//final String message;
 		Boolean victoryState = null;
 		
-		while(current !=  destination && victoryState == null) {
+		while(current !=  destination && victoryState == null && hasQuitted == false) {
 			
-			//TODO
+			HMI.message("\n\nUn nouveau tour commence : choisissez une action à effectuer.");
+                        
 			//Affichage
 			
-			//Gestion input
-			Command action = HMI.read();
-			//Action en consequence
-			switch(action) {
-			case ATTACK:
-				break;
-			case GO:
-				break;
-			case HELP:
-				Command.help();
-			case LOOK:
-				HMI.message(current.toString());
-			case QUIT:
-				break;
-			case TAKE:
-				break;
-			case USE:
-				break;
-			default:
-				break;
-			}
+                        boolean hasFinishedTurn = false;
+                        while (hasFinishedTurn == false) {
+
+                            //Gestion input
+                            Command action = HMI.read();
+                            //Action en consequence
+                            switch(action) {
+                            case ATTACK:
+                                    HMI.message("Choisissez une cible a attaquer :\n");
+                                    hasFinishedTurn = true;
+                                    break;
+                            case GO:
+                                    HMI.message("Choisissez une porte ouverte a passer");
+                                    hasFinishedTurn = true;
+                                    break;
+                            case HELP:
+                                    Command.help();
+                                    break;
+                            case LOOK:
+                                    HMI.message(current.toString());
+                                    break;
+                            case QUIT:
+                                    String s1 = ("Voulez vous vraiment quitter le jeu ?");
+                                    if (askYes(s1)) {
+                                        String s2 = ("Voulez-vous sauvegarder la partie ?");
+                                        if (askYes(s2)) {
+                                            save (q);
+                                        }
+                                        hasQuitted = true;
+                                        hasFinishedTurn = true;
+                                    }
+                                    break;
+                            case TAKE:
+                                    hasFinishedTurn = true;
+                                    break;
+                            case USE:
+                                    hasFinishedTurn = true;
+                                    break;
+                            default:
+                                    break;
+                            }
+                        }
 			
 			//Verification morts + tour des monstres
 			Game.charactersActions(p, q, current);
 			
 			victoryState = Game.checkWinningConditions(current, q);
-			Game.checkLoosingConditions(p, q);
+			Game.checkLoosingConditions(q);
 		}
 	}
 	
@@ -106,7 +131,8 @@ public class Game {
 			}
 		}
 	}
-	private static void checkLoosingConditions(Player p, Quest q) {
+	private static void checkLoosingConditions(Quest q) {
+            Player p = q.getPlayer();
 		if(p.getState() == State.DEAD) {
 			Game.end("You lost all hp!", false);
 		}else if(p.getLocation().getExits().length == 0) {
@@ -133,18 +159,32 @@ public class Game {
 	    String saveName = "savegame_" + q.getClass().getSimpleName() + ".qa_sav";
 	    File saveFile = new File(path + saveName);
 	    
-	    ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(saveFile));
-	    
-	    oos.writeObject(q);
-	    oos.close();
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(saveFile))) {
+                oos.writeObject(q);
+            }
 	}
 	
 	public static void load(File saveFile) throws FileNotFoundException, IOException, ClassNotFoundException {
 		Quest q_loadedSave;
 		
-        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(saveFile));
-        q_loadedSave = (Quest)ois.readObject();
-        ois.close();
+            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(saveFile))) {
+                q_loadedSave = (Quest)ois.readObject();
+            }
 		Game.start(q_loadedSave);
 	}
+        
+        public static boolean askYes(String s) {
+            HMI.message(s);
+            boolean returnedBool = false;
+            Scanner sc = new Scanner(System.in);
+            String answer = sc.next();
+            if (answer.equals ("Oui") |
+                    answer.equals("O") | 
+                    answer.equals("o") |
+                    answer.equals("OUI") |
+                    answer.equals("oui")) {
+                returnedBool = true;
+            }
+            return returnedBool;
+        }
 }
