@@ -8,7 +8,7 @@ import core.character.Character;
 import core.character.Monster;
 import core.items.Item;
 
-public final class Place implements Serializable{
+public class Place implements Serializable{
 
 	private static final long serialVersionUID = 6744297261182547691L;
 	
@@ -58,6 +58,13 @@ public final class Place implements Serializable{
 	}
 	
 	/**Exits**/
+	public final void addExit(Exit c) {
+		this.exits.add(c);
+	}
+	public final void removeExit(Exit e) {
+		this.exits.remove(e); // pas de check si null car verifie dans ArrayList.remove()
+	}
+	
 	public final Exit[] getExits() {
 		return (Exit[]) this.exits.toArray();
 	}
@@ -65,7 +72,9 @@ public final class Place implements Serializable{
 	public final void setExits(Exit[] exits) {
 		this.exits = new ArrayList<>();
 		for(Exit e :  exits) {
-			this.exits.add(e);
+			if(e != null) {
+				this.exits.add(e);
+			}
 		}
 	}
 
