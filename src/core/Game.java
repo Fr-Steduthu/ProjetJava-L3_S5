@@ -90,6 +90,7 @@ public class Game {
 			victoryState = Game.checkWinningConditions(current, q);
 			Game.checkLoosingConditions(q);
 		}
+		HMI.input.close();
 	}
 	
 	private static boolean checkWinningConditions(Place current, Quest q) {
