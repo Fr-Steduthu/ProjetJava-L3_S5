@@ -45,14 +45,20 @@ public class Inventory implements Serializable{
 	}
 	
 	public Equipment[] getEquipment() {
-		return (Equipment[]) this.equiped.toArray();
+                Equipment[] equipments = new Equipment[]{};
+                int cmpt = 0;
+		for (Equipment e : this.equiped) {
+                    equipments[cmpt] = e;
+                    cmpt++;
+                }
+                return equipments;
 	}
 	
 	public boolean isFull() {
-		return this.CAPACITY == this.contents.size();
+		return this.CAPACITY <= this.contents.size();
 	}
 	public boolean isFullyGeared() {
-		return this.EQUIPMENT_CAPACITY == this.equiped.size();
+		return this.EQUIPMENT_CAPACITY <= this.equiped.size();
 	}
 	
 	
