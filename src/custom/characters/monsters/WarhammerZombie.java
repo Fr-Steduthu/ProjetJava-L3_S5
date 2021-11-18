@@ -19,6 +19,6 @@ public class WarhammerZombie extends Monster {
     
     @Override
     public final void attack(core.character.Character target){
-	target.hurt((int) this.attackDammage);
+	target.hurt((int) this.attackDamage);
     }
 }
