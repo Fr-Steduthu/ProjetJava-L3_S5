@@ -8,7 +8,9 @@ import core.character.Player;
 import core.character.State;
 import core.items.Item;
 import core.places.Place;
+
 import hmi.*;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -129,21 +131,22 @@ public class Game {
 	 * Guide pour la s�rialization
 	 */
 	public static void save(Quest q) throws IOException {
-            String path = "saves/";
-            String saveName = "savegame_" + q.getClass().getSimpleName() + ".qa_sav";
-            File saveFile = new File(path + saveName);
-            
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(saveFile));
-            
-            oos.writeObject(q);
-            
+	    String path = "saves/";
+	    String saveName = "savegame_" + q.getClass().getSimpleName() + ".qa_sav";
+	    File saveFile = new File(path + saveName);
+	    
+	    ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(saveFile));
+	    
+	    oos.writeObject(q);
+	    oos.close();
 	}
 	
 	public static void load(File saveFile) throws FileNotFoundException, IOException, ClassNotFoundException {
 		Quest q_loadedSave;
 		
-                ObjectInputStream ois = new ObjectInputStream(new FileInputStream(saveFile));
-                q_loadedSave = (Quest)ois.readObject();
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(saveFile));
+        q_loadedSave = (Quest)ois.readObject();
+        ois.close();
 		Game.start(q_loadedSave);
 	}
 }
