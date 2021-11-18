@@ -64,12 +64,12 @@ public enum Command {
 	public static void help() {
 		HMI.message(
 			"To show this page, use the action [HELP] in the menu.\n"
-			+ "/t[GO] : allows you to continue to the next room\n"
-			+ "/t[ATTACK] : allows you to attack a monster.\n"
-    		+ "/t[LOOK] : allows you to look at something to obtain extra informations.\n"
-    		+ "/t[QUIT] : allows you to quit (and save) the game.\n"
-    		+ "/t[TAKE] : allows you to pick up an item.\n"
-        	+ "/t[USE] : allows you to choose an item to use.\n"
+			+ "\t[GO] : allows you to continue to the next room\n"
+			+ "\t[ATTACK] : allows you to attack a monster.\n"
+    		+ "\t[LOOK] : allows you to look at something to obtain extra informations.\n"
+    		+ "\t[QUIT] : allows you to quit (and save) the game.\n"
+    		+ "\t[TAKE] : allows you to pick up an item.\n"
+        	+ "\t[USE] : allows you to choose an item to use.\n"
     		+ "\t[BACK] : cancel current action\n"
     		);
 	}
