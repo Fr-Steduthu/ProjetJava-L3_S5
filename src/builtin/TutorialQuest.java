@@ -13,7 +13,10 @@ import core.Quest;
 import core.character.Monster;
 import core.places.Exit;
 import core.places.Place;
+import custom.characters.monsters.Blob;
+import custom.characters.monsters.Slime;
 import custom.characters.monsters.WarhammerZombie;
+import custom.characters.monsters.Zombie;
 
 public class TutorialQuest extends Quest {
 
@@ -37,7 +40,7 @@ public class TutorialQuest extends Quest {
 		dungeon[6] = new RandomItemRoom();
 		dungeon[7] = new RandomNpcRoom();
 		dungeon[8] = new RandomBossRoom();
-		dungeon[9] = new Place("Abheration's lair");
+		dungeon[9] = new Place("Aberation's lair");
 		
 		dungeon[9].addNpc(objective_object);
 	}
@@ -45,5 +48,4 @@ public class TutorialQuest extends Quest {
 	public TutorialQuest() {
 		super(origin, dungeon, objective, objective_object);
 	}
-
 }
