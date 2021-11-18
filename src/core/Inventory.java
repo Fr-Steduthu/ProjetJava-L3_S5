@@ -35,18 +35,30 @@ public class Inventory implements Serializable{
 	}
 	
 	public Item[] getItems() {
-		return (Item[]) this.contents.toArray();
+                Item[] items = new Item[]{};
+                int cmpt = 0;
+		for (Item i : this.contents) {
+                    items[cmpt] = i;
+                    cmpt++;
+                }
+                return items;
 	}
 	
 	public Equipment[] getEquipment() {
-		return (Equipment[]) this.equiped.toArray();
+                Equipment[] equipments = new Equipment[]{};
+                int cmpt = 0;
+		for (Equipment e : this.equiped) {
+                    equipments[cmpt] = e;
+                    cmpt++;
+                }
+                return equipments;
 	}
 	
 	public boolean isFull() {
-		return this.CAPACITY == this.contents.size();
+		return this.CAPACITY <= this.contents.size();
 	}
 	public boolean isFullyGeared() {
-		return this.EQUIPMENT_CAPACITY == this.equiped.size();
+		return this.EQUIPMENT_CAPACITY <= this.equiped.size();
 	}
 	
 	
@@ -55,7 +67,7 @@ public class Inventory implements Serializable{
 	}
 	
 	public boolean isEquiped(Equipment e) {
-		return this.findItem(e) != -1;
+		return this.findItem(e) == -1;
 	}
 	
 	public int findItem(Item e) {

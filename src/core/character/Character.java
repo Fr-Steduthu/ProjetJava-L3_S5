@@ -25,16 +25,16 @@ public abstract class Character implements Serializable{
 	protected State currentState = State.ALIVE;
 	
 	//Combat
-	protected float maxHP;
-	protected float maxAbilityRessource;
+	protected double maxHP;
+	protected double maxAbilityRessource;
 	
-	protected float hp = this.maxHP;
-	protected float ar = this.maxAbilityRessource;
+	protected double hp = this.maxHP;
+	protected double ar = this.maxAbilityRessource;
 	
-	protected float arRegen = 0.0f;
+	protected double arRegen = 0.0;
 	
-	protected float attackDamage = 1.0f;
-	protected float armor = 0.0f;
+	protected double attackDamage = 1.0;
+	protected double armor = 0.0;
 	
 	protected boolean isLootable = false;
 	protected boolean isAbleToSpeak = false;
@@ -44,7 +44,7 @@ public abstract class Character implements Serializable{
 	
 	
 	//@ParametersAreNonnullByDefault
-	public Character(String name, float maxHP, float maxAbilityRessource, int inventoryCapacity, int equipment_size) {
+	public Character(String name, double maxHP, double maxAbilityRessource, int inventoryCapacity, int equipment_size) {
 		this.NAME = name;
 		this.maxHP = maxHP;
 		this.maxAbilityRessource = maxAbilityRessource;
@@ -69,15 +69,15 @@ public abstract class Character implements Serializable{
 		this.location = location;
 	}
 
-	public void heal(float f) {
+	public void heal(double f) {
 		this.hp += f;
 		if(this.hp > this.maxHP) {
 			this.hp = this.maxHP;
 		}
 	}
 
-	public void hurt(float f) {
-		float temp = this.hp - f - this.armor;
+	public void hurt(double f) {
+		double temp = this.hp - f - this.armor;
 		if(temp < this.hp) {//On evite les soins par armure trop forte
 			this.hp = temp;
 			if(this.hp < 1) {
@@ -87,19 +87,19 @@ public abstract class Character implements Serializable{
 		}
 	}
 
-	public final float getHP() {
+	public final double getHP() {
 		return this.hp;
 	}
 
-	public final float getAR() {
+	public final double getAR() {
 		return this.ar;
 	}
 
-	public final void useAR(float amount) {
+	public final void useAR(double amount) {
 		this.ar -= amount; // On accepte l'energie negative; plus de flexibilite
 	}
 
-	public final void giveAR(float amount) {
+	public final void giveAR(double amount) {
 		this.ar += amount;
 		if(this.ar > this.maxAbilityRessource) {
 			this.ar = this.maxAbilityRessource;
@@ -110,7 +110,7 @@ public abstract class Character implements Serializable{
 		this.giveAR(this.arRegen);
 	}
 
-	public void setArmor(float val){
+	public void setArmor(double val){
 		this.armor = val;
 	}
 
@@ -122,11 +122,11 @@ public abstract class Character implements Serializable{
 		return this.currentState;
 	}
 	
-	public final float getDamage() {
+	public final double getDamage() {
 		return this.attackDamage;
 	}
 	
-	public void setDamage(float value) {
+	public void setDamage(double value) {
 		this.attackDamage = value;
 	}
 
@@ -191,7 +191,7 @@ public abstract class Character implements Serializable{
 	}
 	
 	public void give(Item item) {
-		if(this.inventory.addItem(item)) {
+		if(!this.inventory.addItem(item)) {
 			HMI.message("You couldn't pick" + item.getName() + " up; your inventory is full.");
 		}
 	}

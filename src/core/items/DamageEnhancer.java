@@ -6,9 +6,9 @@ public abstract class DamageEnhancer extends Equipment {
 
 	private static final long serialVersionUID = -4645746654636214701L;
 
-	private final float damage;
+	private final double damage;
 	
-	public DamageEnhancer(String name, float damage) {
+	public DamageEnhancer(String name, double damage) {
 		super(name);
 		this.damage = damage;
 	}
@@ -23,7 +23,10 @@ public abstract class DamageEnhancer extends Equipment {
 
 	@Override
 	public final void onUnequip(Character target) {
-		target.setDamage(target.getDamage() + this.damage);
+		target.setDamage(target.getDamage() - this.damage);
 	}
-
+        
+        public double getDamage() {
+            return this.damage;
+        }
 }
