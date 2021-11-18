@@ -1,29 +1,57 @@
 package hmi;
 
+import java.util.regex.Pattern;
+
 public enum Command {
 	GO, HELP, LOOK, ATTACK, TAKE, USE, QUIT;
-	
+        
+        public static Pattern getPattern() {
+            Pattern p = Pattern.compile("GO | HELP | LOOK | ATTACK | TAKE | USE | QUIT");
+            return p;
+        }
+        
 	@Override
 	public String toString() {
 		switch(this) {
 		case GO :
-			return "Go";
+			return "GO";
 		case ATTACK:
-			return "Attack";
+			return "ATTACK";
 		case HELP:
-			return "Help";
+			return "HELP";
 		case LOOK:
-			return "Look";
+			return "LOOK";
 		case QUIT:
-			return "Quit";
+			return "QUIT";
 		case TAKE:
-			return "Take";
+			return "TAKE";
 		case USE:
-			return "Use";
+			return "USE";
 		default:
 			return null;
 		}
 	}
+        
+        public static Command toCommand(String cmd) {
+            switch(cmd) {
+		case "GO" :
+			return GO;
+		case "ATTACK":
+			return ATTACK;
+		case "HELP":
+			return HELP;
+		case "LOOK":
+			return LOOK;
+		case "QUIT":
+			return QUIT;
+		case "TAKE":
+			return TAKE;
+		case "USE":
+			return USE;
+		default:
+			return null;
+		}
+        }
 	
 	/*
 	Command(Command use, int item1) {
