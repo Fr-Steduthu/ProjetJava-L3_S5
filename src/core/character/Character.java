@@ -250,8 +250,8 @@ public abstract class Character implements Serializable{
 	
 	public void take(Item item) {
 		if(!this.inventory.removeItem(item)) {
-			HMI.message("\t\t[ERROR>Player] An error has occured, you drop that");
-		}
+			HMI.error("An error has occured, you drop that");
+		};
 	}
 
 }

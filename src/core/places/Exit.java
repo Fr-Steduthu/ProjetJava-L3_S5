@@ -26,5 +26,13 @@ public final class Exit implements Serializable{
 		r[1] = this.connectedRooms[1];
 		return r;
 	}
+	
+	public final void addTo(Place p) {
+		p.addExit(this);
+	}
+	
+	public final void removeFrom(Place p) {
+		p.removeExit(this);
+	}
 
 }
