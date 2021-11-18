@@ -96,9 +96,9 @@ public class Game {
 
 	private static void charactersActions(Player p, Quest q, Place current) {
 		for(Character c : current.getNpcs()) {
-			if(c.getHP() <= 0) {
+			if(c.getHP() <= 0 && c.getState() != State.DEAD) {
 				c.onDeath(q, p);
-				c.setState(State.DEAD); //Redondant
+				c.setState(State.DEAD);
 			}
 			
 			if(c instanceof Monster && c.getState() != State.STUNNED) {
