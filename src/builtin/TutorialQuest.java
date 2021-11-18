@@ -2,6 +2,11 @@ package builtin;
 
 import builtin.places.EmptyRoom;
 import builtin.places.GrainRoom;
+import builtin.places.ItemRoom;
+import builtin.places.RandomBossRoom;
+import builtin.places.RandomItemRoom;
+import builtin.places.RandomMonsterRoom;
+import builtin.places.RandomNpcRoom;
 import builtin.places.SentinelRoom;
 import builtin.places.entrances.TutorialRoom;
 import core.Quest;
