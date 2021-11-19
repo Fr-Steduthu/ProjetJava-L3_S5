@@ -38,7 +38,7 @@ public abstract class Character implements Serializable{
 	
 	protected boolean isLootable = false;
 	protected boolean isAbleToSpeak = false;
-    protected boolean canUseItems = false;
+        protected boolean canUseItems = false;
 	
 	protected Equipment[] equiped_items;
 	
