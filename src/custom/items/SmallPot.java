@@ -9,12 +9,11 @@ public class SmallPot extends Item {
 
 	public SmallPot() {
 		super("Small pot");
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public String look() {
-		// TODO Auto-generated method stub
+                // TODO Auto-generated method stub
 		return null;
 	}
 
