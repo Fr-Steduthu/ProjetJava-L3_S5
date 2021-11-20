@@ -1,6 +1,7 @@
 package custom.characters.monsters;
 
 import core.character.Monster;
+import custom.items.SaNDCure;
 import hmi.HMI;
 
 public class Sentinel extends Monster {
@@ -10,7 +11,7 @@ public class Sentinel extends Monster {
 	public Sentinel() {
         super("Sentinel", 1.0, 2.0, 1, 0);
         this.isLootable = true;
-        // TODO : this.inventory.add()
+        this.inventory.addItem(new SaNDCure());
     }
     
     @Override

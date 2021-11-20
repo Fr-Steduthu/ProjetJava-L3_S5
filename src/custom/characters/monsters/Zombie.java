@@ -1,6 +1,7 @@
 package custom.characters.monsters;
 
 import core.character.Monster;
+import custom.items.Flesh;
 
 public class Zombie extends Monster {
 
@@ -9,7 +10,7 @@ public class Zombie extends Monster {
 	public Zombie() {
         super("Zombie", 6.0, 1.5, 1);
         this.isLootable = true;
-        // TODO si la flesh reste : this.inventory.add()
+        this.inventory.addItem(new Flesh());
     }
     
     @Override

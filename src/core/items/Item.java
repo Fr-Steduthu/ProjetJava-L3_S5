@@ -69,4 +69,9 @@ public abstract class Item implements Serializable{
 	}
 
 	protected abstract void onUse(Object target);
+        
+        @Override
+        public String toString() {
+            return this.name;
+        }
 }

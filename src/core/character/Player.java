@@ -20,6 +20,10 @@ public final class Player extends Character{
 	public Player(String name, double hp, double mana, int inventorySize) {
 		super(name, hp, mana, inventorySize, 0);
 	}
+        
+        public Player(String name, double hp, double mana, int inventorySize, int equipmentSize) {
+		super(name, hp, mana, inventorySize, equipmentSize);
+	}
 
 	@Override
 	public void interact() {
