@@ -91,7 +91,6 @@ public class InventoryIT {
     // contains (here)
     @Test
     public void inInv() {
-        // Seems like the test starts from an empty inventory.. THIS IS FINE '-'
         inv.addItem(item);
         assertTrue(inv.contains(item));
     }
@@ -127,12 +126,71 @@ public class InventoryIT {
     
     
     // FindEquipment (false)
-    
-    // Add item (false puis true)
-    
-    // Remove Item (false puis true)
+    @Test
+    public void notInEquiped() {
+        assertEquals(-1, eInv.findEquipment(equipment));
+    }
     
     // FindEquipment (true)
+    @Test
+    public void hasInEquiped() {
+        eInv.addItem(equipment);
+        eInv.equip(equipment);
+        assertEquals(0, eInv.findEquipment(equipment));
+    }
     
-    // Unequip
+    // Add item (true)
+    @Test
+    public void canBeAdded() {
+        assertTrue(inv.addItem(item));
+    }
+    
+    // Add item (false)
+    @Test
+    public void cannotBeAdded() {
+        for (int i = 0; i < invSize; i++) {
+            inv.addItem(item);
+        }
+        assertFalse(inv.addItem(item));
+    }
+    
+    // Remove Item (false)
+    @Test
+    public void cannotBeRemoved() {
+        assertFalse(inv.removeItem(item));
+    }
+    
+    // Remove Item (true)
+    @Test
+    public void canBeRemoved() {
+        inv.addItem(item);
+        assertTrue(inv.removeItem(item));
+    }
+    
+    // Equip (false)
+    @Test
+    public void cannotBeEquipped() {
+        assertFalse(eInv.equip(equipment));
+    }
+    
+    // Equip (true)
+    @Test
+    public void canBeEquipped() {
+        eInv.addItem(equipment);
+        assertTrue(eInv.equip(equipment));
+    }
+    
+    // Unequip (false)
+    @Test
+    public void cannotBeUnequipped() {
+        assertFalse(eInv.unequip(equipment));
+    }
+    
+    // Unequip (true)
+    @Test
+    public void canBeUnequipped() {
+        eInv.addItem(equipment);
+        eInv.equip(equipment);
+        assertTrue(eInv.unequip(equipment));
+    }
 }
