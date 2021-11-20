@@ -26,6 +26,7 @@ public abstract class Item implements Serializable{
 	public final String getName() {
 		return this.name;
 	}
+        
 	public final void setName(String newName) {
 		this.name = newName;
 	}
@@ -33,9 +34,11 @@ public abstract class Item implements Serializable{
 	public final void setLocation(Inventory inventory) {
 		this.location = inventory;
 	}
+        
 	public final void setLocation(Place location) {
 		this.location = location;
 	}
+        
 	public final Object getLocation() {
 		return this.location;
 	}
