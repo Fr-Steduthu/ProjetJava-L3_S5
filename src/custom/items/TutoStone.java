@@ -11,12 +11,10 @@ public class TutoStone extends Item {
 
 	public TutoStone() {
 		super("Tutorial stone");
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public String look() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

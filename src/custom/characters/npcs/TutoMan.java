@@ -1,6 +1,7 @@
 package custom.characters.npcs;
 
 import core.character.NPC;
+import custom.items.TutoStone;
 
 public class TutoMan extends NPC {
 
@@ -8,7 +9,7 @@ public class TutoMan extends NPC {
 
 	public TutoMan() {
         super("Tuto-MAN", "TODO : THIS IS A PLACEHOLDER FOR NOW", 1);
-        // TODO : this.inventory.add()
+        this.inventory.addItem(new TutoStone());
     }
     
 }

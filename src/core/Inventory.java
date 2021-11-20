@@ -37,9 +37,13 @@ public class Inventory implements Serializable{
 	public Item[] getItems() {
                 Item[] items = new Item[]{};
                 int cmpt = 0;
-		for (Item i : this.contents) {
-                    items[cmpt] = i;
-                    cmpt++;
+                try {
+                    for (Item i : this.contents) {
+                        items[cmpt] = i;
+                        cmpt++;
+                    }
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    
                 }
                 return items;
 	}
@@ -47,9 +51,13 @@ public class Inventory implements Serializable{
 	public Equipment[] getEquipment() {
                 Equipment[] equipments = new Equipment[]{};
                 int cmpt = 0;
-		for (Equipment e : this.equiped) {
-                    equipments[cmpt] = e;
-                    cmpt++;
+                try {
+                    for (Equipment e : this.equiped) {
+                        equipments[cmpt] = e;
+                        cmpt++;
+                    }
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    
                 }
                 return equipments;
 	}
@@ -67,7 +75,7 @@ public class Inventory implements Serializable{
 	}
 	
 	public boolean isEquiped(Equipment e) {
-		return this.findItem(e) == -1;
+		return this.findEquipment(e) != -1;
 	}
 	
 	public int findItem(Item e) {
@@ -118,7 +126,7 @@ public class Inventory implements Serializable{
 	}
 	
 	public boolean equip(Equipment i) {
-		if(this.contains(i)) {
+		if(this.contains(i) && !this.isFullyGeared()) {
 			this.removeItem(i);
 			i.setLocation(this);
 			
@@ -132,7 +140,7 @@ public class Inventory implements Serializable{
 	}
 	
 	public boolean unequip(Equipment e) {
-		if(this.isEquiped(e)) {
+		if(this.isEquiped(e) && !(this.isFull())) {
 			
 			this.equiped.remove(e);
 			e.setLocation((Place)null);

@@ -8,7 +8,6 @@ public class LightIronSpear extends DamageEnhancer {
 
 	public LightIronSpear() {
 		super("Light iron spear", 2.0);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

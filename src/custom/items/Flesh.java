@@ -7,8 +7,10 @@ public class Flesh extends Item {
 
 	private static final long serialVersionUID = 2949132669646475417L;
 
-	public Flesh(String name) {
+	public Flesh() {
 		super("Flesh");
+                isUsable = true;
+                currentlyUsable = true;
 	}
 
 	@Override
