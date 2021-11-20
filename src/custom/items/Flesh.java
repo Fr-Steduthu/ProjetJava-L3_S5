@@ -9,6 +9,8 @@ public class Flesh extends Item {
 
 	public Flesh() {
 		super("Flesh");
+                isUsable = true;
+                currentlyUsable = true;
 	}
 
 	@Override

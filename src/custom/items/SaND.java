@@ -11,6 +11,8 @@ public class SaND extends Item {
 
 	public SaND() {
 		super("SaND");
+                isUsable = true;
+                currentlyUsable = true;
 	}
 
 	@Override

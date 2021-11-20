@@ -9,6 +9,8 @@ public class SmallPot extends Item {
 
 	public SmallPot() {
 		super("Small pot");
+                isUsable = true;
+                currentlyUsable = true;
 	}
 
 	@Override

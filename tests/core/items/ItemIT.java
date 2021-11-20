@@ -4,6 +4,7 @@ import core.Inventory;
 import core.character.Player;
 import core.places.Place;
 import custom.items.SaND;
+import custom.items.SmallPot;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -63,5 +64,18 @@ public class ItemIT {
         room.addItem(item);
         item.take(player);
         assertEquals(player.getClassInventory(), item.getLocation());
+    }
+    
+    // use
+    @Test
+    public void useItem(){
+        item = new SmallPot();
+        player.setLocation(room);
+        room.addItem(item);
+        item.take(player);
+        double beforeOperation = player.getHP();
+        player.hurt(3.0);
+        item.use(player);
+        assertEquals(beforeOperation, player.getHP(), 0.0);
     }
 }
