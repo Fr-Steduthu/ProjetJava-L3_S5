@@ -60,6 +60,10 @@ public abstract class Character implements Serializable{
 	public final Item[] getInventory() {
 		return this.inventory.getItems();
 	}
+        
+        public Inventory getClassInventory() {
+                return this.inventory;
+        }
 
 	public final Place getLocation() {
 		return this.location;
