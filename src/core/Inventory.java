@@ -42,9 +42,7 @@ public class Inventory implements Serializable{
                         items[cmpt] = i;
                         cmpt++;
                     }
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    
-                }
+                } catch (ArrayIndexOutOfBoundsException e) {}
                 return items;
 	}
 	
@@ -56,9 +54,7 @@ public class Inventory implements Serializable{
                         equipments[cmpt] = e;
                         cmpt++;
                     }
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    
-                }
+                } catch (ArrayIndexOutOfBoundsException e) {}
                 return equipments;
 	}
 	

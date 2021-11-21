@@ -1,7 +1,9 @@
 package core.character;
 
 import core.Inventory;
+import core.items.Item;
 import core.places.Place;
+import custom.items.SaND;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -38,6 +40,8 @@ public class CharacterIT {
         assertEquals(null, character.getLocation());
         assertEquals(DEF_HP, character.getHP(), 0.0);
         assertEquals(DEF_AR, character.getAR(), 0.0);
+        assertEquals(State.ALIVE, character.getState());
+        assertEquals(1.0, character.getDamage(), 0.0);
     }
     
     // setLocation
@@ -73,7 +77,64 @@ public class CharacterIT {
         double dmg = 3.0;
         double armor = 4.0;
         character.setArmor(armor);
+        assertEquals(armor, character.armor, 0.0);
         character.hurt(dmg);
         assertEquals(DEF_HP, character.getHP(), 0.0);
     }
+    
+    // setState
+    @Test
+    public void newState() {
+        State state = State.DEAD;
+        character.setState(state);
+        assertEquals(state, character.getState());
+    }
+    
+    // setAttackDamage
+    @Test
+    public void newDamage() {
+        double dmg = 3.0;
+        character.setDamage(dmg);
+        assertEquals(dmg, character.getDamage(), 0.0);
+    }
+    
+    // attack
+    @Test
+    public void attackHimself() {
+        double dmg = 3.0;
+        character.setDamage(dmg);
+        character.attack(character);
+        assertEquals(DEF_HP - dmg, character.getHP(), 0.0);
+    }
+    
+    // kill
+    @Test
+    public void suicide() {
+        character.kill();
+        assertEquals(0.0, character.getHP(), 0.0);
+    }
+    
+    // equip is tested in InventoryIT, they use the same methods
+    
+    // getLoot
+    @Test
+    public void testLoots() {
+        Item item = new SaND();
+        character.getClassInventory().addItem(item);
+        inv.addItem(item);
+        assertArrayEquals(inv.getItems(), character.getInventory());
+    }
+    
+    // onDeath
+    @Test
+    public void dropLoots() {
+        character.getClassInventory().addItem(new SaND());
+        character.setLocation(room);
+        Item[] oldInvItems = character.getInventory();
+        character.onDeath(null, null);
+        assertArrayEquals(inv.getItems(), character.getInventory());
+        assertArrayEquals(oldInvItems, room.getItems());
+    }
+    
+    // give and take already tested in inventory, they use the same methods
 }

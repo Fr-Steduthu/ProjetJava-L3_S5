@@ -47,7 +47,15 @@ public final class Place implements Serializable{
 	}
 	/**ITEMS**/
 	public final Item[] getItems() {
-		return (Item[]) this.itemList.toArray();
+                Item[] items = new Item[]{};
+                int cmpt = 0;
+                try {
+                    for (Item i : this.itemList) {
+                        items[cmpt] = i;
+                        cmpt++;
+                    }
+                } catch (ArrayIndexOutOfBoundsException e) {}
+                return items;
 	}
 	public final void addItem(Item item) {
 		this.itemList.add(item);

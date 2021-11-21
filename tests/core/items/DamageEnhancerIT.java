@@ -58,7 +58,7 @@ public class DamageEnhancerIT {
         n1.unequip(gloves);
     }
     
-        @Test
+    @Test
     public void testOnUnequip () {
         
         p1.give(spear);

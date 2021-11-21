@@ -24,6 +24,7 @@ public class PlaceIT {
         room = new Place(roomName);
         itemList = new ArrayList<>();
         npcList = new ArrayList<>();
+        exits = new ArrayList<>();
         itemList.add(new SaND());
         npcList.add(new Grain());
         exits.add(new Exit(room, null));
