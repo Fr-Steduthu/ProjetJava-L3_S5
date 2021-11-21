@@ -83,7 +83,7 @@ public abstract class Character implements Serializable{
 	}
 
 	public void hurt(double f) {
-		double temp = this.hp - f - this.armor;
+		double temp = this.hp - f + this.armor;
 		if(temp < this.hp) {//On evite les soins par armure trop forte
 			this.hp = temp;
 			if(this.hp < 1) {
