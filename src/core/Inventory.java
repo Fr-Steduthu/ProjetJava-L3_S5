@@ -35,7 +35,7 @@ public class Inventory implements Serializable{
 	}
 	
 	public Item[] getItems() {
-                Item[] items = new Item[]{};
+                Item[] items = new Item[this.contents.size()];
                 int cmpt = 0;
                 try {
                     for (Item i : this.contents) {
@@ -47,7 +47,7 @@ public class Inventory implements Serializable{
 	}
 	
 	public Equipment[] getEquipment() {
-                Equipment[] equipments = new Equipment[]{};
+                Equipment[] equipments = new Equipment[this.equiped.size()];
                 int cmpt = 0;
                 try {
                     for (Equipment e : this.equiped) {

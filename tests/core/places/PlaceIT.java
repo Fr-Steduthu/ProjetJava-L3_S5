@@ -5,6 +5,7 @@ import core.character.Character;
 import custom.characters.npcs.Grain;
 import custom.items.SaND;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
@@ -62,10 +63,22 @@ public class PlaceIT {
         assertArrayEquals(itemList.toArray(), room.getItems());
     }
     
+    public Exit[] exitToArray(ArrayList<Exit> exitsAList) {
+        Exit[] exits = new Exit[exitsAList.size()];
+        int cmpt = 0;
+        try {
+            for (Exit e : exitsAList) {
+                    exits[cmpt] = e;
+                    cmpt++;
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {}
+        return exits;
+    }
+    
     // setExits, getExits
     @Test
     public void exit() {
-        room.setExits((Exit[]) exits.toArray());
+        room.setExits(exitToArray((ArrayList<Exit>) exits));
         assertArrayEquals(exits.toArray(), room.getExits());
     }
     
