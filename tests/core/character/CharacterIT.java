@@ -23,7 +23,9 @@ public class CharacterIT {
     @Before
     public void setup() {
         character = new Character(DEF_NAME, DEF_HP, DEF_AR, DEF_INV_CAP, DEF_EQ_CAP) {
-            @Override
+            {
+                this.isLootable = true;
+            }
             public void interact() {
                 System.out.println("This is not supposed to be tested.");
             }
