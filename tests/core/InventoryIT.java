@@ -43,12 +43,33 @@ public class InventoryIT {
         assertArrayEquals(empty, items);
     }
     
-    // getEquipments
+    // getItems (not empty)
+    @Test
+    public void notEmptyInv() {
+        inv.addItem(item);
+        Item[] items = inv.getItems();
+        Item[] someItems = new Item[1];
+        someItems[0] = item;
+        assertArrayEquals(someItems, items);
+    }
+    
+    // getEquipments (empty)
     @Test
     public void emptyEqpmt() {
         Equipment[] equipped = inv.getEquipment();
         Equipment[] empty = new Equipment[]{};
         assertArrayEquals(empty, equipped);
+    }
+    
+    // getEquipments (not empty)
+    @Test
+    public void notEmptyEqpmt() {
+        eInv.addItem(equipment);
+        eInv.equip(equipment);
+        Equipment[] equipped = eInv.getEquipment();
+        Equipment[] someEquipments = new Equipment[1];
+        someEquipments[0] = equipment;
+        assertArrayEquals(someEquipments, equipped);
     }
 
     // isFull (empty)

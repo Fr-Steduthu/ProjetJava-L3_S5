@@ -29,15 +29,27 @@ public class Place implements Serializable{
 			throw new Exception("Room cannot be initialized (filled) twice !");
 		}else {
 			this.hasBeenFilled = true;
-
-			this.itemList = itemList;
-			this.npcList = npcList;
+                        
+                        itemList.forEach(i -> {
+                            this.itemList.add(i);
+                        });
+                        npcList.forEach(c -> {
+                            this.npcList.add(c);
+                        });
 		}
 	}
 	
 	/**NPCs**/
 	public final Character[] getNpcs() {
-		return (Character[]) this.npcList.toArray();
+                Character[] characters = new Character[this.npcList.size()];
+                int cmpt = 0;
+                try {
+                    for (Character c : this.npcList) {
+                        characters[cmpt] = c;
+                        cmpt++;
+                    }
+                } catch (ArrayIndexOutOfBoundsException e) {}
+                return characters;
 	}
 	public final void addNpc(Character npc) {
 		this.npcList.add(npc);
@@ -47,7 +59,15 @@ public class Place implements Serializable{
 	}
 	/**ITEMS**/
 	public final Item[] getItems() {
-		return (Item[]) this.itemList.toArray();
+                Item[] items = new Item[this.itemList.size()];
+                int cmpt = 0;
+                try {
+                    for (Item i : this.itemList) {
+                        items[cmpt] = i;
+                        cmpt++;
+                    }
+                } catch (ArrayIndexOutOfBoundsException e) {}
+                return items;
 	}
 	public final void addItem(Item item) {
 		this.itemList.add(item);
@@ -66,7 +86,15 @@ public class Place implements Serializable{
 	}
 	
 	public final Exit[] getExits() {
-		return (Exit[]) this.exits.toArray();
+                Exit[] exits = new Exit[this.exits.size()];
+                int cmpt = 0;
+                try {
+                    for (Exit e : this.exits) {
+                        exits[cmpt] = e;
+                        cmpt++;
+                    }
+                } catch (ArrayIndexOutOfBoundsException e) {}
+                return exits;
 	}
 	
 	public final void setExits(Exit[] exits) {
