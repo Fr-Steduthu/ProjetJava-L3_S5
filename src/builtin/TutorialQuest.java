@@ -34,7 +34,7 @@ public class TutorialQuest extends Quest {
 		dungeon[3] = new SentinelRoom();
 		dungeon[4] = new ItemRoom();
 		dungeon[5] = new RandomMonsterRoom();
-		dungeon[6] = new RandomItemRoom();
+		dungeon[6] = new RandomItemRoom("Item room");
 		dungeon[7] = new RandomNpcRoom();
 		dungeon[8] = new RandomBossRoom();
 		dungeon[9] = new Place("Aberation's lair");
