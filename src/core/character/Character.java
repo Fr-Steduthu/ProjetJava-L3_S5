@@ -40,8 +40,6 @@ public abstract class Character implements Serializable{
 	protected boolean isAbleToSpeak = false;
         protected boolean canUseItems = false;
 	
-	protected Equipment[] equiped_items;
-	
 	
 	//@ParametersAreNonnullByDefault
 	public Character(String name, double maxHP, double maxAbilityRessource, int inventoryCapacity, int equipment_size) {
@@ -178,18 +176,19 @@ public abstract class Character implements Serializable{
 	}
 	
 	public final Item[] getLoot(){
-		return ((Character)this).getInventory();	
+		return this.getInventory();
 	}
 	
 	public void onDeath(Quest context, Player p){
 		if(this.isLootable) {
                     Item[] items = this.getLoot();
+                    Equipment[] equipped = this.inventory.getEquipment();
                     Place location = this.getLocation();
                     for (Item i : items) {
                         location.addItem(i);
                         this.inventory.removeItem(i);
                     }
-                    for (Equipment e : this.equiped_items) {
+                    for (Equipment e : equipped) {
                         location.addItem(e);
                     }
 		}
