@@ -57,8 +57,8 @@ public abstract class Character implements Serializable{
 		return NAME;
 	}
 
-	public final Item[] getInventory() {
-		return this.inventory.getItems();
+	public final Inventory getInventory() {
+		return this.inventory;
 	}
 
 	public final Place getLocation() {
@@ -172,7 +172,7 @@ public abstract class Character implements Serializable{
 	}
 	
 	public final Item[] getLoot(){
-		return ((Character)this).getInventory();	
+		return ((Character)this).getInventory().getItems();	
 	}
 	
 	public void onDeath(Quest context, Player p){

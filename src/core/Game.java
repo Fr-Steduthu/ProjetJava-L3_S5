@@ -17,6 +17,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.List;
 
 public class Game {
 	/*public Game(Player p1, Quest quest) {
@@ -41,7 +42,7 @@ public class Game {
 			//Affichage
 		
             boolean hasFinishedTurn = false;
-            while (hasFinishedTurn == false) {
+            while (hasFinishedTurn) {
             	
                 Command action = Command.toCommand(HMI.read());
                 //Command action = Command.toCommand(commandLine[0]);
@@ -49,12 +50,15 @@ public class Game {
                 switch(action) {
                     case ATTACK:
                         HMI.message("Choisissez une cible a attaquer :\n");
+                        // TODO MONSTER SELECTOR
+                        // TODO ATTACK
                         hasFinishedTurn = true;
                         break;
                     case GO:
                         HMI.message("Choisissez une porte ouverte a passer");
                         //hasFinishedTurn = false; // se fait agresser en entrant dans la salle suivante si false
-                        //TODO
+                        // TODO DOOR SELECTOR
+                        // TODO GO
                         break;
                     case HELP:
                         Command.help();
@@ -72,12 +76,18 @@ public class Game {
                         }
                         break;
                     case TAKE:
-                        hasFinishedTurn = true;
-                        //TODO
+                        Item takeItem = selectTake(q);
+                        if (takeItem != null) {
+                            p.getInventory().addItem(takeItem);
+                            hasFinishedTurn = true;
+                        }
                         break;
                     case USE:
-                    	hasFinishedTurn = true;
-                    	//TODO
+                        Item useItem = selectUse(q);
+                        if (useItem != null) {
+                            useItem.use(); // SELECT_TARGET
+                            hasFinishedTurn = true;
+                        }
                         break;
                     default:
                     	HMI.error("Game.start() -> unknown Command value -> no behavior defined -> please try again");
@@ -110,7 +120,7 @@ public class Game {
 				}
 			}
 		}else if(objective instanceof Item) {//Possession et non utilisation d'un item
-			for( Item i : q.getPlayer().getInventory()){
+			for( Item i : q.getPlayer().getInventory().getItems()){
 				if(i == objective) {
 					return true;
 				}
@@ -173,4 +183,65 @@ public class Game {
             }
 		Game.start(q_loadedSave);
 	}
+        
+        public static Item selectItem(Item[] items) {
+            HMI.message("Entrez 'Aucun' pour ne pas selectionner d'objet");
+            String item = HMI.read();
+            boolean isFound = false;
+            Item toReturn = null;
+            
+            while (isFound) {
+                if (item.equals("Aucun")) {
+                    isFound = true;
+                }
+                for (Item it : items) {
+                    if (it.getName().equals(item)) {
+                        toReturn = it;
+                        isFound = true;
+                    }
+                }
+                HMI.message("Object inconnu. Veuillez réessayer, ou entrer 'Aucun'");
+                item = HMI.read();
+            }
+            return toReturn;
+        }
+        
+        public static Item selectUse(Quest q) {
+            Item[] playerItems = q.getPlayer().getInventory().getItems();
+            if (playerItems.length == 0) {
+                HMI.message("Votre inventaire est vide !");
+                return null;
+            }
+            
+            HMI.message("Choisissez un objet à utiliser parmi ceux de votre inventaire :");
+            for (Item item : playerItems) {
+                System.out.println(item.toString());
+            }
+            
+            Item selectedItem = selectItem(playerItems);
+            while (selectedItem == null) {
+                selectedItem = selectItem(playerItems);
+            }
+            return selectedItem;
+        }
+        
+        public static Item selectTake(Quest q) {
+            Item[] roomItems = q.getPlayer().getLocation().getItems();
+            if (roomItems.length == 0) {
+                HMI.message("Il n'y a rien à ramasser ici !");
+                return null;
+            }
+            
+            HMI.message("Choisissez un objet à ramasser parmi ceux de la salle :");
+            for (Item item : roomItems) {
+                System.out.println(item.toString());
+            }
+            
+            Item selectedItem = selectItem(roomItems);
+            while (selectedItem == null) {
+                selectedItem = selectItem(roomItems);
+            }
+            return selectedItem;
+            
+        }
 }
