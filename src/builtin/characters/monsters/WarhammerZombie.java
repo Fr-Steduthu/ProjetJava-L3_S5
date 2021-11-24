@@ -1,7 +1,7 @@
-package custom.characters.monsters;
+package builtin.characters.monsters;
 
+import builtin.items.Flesh;
 import core.character.Monster;
-import custom.items.Flesh;
 
 public class WarhammerZombie extends Monster {
 

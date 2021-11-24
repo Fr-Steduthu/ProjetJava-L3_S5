@@ -1,8 +1,8 @@
-package custom.items;
+package builtin.items;
 
 import core.items.Item;
 import core.places.Place;
-import custom.characters.npcs.TutoMan;
+import builtin.characters.npcs.TutoMan;
 import core.Inventory;
 import core.character.Character;
 

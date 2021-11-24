@@ -8,7 +8,7 @@ import core.character.Character;
 import core.character.Monster;
 import core.items.Item;
 
-public final class Place implements Serializable{
+public class Place implements Serializable{
 
 	private static final long serialVersionUID = 6744297261182547691L;
 	
@@ -51,13 +51,17 @@ public final class Place implements Serializable{
                 } catch (ArrayIndexOutOfBoundsException e) {}
                 return characters;
 	}
+	
 	public final void addNpc(Character npc) {
 		this.npcList.add(npc);
 	}
+	
 	public final void removeNpc(Character npc) {
 		this.npcList.remove(npc);
 	}
+	
 	/**ITEMS**/
+	
 	public final Item[] getItems() {
                 Item[] items = new Item[this.itemList.size()];
                 int cmpt = 0;
@@ -78,6 +82,14 @@ public final class Place implements Serializable{
 	}
 	
 	/**Exits**/
+	
+	public final void addExit(Exit c) {
+		this.exits.add(c);
+	}
+	public final void removeExit(Exit e) {
+		this.exits.remove(e); // pas de check si n'est pas dedans car verifie dans ArrayList.remove()
+	}
+	
 	public final Exit[] getExits() {
                 Exit[] exits = new Exit[this.exits.size()];
                 int cmpt = 0;
@@ -93,7 +105,9 @@ public final class Place implements Serializable{
 	public final void setExits(Exit[] exits) {
 		this.exits = new ArrayList<>();
 		for(Exit e :  exits) {
-			this.exits.add(e);
+			if(e != null) {
+				this.exits.add(e);
+			}
 		}
 	}
 
@@ -132,6 +146,13 @@ public final class Place implements Serializable{
 			
 		}
 		return out;
+	}
+	
+	public String getExitsRegex() {
+		String exitRegex = null;
+		//TODO
+		//for each exit : getRegexOmmiting(this)
+		return exitRegex;
 	}
 
 	/**Static**/

@@ -38,41 +38,29 @@ public abstract class Character implements Serializable{
 	
 	protected boolean isLootable = false;
 	protected boolean isAbleToSpeak = false;
-        protected boolean canUseItems = false;
+	protected boolean canUseItems = false;
 	
+	protected State currentState = State.ALIVE;
 	
 	//@ParametersAreNonnullByDefault
 	public Character(String name, double maxHP, double maxAbilityRessource, int inventoryCapacity, int equipment_size) {
 		this.NAME = name;
 		this.maxHP = maxHP;
-    this.hp = this.maxHP;
+		this.hp = this.maxHP;
 		this.maxAbilityRessource = maxAbilityRessource;
-    this.ar = this.maxAbilityRessource;
+		this.ar = this.maxAbilityRessource;
+	}
 
 
-        //Misc
-        private final String NAME;
-        private Place location;
-
-        protected String dialogue = "[ERROR] No dialogue set";
-
-        public final Item[] getInventory() {
-          return this.inventory.getItems();
-        }
-        
-        public Inventory getClassInventory() {
-                return this.inventory;
-        }
-
-        protected State currentState = State.ALIVE;
-
-        //Combat
-        protected double maxHP;
-        protected double maxAbilityRessource;
-
-        protected double hp = this.maxHP;
-        protected double ar = this.maxAbilityRessource;
-
+	public final Item[] getInventory() {
+		return this.inventory.getItems();
+	}
+  
+	/*//Utilisee uniquement pour les tests
+	public Inventory getClassInventory() {
+            return this.inventory;
+    }/**/
+	
 	public void hurt(double f) {
 		double temp = this.hp - f + this.armor;
 		if(temp < this.hp) {//On evite les soins par armure trop forte
@@ -84,135 +72,125 @@ public abstract class Character implements Serializable{
 		}
 	}
 
-        protected double attackDamage = 1.0;
-        protected double armor = 0.0;
+	//@ParametersAreNonnullByDefault
+	public Character(String name, double maxHP, double maxAbilityRessource, int inventoryCapacity, int equipment_size) {
+			this.NAME = name;
+			this.maxHP = maxHP;
+			this.maxAbilityRessource = maxAbilityRessource;
 
-        protected boolean isLootable = false;
-        protected boolean isAbleToSpeak = false;
-        protected boolean canUseItems = false;
+			this.inventory = new Inventory(this, inventoryCapacity, equipment_size);
+	}
 
-        protected Equipment[] equiped_items;
+	/**SETTERS & GETTERS**/
+	public final String getName() {
+			return NAME;
+	}
 
+	public final Item[] getInventory() {
+			return this.inventory.getItems();
+	}
 
-        //@ParametersAreNonnullByDefault
-        public Character(String name, double maxHP, double maxAbilityRessource, int inventoryCapacity, int equipment_size) {
-                this.NAME = name;
-                this.maxHP = maxHP;
-                this.maxAbilityRessource = maxAbilityRessource;
+	public final Place getLocation() {
+			return this.location;
+	}
 
-                this.inventory = new Inventory(this, inventoryCapacity, equipment_size);
-        }
+	public final void setLocation(Place location) {
+			this.location = location;
+	}
 
-        /**SETTERS & GETTERS**/
-        public final String getName() {
-                return NAME;
-        }
+	public void heal(double f) {
+			this.hp += f;
+			if(this.hp > this.maxHP) {
+					this.hp = this.maxHP;
+			}
+	}
 
-        public final Item[] getInventory() {
-                return this.inventory.getItems();
-        }
+	public void hurt(double f) {
+			double temp = this.hp - f - this.armor;
+			if(temp < this.hp) {//On evite les soins par armure trop forte
+					this.hp = temp;
+					if(this.hp < 1) {
+							this.hp = 0;
+							this.currentState = State.DEAD;
+					}
+			}
+	}
 
-        public final Place getLocation() {
-                return this.location;
-        }
+	public final double getHP() {
+			return this.hp;
+	}
 
-        public final void setLocation(Place location) {
-                this.location = location;
-        }
+	public final double getAR() {
+			return this.ar;
+	}
 
-        public void heal(double f) {
-                this.hp += f;
-                if(this.hp > this.maxHP) {
-                        this.hp = this.maxHP;
-                }
-        }
+	public final void useAR(double amount) {
+			this.ar -= amount; // On accepte l'energie negative; plus de flexibilite
+	}
 
-        public void hurt(double f) {
-                double temp = this.hp - f - this.armor;
-                if(temp < this.hp) {//On evite les soins par armure trop forte
-                        this.hp = temp;
-                        if(this.hp < 1) {
-                                this.hp = 0;
-                                this.currentState = State.DEAD;
-                        }
-                }
-        }
+	public final void giveAR(double amount) {
+			this.ar += amount;
+			if(this.ar > this.maxAbilityRessource) {
+					this.ar = this.maxAbilityRessource;
+			}
+	}
 
-        public final double getHP() {
-                return this.hp;
-        }
+	public final void regenAR() {
+			this.giveAR(this.arRegen);
+	}
 
-        public final double getAR() {
-                return this.ar;
-        }
+	public void setArmor(double val){
+			this.armor = val;
+	}
 
-        public final void useAR(double amount) {
-                this.ar -= amount; // On accepte l'energie negative; plus de flexibilite
-        }
+	public void setState(State state) {
+			this.currentState = state;
+	}
 
-        public final void giveAR(double amount) {
-                this.ar += amount;
-                if(this.ar > this.maxAbilityRessource) {
-                        this.ar = this.maxAbilityRessource;
-                }
-        }
+	public final State getState() {
+			return this.currentState;
+	}
 
-        public final void regenAR() {
-                this.giveAR(this.arRegen);
-        }
+	public final double getDamage() {
+			return this.attackDamage;
+	}
 
-        public void setArmor(double val){
-                this.armor = val;
-        }
+	public void setDamage(double value) {
+			this.attackDamage = value;
+	}
 
-        public void setState(State state) {
-                this.currentState = state;
-        }
+	/**Methods**/
 
-        public final State getState() {
-                return this.currentState;
-        }
+	public void attack(Character target){
+			target.hurt((int) this.attackDamage);
+	}
 
-        public final double getDamage() {
-                return this.attackDamage;
-        }
+	public void kill() {
+			this.hp = 0.0f;
+	}
 
-        public void setDamage(double value) {
-                this.attackDamage = value;
-        }
+	public abstract void interact();
 
-        /**Methods**/
+	public final void inspect() {
+			HMI.message(getName() + " : " + this.getHP() + "/" + ((int)(this.maxHP+0.5)) + "health points\n\t"+(int)this.armor+" armor"); 
+	}
 
-        public void attack(Character target){
-                target.hurt((int) this.attackDamage);
-        }
+	public final void use(Item e) {
+		if(this.canUseItems) {
+			e.use(this);
+			//TODO a completer
+		} else {
+			HMI.message(this.getClass().getSimpleName() + " tried to use an item.. except it can't.");
+		}
+	}
 
-        public void kill() {
-                this.hp = 0.0f;
-        }
+	public final void equip(Equipment e) {
+		this.inventory.equip(e);
+	}
 
-        public abstract void interact();
-
-        public final void inspect() {
-                HMI.message(getName() + " : " + this.getHP() + "/" + ((int)(this.maxHP+0.5)) + "health points\n\t"+(int)this.armor+" armor"); 
-        }
-
-        public final void use(Item e) {
-            if(this.canUseItems) {
-                e.use(this);
-                //TODO a completer
-            } else {
-                HMI.message(this.getClass().getSimpleName() + " tried to use an item.. except it can't.");
-            }
-        }
-
-        public final void equip(Equipment e) {
-            this.inventory.equip(e);
-        }
-
-        public final void unequip(Equipment e) {
-            this.inventory.unequip(e);
-        }
+	public final void unequip(Equipment e) {
+		this.inventory.unequip(e);
+	}
 
 	public final void speak() {
 		if(this.isAbleToSpeak) {
@@ -228,16 +206,16 @@ public abstract class Character implements Serializable{
 	
 	public void onDeath(Quest context, Player p){
 		if(this.isLootable) {
-                    Item[] items = this.getLoot();
-                    Equipment[] equipped = this.inventory.getEquipment();
-                    Place location = this.getLocation();
-                    for (Item i : items) {
-                        location.addItem(i);
-                        this.inventory.removeItem(i);
-                    }
-                    for (Equipment e : equipped) {
-                        location.addItem(e);
-                    }
+					Item[] items = this.getLoot();
+					Equipment[] equipped = this.inventory.getEquipment();
+					Place location = this.getLocation();
+					for (Item i : items) {
+						location.addItem(i);
+						this.inventory.removeItem(i);
+					}
+					for (Equipment e : equipped) {
+						location.addItem(e);
+					}
 		}
 		this.currentState = State.DEAD;
 	}
@@ -250,8 +228,8 @@ public abstract class Character implements Serializable{
 	
 	public void take(Item item) {
 		if(!this.inventory.removeItem(item)) {
-			HMI.message("\t\t[ERROR>Player] An error has occured, you drop that");
-		}
-	}
+			HMI.error("An error has occured, you drop that");
+		};
 
+	}
 }

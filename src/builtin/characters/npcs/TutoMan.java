@@ -1,7 +1,7 @@
-package custom.characters.npcs;
+package builtin.characters.npcs;
 
+import builtin.items.TutoStone;
 import core.character.NPC;
-import custom.items.TutoStone;
 
 public class TutoMan extends NPC {
 

@@ -1,7 +1,7 @@
-package custom.characters.npcs;
+package builtin.characters.npcs;
 
+import builtin.items.SaND;
 import core.character.NPC;
-import custom.items.SaND;
 
 public class Grain extends NPC {
 
