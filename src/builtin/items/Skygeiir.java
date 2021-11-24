@@ -1,4 +1,4 @@
-package custom.items;
+package builtin.items;
 
 import core.Inventory;
 import core.items.Item;

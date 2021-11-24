@@ -1,7 +1,7 @@
 package builtin.places;
 
+import builtin.characters.monsters.Sentinel;
 import core.places.Place;
-import custom.characters.monsters.Sentinel;
 
 public class SentinelRoom extends Place {
 

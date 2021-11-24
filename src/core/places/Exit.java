@@ -34,5 +34,11 @@ public final class Exit implements Serializable{
 	public final void removeFrom(Place p) {
 		p.removeExit(this);
 	}
+	
+	public String getRegexOmmiting(Place p) {
+		String regex = null;
+		//TODO
+		return regex;
+	}
 
 }

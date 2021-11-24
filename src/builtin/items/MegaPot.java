@@ -1,14 +1,14 @@
-package custom.items;
+package builtin.items;
 
 import core.items.Item;
 import core.character.Character;
 
-public class MediumPot extends Item {
+public class MegaPot extends Item {
 
-	private static final long serialVersionUID = 3203714881926792078L;
+	private static final long serialVersionUID = -1220819768902987370L;
 
-	public MediumPot() {
-		super("Medium pot");
+	public MegaPot() {
+		super("Mega-pot");
                 isUsable = true;
                 currentlyUsable = true;
 	}
@@ -22,7 +22,7 @@ public class MediumPot extends Item {
 	@Override
 	protected void onUse(Object target) {
 		if(target instanceof Character) {
-			((Character) target).heal(5.0);
+			((Character) target).heal(10.0);
 		}
 	}
 
