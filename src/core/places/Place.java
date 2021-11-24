@@ -140,4 +140,9 @@ public final class Place implements Serializable{
 		assert(false);
 		return null;
 	}
+        
+        public static String getRegex() {
+            return null;
+            // TODO
+        }
 }
