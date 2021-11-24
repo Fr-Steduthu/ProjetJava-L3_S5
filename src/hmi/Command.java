@@ -1,13 +1,7 @@
 package hmi;
 
-import java.util.regex.Pattern;
-
 public enum Command {
 	GO, HELP, LOOK, ATTACK, TAKE, USE, QUIT, BACK;
-        
-    public static Pattern getPattern() {
-        return Pattern.compile(Command.getRegex());
-    }
     
     public static String getRegex() {
     	return "GO|HELP|LOOK|ATTACK|TAKE|USE|QUIT|BACK";

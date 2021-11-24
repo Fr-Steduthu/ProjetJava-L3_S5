@@ -119,7 +119,7 @@ public class Place implements Serializable{
 	@Override
 	public final String toString() {
 		String out = "";
-		out += "A sign reads " + this.NAME + "\n";
+		out += "A sign reads " + this.NAME;
 		
 		//Characters
 		if(this.getNpcs().length != 0) {
@@ -132,36 +132,30 @@ public class Place implements Serializable{
                             }
                             out += c.getName() + "\n";
                             }
+		}else {
+			out += "\nThere is no soul around here.";
 		}
 		//items
 		if(this.getItems().length != 0) {
-			out += "\nYou can see something on the ground\n";
+			out += "\nYou can see something in the room\n";
 			
 			for(Item i : this.getItems()) {
 				out += "\t" + i.getName() + "\n";
 			}
+		}else {
+			out += "\nYou can't see anything valuable around.";
 		}
 		
 		if(this.getExits().length != 0) {
+			for(Exit e : this.getExits()) {
+				out += "\nAn exit lead to a place called ";
+				out += e.getRoomOmmiting(this).getName();
+			}
+		}else {
 			
+			out += "\nYou are stuck here.";
 		}
 		return out;
-	}
-	
-	private String deCase_ify(String lowerCase, String upperCase) {
-		//TODO exemple : "la muerte", "LA MUERTE" deviens "[l|L][a|A] [m|M][u|U][e|E][r|R][t|T][e|E]"
-		return null;
-	}
-	
-	public String getNameRegex() {
-		return deCase_ify(this.NAME.toLowerCase(), this.NAME.toUpperCase());
-	}
-	
-	public String getExitsRegex() {
-		String exitRegex = null;
-		//TODO
-		//for each exit : getRegexOmmiting(this)
-		return exitRegex;
 	}
 
 	/**Static**/
@@ -170,9 +164,5 @@ public class Place implements Serializable{
 		assert(false);
 		return null;
 	}
-        
-        public static String getRegex() {
-            return null;
-            // TODO
-        }
+
 }

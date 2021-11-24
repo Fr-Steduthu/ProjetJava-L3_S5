@@ -18,6 +18,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 public class Game {
 	
@@ -51,8 +52,13 @@ public class Game {
 						hasFinishedTurn = true;
 						break;
 					case GO:
-						String exit = HMI.read("Choisissez une porte ouverte a passer", current.getExitsRegex());
-						//TODO
+						HMI.message("Choose where to go:");
+						for(Exit e : current.getExits()) {
+							for(Place p1 : e.getRooms()) {
+								HMI.message(p1.getName());
+							}
+						}
+						Game.selectGo(current.getExits());
 						break;
 					case HELP:
 						Command.help();
@@ -86,52 +92,52 @@ public class Game {
 			Game.charactersActions(p, q, current);
 			
 			victoryState = Game.checkWinningConditions(current, q);
-			Game.checkLoosingConditions(q);
+			victoryState = Game.checkLoosingConditions(q);
 		}
 	}
 	
 	/**SELECTORS for commands**/
 	
-    public static Item selectItem(Item[] items) {
-        String item = HMI.read("Select an item. Enter BACK to cancel.");
-        boolean isFound = false;
-        Item toReturn = null;
+	private static Item selectItem(Item[] items) {
+        String item =  HMI.read("Select an item. Enter BACK to cancel.",Regex.regex(items)+"|BACK");
         
-        while (!isFound) {
-            if (item.equals("BACK")) {
-                isFound = true;
-            }
-            for (Item it : items) {
-                if (it.getName().equals(item)) {
-                    toReturn = it;
-                    isFound = true;
-                }
-            }
-            item = HMI.read("Unknown item. Please retry, or type BACK.");
+        if(!item.equals("BACK")) {
+        	
+        	for(Item i : items) {
+        		
+        		if(i.getName().equals(item)) {
+        			return i;
+        			
+        		}
+        	}
         }
-        return toReturn;
+		return null;
     }
     
-    public static Item selectUse(Quest q) {
+    private static Item selectUse(Quest q) {
+    	
         Item[] playerItems = q.getPlayer().getInventory();
+        
         if (playerItems.length == 0) {
             HMI.message("Your inventory is empty.");
             return null;
         }
         
         HMI.message("Choose and item to use.");
+        
         for (Item item : playerItems) {
             HMI.message(item.toString());
         }
         
-        Item selectedItem = selectItem(playerItems);
+        Item selectedItem = null;
         while (selectedItem == null) {
-            selectedItem = selectItem(playerItems);
+            selectedItem = Game.selectItem(playerItems);
         }
+        
         return selectedItem;
     }
     
-    public static Item selectTake(Quest q) {
+    private static Item selectTake(Quest q) {
         Item[] roomItems = q.getPlayer().getLocation().getItems();
         if (roomItems.length == 0) {
             HMI.message("There is nothing you can pickup around here.");
@@ -145,48 +151,42 @@ public class Game {
         
         Item selectedItem = null;
         while (selectedItem == null) {
-            selectedItem = selectItem(roomItems);
+            selectedItem = Game.selectItem(roomItems);
         }
         return selectedItem;
         
     }
     
-    public static Character selectAttack(Quest q){
-        Character toReturn = null;
+    private static Character selectAttack(Quest q){
+        ArrayList<Character> monsterList = new ArrayList<>();
         Character[] roomNpcs = q.getPlayer().getLocation().getNpcs();
+        
         if (roomNpcs.length == 0) {
             HMI.message("There is nothing to satisfy your bloodlust here.");
-            return toReturn;
+            return null;
         }
         
         HMI.message("Monsters in room:");
+        
         for (Character charac : roomNpcs) {
             if (charac instanceof Monster) {
                 HMI.message(charac.toString());
+                monsterList.add(charac);
             }
         }
         
-        String target = HMI.read("Choose an ennemy to attack.");
-        boolean isFound = false;
-        
-        while (!isFound) {
-            for (Character charac : roomNpcs) {
-                if (charac.getName().equals(target)) {
-                    if (charac instanceof Monster) {
-                        toReturn = charac;
-                        isFound = true;
-                    }
-                    else {
-                        HMI.message("Vous ne pouvez pas attaquer un allié !");
-                    }
-                }
+        String target = HMI.read("Choose an ennemy to attack.",Regex.regex((Character[])monsterList.toArray())+"BACK");
+
+        for (Character charac : monsterList) {
+            if (charac.getName().equals(target)) {
+                    return charac;
             }
-            target = HMI.read("Unknown ennemy, pleas retry.");
         }
-        return toReturn;
+    
+    	return null;
     }
     
-    public static Exit selectGo (Quest q) {
+    private static Exit selectGo(Quest q) {
         Exit toReturn = null;
         Exit[] roomDoors = q.getPlayer().getLocation().getExits();
         if (roomDoors.length == 0) {
@@ -196,7 +196,7 @@ public class Game {
         
         HMI.message("Choisissez une porte a passer :");
         for (Exit ex : roomDoors) {
-            System.out.println(ex.getRooms()[1].getName());
+            HMI.message(ex.getRooms()[1].getName());
         }
         
         String target = HMI.read("Please choose a door to go through");
@@ -216,7 +216,7 @@ public class Game {
 
 	/**GAMEPLAY loop fundamental elements**/
     
-	private static boolean checkWinningConditions(Place current, Quest q) {
+	private static Boolean checkWinningConditions(Place current, Quest q) {
 		Object objective = q.getObjectiveObject();
 		if(objective instanceof Place) {
 			if(current == objective) {
@@ -240,7 +240,7 @@ public class Game {
 			}
 		}
 		
-		return false;
+		return null;
 	}
 	
 	private static void charactersActions(Player p, Quest q, Place current) {
@@ -255,15 +255,19 @@ public class Game {
 			}
 		}
 	}
-	private static void checkLoosingConditions(Quest q) {
+	private static Boolean checkLoosingConditions(Quest q) {
 		Player p = q.getPlayer();
 		
 		if(p.getState() == State.DEAD) {
 			Game.end("You lost all hp!", false);
+			return false;
 			
 		}else if(p.getLocation().getExits().length == 0) {
 			Game.end("Dead end found", false);
+			return false;
 		}
+		
+		return null;
 	}
 
 	public static void end(String message, boolean victoryState) {

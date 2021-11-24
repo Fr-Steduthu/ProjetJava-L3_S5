@@ -19,7 +19,9 @@ public final class HMI {
 		HMI.message(message + "\n["+regex+"]");
 		
 		if(input.hasNext(regex)) {
-			return HMI.input.next(regex);
+			String next = input.next(regex);
+			HMI.error("You entered" + next);
+			return next;
 			
 		}else {
 			HMI.input.next();
