@@ -37,7 +37,8 @@ public final class Exit implements Serializable{
 	
 	public String getRegexOmmiting(Place p) {
 		String regex = null;
-		//TODO
+		//TODO renvoie le regex de la salle autre que p passée en argument (exemple :
+		//Salle : la muerte : "[l|L][a|A] [m|M][u|U][e|E][r|R][t|T][e|E]"
 		return regex;
 	}
 

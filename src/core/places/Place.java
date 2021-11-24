@@ -148,6 +148,15 @@ public class Place implements Serializable{
 		return out;
 	}
 	
+	private String deCase_ify(String lowerCase, String upperCase) {
+		//TODO exemple : "la muerte", "LA MUERTE" deviens "[l|L][a|A] [m|M][u|U][e|E][r|R][t|T][e|E]"
+		return null;
+	}
+	
+	public String getNameRegex() {
+		return deCase_ify(this.NAME.toLowerCase(), this.NAME.toUpperCase());
+	}
+	
 	public String getExitsRegex() {
 		String exitRegex = null;
 		//TODO
