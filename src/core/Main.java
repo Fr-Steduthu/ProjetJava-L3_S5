@@ -4,6 +4,8 @@ import core.places.*;
 import custom.quests.SC2;
 import java.io.IOException;
 
+import builtin.TutorialQuest;
+
 public class Main {
 	
 	
@@ -20,8 +22,9 @@ public class Main {
 		
 		@SuppressWarnings("unused")
 		Quest game = new Quest(origin, dungeon, "Corridor", outside);
+		@SuppressWarnings("unused")
 		Quest sc2 = new SC2();
 		
-		Game.start(sc2);
+		Game.start(new TutorialQuest());
 	}
 }

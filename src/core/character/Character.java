@@ -39,38 +39,6 @@ public abstract class Character implements Serializable{
 	protected boolean isLootable = false;
 	protected boolean isAbleToSpeak = false;
 	protected boolean canUseItems = false;
-	
-	protected State currentState = State.ALIVE;
-	
-	//@ParametersAreNonnullByDefault
-	public Character(String name, double maxHP, double maxAbilityRessource, int inventoryCapacity, int equipment_size) {
-		this.NAME = name;
-		this.maxHP = maxHP;
-		this.hp = this.maxHP;
-		this.maxAbilityRessource = maxAbilityRessource;
-		this.ar = this.maxAbilityRessource;
-	}
-
-
-	public final Item[] getInventory() {
-		return this.inventory.getItems();
-	}
-  
-	/*//Utilisee uniquement pour les tests
-	public Inventory getClassInventory() {
-            return this.inventory;
-    }/**/
-	
-	public void hurt(double f) {
-		double temp = this.hp - f + this.armor;
-		if(temp < this.hp) {//On evite les soins par armure trop forte
-			this.hp = temp;
-			if(this.hp < 1) {
-				this.hp = 0;
-				this.currentState = State.DEAD;
-			}
-		}
-	}
 
 	//@ParametersAreNonnullByDefault
 	public Character(String name, double maxHP, double maxAbilityRessource, int inventoryCapacity, int equipment_size) {
@@ -89,6 +57,11 @@ public abstract class Character implements Serializable{
 	public final Item[] getInventory() {
 			return this.inventory.getItems();
 	}
+	
+	/*//Utilisee uniquement pour les tests
+	public Inventory getClassInventory() {
+            return this.inventory;
+    }/**/
 
 	public final Place getLocation() {
 			return this.location;

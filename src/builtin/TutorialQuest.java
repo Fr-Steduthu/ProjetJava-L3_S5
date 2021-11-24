@@ -21,7 +21,7 @@ public class TutorialQuest extends Quest {
 	
 	private static Place origin;
 	private static Place[] dungeon;
-	private static Exit[] links;
+	private static Exit[] links; //Pas utile
 	private static String objective = "Beat the dragon lord";
 	private static Monster objective_object = new WarhammerZombie();
 	
@@ -40,6 +40,19 @@ public class TutorialQuest extends Quest {
 		dungeon[9] = new Place("Aberation's lair");
 		
 		dungeon[9].addNpc(objective_object);
+		
+		links = new Exit[10];
+		
+		links[0] = new Exit(origin, dungeon[1]); // Origine vers Empty room
+		links[1] = new Exit(dungeon[1], dungeon[2]); // Empty room vers Grian's room
+		links[2] = new Exit(dungeon[0], dungeon[7]); // Origin vers RandomNPCRomm
+		links[3] = new Exit(dungeon[7], dungeon[6]); // RandomNPCRoom vers RandomItemRoom
+		links[4] = new Exit(dungeon[7], dungeon[5]); // RandomNPCRoom vers RandomMonsterRoom
+		links[5] = new Exit(dungeon[5], dungeon[8]); // RandomMonsterRoom vers RandomBossRoom
+		links[6] = new Exit(dungeon[8], dungeon[9]); // RandomBossRoom vers BossRoom
+		links[6].removeFrom(dungeon[9]); // One way
+		links[7] = new Exit(dungeon[8], dungeon[3]); //RandomBossRoom vers SentinelRoom
+		links[8] = new Exit(dungeon[3], dungeon[4]); //SentinelRoom vers ItemRoom
 	}
 
 	public TutorialQuest() {

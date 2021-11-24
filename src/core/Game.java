@@ -18,27 +18,24 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.List;
+import java.util.ArrayList;
 
 public class Game {
-	/*public Game(Player p1, Quest quest) {
-		
-		this.mainloop(p1, quest);
-	}*/
-
+	
 	public static void start(Quest q) throws IOException{
 		Object destination = q.getObjectiveObject();
 		Place current = q.getStartingPoint();
 		Player p = q.getPlayer();
 				
-				boolean hasQuitted = false;
+		boolean hasQuitted = false;
 		
 		//final String message;
 		Boolean victoryState = null;
 		
 		while(current !=  destination && victoryState == null && hasQuitted == false) {
 
-			HMI.message("\n\nUn nouveau tour commence : choisissez une action à effectuer.");
+			HMI.clear();
+			HMI.message("It's your turn; what do you do?");
 			
 			//Affichage
 		
@@ -55,8 +52,13 @@ public class Game {
 						hasFinishedTurn = true;
 						break;
 					case GO:
-						String exit = HMI.read("Choisissez une porte ouverte a passer", current.getExitsRegex());
-						//TODO
+						HMI.message("Choose where to go:");
+						for(Exit e : current.getExits()) {
+							for(Place p1 : e.getRooms()) {
+								HMI.message(p1.getName());
+							}
+						}
+						Game.selectGo(current.getExits());
 						break;
 					case HELP:
 						Command.help();
@@ -82,7 +84,7 @@ public class Game {
 						//TODO
 						break;
 					default:
-						HMI.error("Game.start() -> unknown Command value -> no behavior defined -> please try again");
+						HMI.error("Game.start() -> unknown Command -> no behavior defined -> please try again");
 						break;
 				}
 			}
@@ -90,12 +92,131 @@ public class Game {
 			Game.charactersActions(p, q, current);
 			
 			victoryState = Game.checkWinningConditions(current, q);
-			Game.checkLoosingConditions(q);
+			victoryState = Game.checkLoosingConditions(q);
 		}
-		HMI.input.close();
 	}
 	
-	private static boolean checkWinningConditions(Place current, Quest q) {
+	/**SELECTORS for commands**/
+	
+	private static Item selectItem(Item[] items) {
+        String item =  HMI.read("Select an item. Enter BACK to cancel.",Regex.regex(items)+"|BACK");
+        
+        if(!item.equals("BACK")) {
+        	
+        	for(Item i : items) {
+        		
+        		if(i.getName().equals(item)) {
+        			return i;
+        			
+        		}
+        	}
+        }
+		return null;
+    }
+    
+    private static Item selectUse(Quest q) {
+    	
+        Item[] playerItems = q.getPlayer().getInventory();
+        
+        if (playerItems.length == 0) {
+            HMI.message("Your inventory is empty.");
+            return null;
+        }
+        
+        HMI.message("Choose and item to use.");
+        
+        for (Item item : playerItems) {
+            HMI.message(item.toString());
+        }
+        
+        Item selectedItem = null;
+        while (selectedItem == null) {
+            selectedItem = Game.selectItem(playerItems);
+        }
+        
+        return selectedItem;
+    }
+    
+    private static Item selectTake(Quest q) {
+        Item[] roomItems = q.getPlayer().getLocation().getItems();
+        if (roomItems.length == 0) {
+            HMI.message("There is nothing you can pickup around here.");
+            return null;
+        }
+        
+        HMI.message("Choose and item to pick u.p");
+        for (Item item : roomItems) {
+            HMI.message(item.toString());
+        }
+        
+        Item selectedItem = null;
+        while (selectedItem == null) {
+            selectedItem = Game.selectItem(roomItems);
+        }
+        return selectedItem;
+        
+    }
+    
+    private static Character selectAttack(Quest q){
+        ArrayList<Character> monsterList = new ArrayList<>();
+        Character[] roomNpcs = q.getPlayer().getLocation().getNpcs();
+        
+        if (roomNpcs.length == 0) {
+            HMI.message("There is nothing to satisfy your bloodlust here.");
+            return null;
+        }
+        
+        HMI.message("Monsters in room:");
+        
+        for (Character charac : roomNpcs) {
+            if (charac instanceof Monster) {
+                HMI.message(charac.toString());
+                monsterList.add(charac);
+            }
+        }
+        
+        String target = HMI.read("Choose an ennemy to attack.",Regex.regex((Character[])monsterList.toArray())+"BACK");
+
+        for (Character charac : monsterList) {
+            if (charac.getName().equals(target)) {
+                    return charac;
+            }
+        }
+    
+    	return null;
+    }
+    
+    private static Exit selectGo(Quest q) {
+        Exit toReturn = null;
+        Exit[] roomDoors = q.getPlayer().getLocation().getExits();
+        if (roomDoors.length == 0) {
+            HMI.message("You have found a dead-end.");
+            return toReturn;
+        }
+        
+        HMI.message("Choisissez une porte a passer :");
+        for (Exit ex : roomDoors) {
+            HMI.message(ex.getRooms()[1].getName());
+        }
+        
+        String target = HMI.read("Please choose a door to go through");
+        boolean isFound = false;
+        
+        while (!isFound) {
+            for (Exit ex : roomDoors) {
+                if (ex.getRooms()[1].getName().equals(target)) {
+                    toReturn = ex;
+                    isFound = true;
+                }
+            }
+            target = HMI.read("Unknown room. Please retry");
+        }
+        return toReturn;
+    }
+
+	/**GAMEPLAY loop fundamental elements**/
+    
+	private static Boolean checkWinningConditions(Place current, Quest q) {
 		Object objective = q.getObjectiveObject();
 		if(objective instanceof Place) {
 			if(current == objective) {
@@ -119,9 +240,9 @@ public class Game {
 			}
 		}
 		
-		return false;
+		return null;
 	}
-
+	
 	private static void charactersActions(Player p, Quest q, Place current) {
 		for(Character c : current.getNpcs()) {
 			if(c.getHP() <= 0 && c.getState() != State.DEAD) {
@@ -134,29 +255,52 @@ public class Game {
 			}
 		}
 	}
-	private static void checkLoosingConditions(Quest q) {
-			Player p = q.getPlayer();
+	private static Boolean checkLoosingConditions(Quest q) {
+		Player p = q.getPlayer();
+		
 		if(p.getState() == State.DEAD) {
 			Game.end("You lost all hp!", false);
+			return false;
+			
 		}else if(p.getLocation().getExits().length == 0) {
 			Game.end("Dead end found", false);
+			return false;
 		}
+		
+		return null;
 	}
 
 	public static void end(String message, boolean victoryState) {
+		
 		if(victoryState) {
 			HMI.message("Congratulations, you have won");
+			
 		}else {
+			
 			HMI.message("Aw, you lost. How sad.");
 		}
-		HMI.message(message);
 		
+		HMI.message(message);
+
+		try {
+			Thread.sleep(10);
+		} catch (InterruptedException e) {
+			//e.printStackTrace();
+			//Le sleep n'est pas important mais agreable pour pouvoir lire le message
+		}
+		
+		HMI.input.close();
+		//HMI.output.close(); //On laisse a l'utilisateur le soin de fermer le jeu (System.out en ce moment)
+		HMI.errorOutput.close();
 	}
 	
 	/*
 	 * http://blog.paumard.org/cours/java/chap10-entrees-sorties-serialization.html
-	 * Guide pour la s�rialization
+	 * Guide pour la serialization
 	 */
+	
+	/**SAVING OF GAME**/
+	
 	public static void save(Quest q) throws IOException {
 		String path = "saves/";
 		String saveName = "savegame_" + q.getClass().getSimpleName() + ".qa_sav";
@@ -175,130 +319,4 @@ public class Game {
 			}
 		Game.start(q_loadedSave);
 	}
-        
-        public static Item selectItem(Item[] items) {
-            HMI.message("Entrez 'Aucun' pour ne pas selectionner d'objet");
-            String item = HMI.read();
-            boolean isFound = false;
-            Item toReturn = null;
-            
-            while (!isFound) {
-                if (item.equals("Aucun")) {
-                    isFound = true;
-                }
-                for (Item it : items) {
-                    if (it.getName().equals(item)) {
-                        toReturn = it;
-                        isFound = true;
-                    }
-                }
-                HMI.message("Object inconnu. Veuillez réessayer, ou entrer 'Aucun'");
-                item = HMI.read();
-            }
-            return toReturn;
-        }
-        
-        public static Item selectUse(Quest q) {
-            Item[] playerItems = q.getPlayer().getInventory();
-            if (playerItems.length == 0) {
-                HMI.message("Votre inventaire est vide !");
-                return null;
-            }
-            
-            HMI.message("Choisissez un objet à utiliser parmi ceux de votre inventaire :");
-            for (Item item : playerItems) {
-                System.out.println(item.toString());
-            }
-            
-            Item selectedItem = selectItem(playerItems);
-            while (selectedItem == null) {
-                selectedItem = selectItem(playerItems);
-            }
-            return selectedItem;
-        }
-        
-        public static Item selectTake(Quest q) {
-            Item[] roomItems = q.getPlayer().getLocation().getItems();
-            if (roomItems.length == 0) {
-                HMI.message("Il n'y a rien à ramasser ici !");
-                return null;
-            }
-            
-            HMI.message("Choisissez un objet à ramasser parmi ceux de la salle :");
-            for (Item item : roomItems) {
-                System.out.println(item.toString());
-            }
-            
-            Item selectedItem = selectItem(roomItems);
-            while (selectedItem == null) {
-                selectedItem = selectItem(roomItems);
-            }
-            return selectedItem;
-            
-        }
-        
-        public static Character selectAttack(Quest q){
-            Character toReturn = null;
-            Character[] roomNpcs = q.getPlayer().getLocation().getNpcs();
-            if (roomNpcs.length == 0) {
-                HMI.message("Il n'y a rien à attaquer ici !");
-                return toReturn;
-            }
-            
-            HMI.message("Choisissez un ennemi à attaquer parmi ceux de la salle :");
-            for (Character charac : roomNpcs) {
-                if (charac instanceof Monster) {
-                    System.out.println(charac.toString());
-                }
-            }
-            
-            String target = HMI.read();
-            boolean isFound = false;
-            
-            while (!isFound) {
-                for (Character charac : roomNpcs) {
-                    if (charac.getName().equals(target)) {
-                        if (charac instanceof Monster) {
-                            toReturn = charac;
-                            isFound = true;
-                        }
-                        else {
-                            HMI.message("Vous ne pouvez pas attaquer un allié !");
-                        }
-                    }
-                }
-                HMI.message("Ennemi inconnu. Veuillez réessayer.");
-                target = HMI.read();
-            }
-            return toReturn;
-        }
-        
-        public static Exit selectGo (Quest q) {
-            Exit toReturn = null;
-            Exit[] roomDoors = q.getPlayer().getLocation().getExits();
-            if (roomDoors.length == 0) {
-                HMI.message("Vous etes dans un cul-de-sac !");
-                return toReturn;
-            }
-            
-            HMI.message("Choisissez une porte a passer :");
-            for (Exit ex : roomDoors) {
-                System.out.println(ex.getRooms()[1].getName());
-            }
-            
-            String target = HMI.read();
-            boolean isFound = false;
-            
-            while (!isFound) {
-                for (Exit ex : roomDoors) {
-                    if (ex.getRooms()[1].getName().equals(target)) {
-                        toReturn = ex;
-                        isFound = true;
-                    }
-                }
-                HMI.message("Salle inconnue. Veuillez réessayer.");
-                target = HMI.read();
-            }
-            return toReturn;
-        }
 }

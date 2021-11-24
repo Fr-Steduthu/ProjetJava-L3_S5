@@ -10,8 +10,13 @@ public class RandomBossRoom extends Place implements RandomlyPlacedMobs {
 
 	private static final long serialVersionUID = -8316330490139428100L;
 
-	public RandomBossRoom(){
+	public RandomBossRoom() {
 		super("Hell's boiler room");
+		this.addNpc(this.getRandomMonster());
+	
+	}
+	public RandomBossRoom(String name){
+		super(name);
 		this.addNpc(this.getRandomMonster());
 	}
 

@@ -1,16 +1,27 @@
 package hmi;
 
+import java.io.PrintStream;
 import java.util.Scanner;
 
 public final class HMI {
-	public static Scanner input = new Scanner(System.in);
+	public static Scanner input;
+	public static PrintStream output;
+	public static PrintStream errorOutput;
+	
+	static {
+		HMI.input = new Scanner(System.in);
+		HMI.output = System.out;
+		HMI.errorOutput = System.err;
+	}
 	
 	public static String read(String message, String regex) {
 		
 		HMI.message(message + "\n["+regex+"]");
 		
 		if(input.hasNext(regex)) {
-			return HMI.input.next(regex);
+			String next = input.next(regex);
+			HMI.error("You entered" + next);
+			return next;
 			
 		}else {
 			HMI.input.next();
@@ -39,11 +50,15 @@ public final class HMI {
 		return HMI.read(message, "y|n").equals("y");
 	}
 
+	public static void clear() {
+		//TODO ? Esce-ce seulement possible ? https://stackoverflow.com/questions/2979383/how-to-clear-the-console
+	}
+	
 	public static void message(String message) {
-            System.out.println(message);
+            HMI.output.println(message);
 	}
 	
 	public static void error(String message) {
-            System.err.println(message);
+            HMI.errorOutput.println(message);
 	}
 }
