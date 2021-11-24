@@ -33,12 +33,15 @@ public final class Regex {
 	/**Static methods**/
 	
 	public static String regex(String stringToRegexify) {
-		//Exemple : "la muerte" deviens "[l|L][a|A] [m|M][u|U][e|E][r|R][t|T][e|E]"
+		//Exemple : "la muerte" deviens "[lL][aA] [mM][uU][eE][rR][tT][eE]"
 		if(stringToRegexify.isEmpty()){
 			return "";
 			
+		}else if(stringToRegexify.charAt(0) == ' ') {
+			return " "+regex(stringToRegexify.substring(1)); // ne marche pas avec [ ]
+		
 		}else {
-			return "["+stringToRegexify.toLowerCase().charAt(0)+stringToRegexify.toUpperCase().charAt(0)+"]"+regex(stringToRegexify.substring(0));
+			return "["+stringToRegexify.toLowerCase().charAt(0)+stringToRegexify.toUpperCase().charAt(0)+"]"+regex(stringToRegexify.substring(1));
 		}
 	}
 	
@@ -48,7 +51,7 @@ public final class Regex {
 			regex += "|" + regex(s);
 		}
 		
-		return regex;
+		return regex.substring(1);
 	}
 	
 	public static String regex(Character e) {
@@ -61,13 +64,14 @@ public final class Regex {
 	
 	public static String regex(Exit e, Place placeToOmmit) {
 		String regex = "";
+		
 		for(Place p : e.getRooms()) {
-			if(p == placeToOmmit) {
+			if(p != placeToOmmit) {
 				regex += "|" + regex(p.getName());
 			}
 		}
 		
-		return regex;
+		return regex.substring(1);
 	}
 	
 	public static String regex(Item e) {
@@ -83,7 +87,7 @@ public final class Regex {
 		for(Character c : e) {
 			regex += "|" + Regex.regex(c);
 		}
-		return regex;
+		return regex.substring(1);
 	}
 	
 	public static String regex(Place[] e) {
@@ -92,7 +96,7 @@ public final class Regex {
 		for(Place c : e) {
 			regex += "|" + Regex.regex(c);
 		}
-		return regex;
+		return regex.substring(1);
 	}
 	
 	public static String regex(Exit[] e, Place placeToOmmit) {
@@ -101,7 +105,7 @@ public final class Regex {
 		for(Exit c : e) {
 			regex += "|" + Regex.regex(c, placeToOmmit);
 		}
-		return regex;
+		return regex.substring(1);
 	}
 	
 	public static String regex(Item[] e) {
@@ -110,6 +114,6 @@ public final class Regex {
 		for(Item c : e) {
 			regex += "|" + Regex.regex(c);
 		}
-		return regex;
+		return regex.substring(1);
 	}
 }

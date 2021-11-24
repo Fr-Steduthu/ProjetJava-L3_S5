@@ -30,12 +30,13 @@ public class Place implements Serializable{
 		}else {
 			this.hasBeenFilled = true;
                         
-                        itemList.forEach(i -> {
-                            this.itemList.add(i);
-                        });
-                        npcList.forEach(c -> {
-                            this.npcList.add(c);
-                        });
+            itemList.forEach(i -> {
+                this.itemList.add(i);
+            });
+            
+            npcList.forEach(c -> {
+                this.npcList.add(c);
+            });
 		}
 	}
 	
@@ -54,10 +55,12 @@ public class Place implements Serializable{
 	
 	public final void addNpc(Character npc) {
 		this.npcList.add(npc);
+		npc.setLocation(this);
 	}
 	
 	public final void removeNpc(Character npc) {
 		this.npcList.remove(npc);
+		npc.setLocation(this);
 	}
 	
 	/**ITEMS**/
@@ -112,6 +115,7 @@ public class Place implements Serializable{
 	}
 
 	/**MISC**/
+	
 	public final String getName() {
 		return this.NAME;
 	}
@@ -123,27 +127,30 @@ public class Place implements Serializable{
 		
 		//Characters
 		if(this.getNpcs().length != 0) {
-			out += "\nYou can see creatures :\n";
+			out += "\n\n---Creatures---\n";
 			for(Character c : this.getNpcs()) {
-                            if(c instanceof Monster) {
-                                        out += "\t[Monster] ";
-                            }else {
-                                        out += "\t[NPC]     ";
-                            }
-                            out += c.getName() + "\n";
-                            }
+				if(c.getHP() > 0) {
+	                if(c instanceof Monster) {
+	                	out += "\t[Monster] ";
+	                }else {
+	                    out += "\t[NPC]     ";
+	                }
+	                out += c.getName() + "\n";
+				}
+			}
 		}else {
-			out += "\nThere is no soul around here.";
+			out += "\n\nThere is no soul around here.";
 		}
+		
 		//items
 		if(this.getItems().length != 0) {
-			out += "\nYou can see something in the room\n";
+			out += "\n\nYou can see something in the room\n";
 			
 			for(Item i : this.getItems()) {
 				out += "\t" + i.getName() + "\n";
 			}
 		}else {
-			out += "\nYou can't see anything valuable around.";
+			out += "\n\nYou can't see anything valuable around.";
 		}
 		
 		if(this.getExits().length != 0) {

@@ -8,30 +8,38 @@ public final class HMI {
 	public static PrintStream output;
 	public static PrintStream errorOutput;
 	
+	private static String inputDelimiter = "[\\t\\n\\x0B\\f\\r]";
+	
 	static {
-		HMI.input = new Scanner(System.in);
+		HMI.input = new Scanner(System.in).useDelimiter(HMI.inputDelimiter);
+		
 		HMI.output = System.out;
 		HMI.errorOutput = System.err;
 	}
 	
 	public static String read(String message, String regex) {
-		
-		HMI.message(message + "\n["+regex+"]");
-		
-		if(input.hasNext(regex)) {
-			String next = input.next(regex);
-			HMI.error("You entered" + next);
-			return next;
+			//HMI.error(regex);
+			HMI.message(message);
 			
-		}else {
-			HMI.input.next();
-			return HMI.read(message, regex);
-		}
+			if(input.hasNext(regex)) {
+				String res = input.next(regex);
+				if(res.equals("\n")) {
+					return HMI.read(message, regex);
+				}
+				return res;
+				
+			}else {
+				HMI.error(HMI.input.next());
+				HMI.message("An error has occured, please, try again.");
+				return HMI.read(message, regex);
+			}
 		
 	}
 	
-	public static String read(String message) {
-		String cmd = null;
+	public static String readCommand(String message) {
+		/*String cmd = null;
+		HMI.message(message);
+		HMI.error(Command.getRegex());
 		
 		if(HMI.input.hasNext(Command.getRegex())) {
 			cmd = HMI.input.next(Command.getRegex());
@@ -43,11 +51,12 @@ public final class HMI {
 			HMI.input.next();
 			cmd = HMI.read(message);
 		}
-		return cmd;
+		return cmd;*/
+		return HMI.read(message, Command.getRegex());
 	}
 	
 	public static boolean confirm(String message) {
-		return HMI.read(message, "y|n").equals("y");
+		return HMI.read(message+"[y|n]", "y|n").equals("y");
 	}
 
 	public static void clear() {

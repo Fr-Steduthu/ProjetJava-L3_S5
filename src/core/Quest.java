@@ -24,35 +24,47 @@ public class Quest implements Serializable{
 		//this.objective_object = this.dungeon[this.dungeon.length-1];
 	}*/
 	 //@ParametersAreNonNullByDefault
-	public Quest(Place origin, Place[] dungeon, String objective, Monster objective_object) {
+	public Quest(Player p, Place origin, Place[] dungeon, String objective, Monster objective_object) {
 		this.origin = origin;
+		this.player = p;
 		this.dungeon = dungeon;
 		this.objective = objective;
 		this.objective_object = objective_object;
+		
+		this.player.setLocation(origin);
 	}
 	
 	 //@ParametersAreNonNullByDefault
-	public Quest(Place origin, Place[] dungeon, String objective, Item objective_object) {
+	public Quest(Player p, Place origin, Place[] dungeon, String objective, Item objective_object) {
 		this.origin = origin;
+		this.player = p;
 		this.dungeon = dungeon;
 		this.objective = objective;
 		this.objective_object = objective_object;
+		
+		this.player.setLocation(origin);
 	}
 	
 	//@ParametersAreNonNullByDefault
-	public Quest(Place origin, Place[] dungeon, String objective, NPC objective_object) {
+	public Quest(Player p, Place origin, Place[] dungeon, String objective, NPC objective_object) {
 		this.origin = origin;
+		this.player = p;
 		this.dungeon = dungeon;
 		this.objective = objective;
 		this.objective_object = objective_object;
+		
+		this.player.setLocation(origin);
 	}
 
 	//@ParametersAreNonNullByDefault
-	public Quest(Place origin, Place[] dungeon, String objective, Place objective_object) {
+	public Quest(Player p, Place origin, Place[] dungeon, String objective, Place objective_object) {
 		this.origin = origin;
+		this.player = p;
 		this.dungeon = dungeon;
 		this.objective = objective;
 		this.objective_object = objective_object;
+		
+		this.player.setLocation(origin);
 	}
 	
 	public String getObjective() {

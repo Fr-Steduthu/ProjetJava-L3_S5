@@ -1,5 +1,6 @@
 package core;
 
+import core.character.Player;
 import core.places.*;
 import custom.quests.SC2;
 import java.io.IOException;
@@ -21,7 +22,7 @@ public class Main {
 		Place[] dungeon = {origin, outside};
 		
 		@SuppressWarnings("unused")
-		Quest game = new Quest(origin, dungeon, "Corridor", outside);
+		Quest game = new Quest(new Player("You"), origin, dungeon, "Corridor", outside);
 		@SuppressWarnings("unused")
 		Quest sc2 = new SC2();
 		

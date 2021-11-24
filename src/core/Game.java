@@ -33,9 +33,8 @@ public class Game {
 		Boolean victoryState = null;
 		
 		while(current !=  destination && victoryState == null && hasQuitted == false) {
-
+			
 			HMI.clear();
-			HMI.message("It's your turn; what do you do?");
 			
 			//Affichage
 		
@@ -43,22 +42,33 @@ public class Game {
 			boolean hasFinishedTurn = false;
 			while (hasFinishedTurn == false) {
 				
-				Command action = Command.toCommand(HMI.read("Please enter wanted action"));
+				Command action = Command.toCommand(HMI.read("Please enter wanted action", Command.getRegex()));
 				//Command action = Command.toCommand(commandLine[0]);
 				
 				switch(action) {
 					case ATTACK:
-						HMI.read("Choisissez une cible a attaquer :\n");
+						HMI.read("Choisissez une cible a attaquer :\n","");//TODO FIX
 						hasFinishedTurn = true;
 						break;
-					case GO:
+					case GO:/*
 						HMI.message("Choose where to go:");
 						for(Exit e : current.getExits()) {
-							for(Place p1 : e.getRooms()) {
-								HMI.message(p1.getName());
+							HMI.message(e.getRoomOmmiting(current).getName());
+						}*/
+						
+						String chosenRoom = HMI.read("What room do you want to go in?", Regex.regex(current.getExits(), current)+"|"+Regex.regex("back")); //Game.message(current.getExits());
+						
+						if(!chosenRoom.toLowerCase().equals("back")) {
+							for(Exit e : current.getExits()) {
+								if(chosenRoom.toLowerCase().equals(e.getRoomOmmiting(current).getName().toLowerCase())){
+									current = e.getRoomOmmiting(current);
+									p.setLocation(e.getRoomOmmiting(current));
+								}
 							}
+						
+						Game.charactersActions(q); //Penaliser la fuite contre des monstres
+						hasFinishedTurn = true;
 						}
-						Game.selectGo(current.getExits());
 						break;
 					case HELP:
 						Command.help();
@@ -89,7 +99,7 @@ public class Game {
 				}
 			}
 			
-			Game.charactersActions(p, q, current);
+			Game.charactersActions(q);
 			
 			victoryState = Game.checkWinningConditions(current, q);
 			victoryState = Game.checkLoosingConditions(q);
@@ -185,34 +195,6 @@ public class Game {
     
     	return null;
     }
-    
-    private static Exit selectGo(Quest q) {
-        Exit toReturn = null;
-        Exit[] roomDoors = q.getPlayer().getLocation().getExits();
-        if (roomDoors.length == 0) {
-            HMI.message("You have found a dead-end.");
-            return toReturn;
-        }
-        
-        HMI.message("Choisissez une porte a passer :");
-        for (Exit ex : roomDoors) {
-            HMI.message(ex.getRooms()[1].getName());
-        }
-        
-        String target = HMI.read("Please choose a door to go through");
-        boolean isFound = false;
-        
-        while (!isFound) {
-            for (Exit ex : roomDoors) {
-                if (ex.getRooms()[1].getName().equals(target)) {
-                    toReturn = ex;
-                    isFound = true;
-                }
-            }
-            target = HMI.read("Unknown room. Please retry");
-        }
-        return toReturn;
-    }
 
 	/**GAMEPLAY loop fundamental elements**/
     
@@ -243,15 +225,17 @@ public class Game {
 		return null;
 	}
 	
-	private static void charactersActions(Player p, Quest q, Place current) {
+	private static void charactersActions(Quest q) {
+		Place current = q.getPlayer().getLocation();
+		
 		for(Character c : current.getNpcs()) {
 			if(c.getHP() <= 0 && c.getState() != State.DEAD) {
-				c.onDeath(q, p);
+				c.onDeath(q);
 				c.setState(State.DEAD);
 			}
 			
 			if(c instanceof Monster && c.getState() != State.STUNNED) {
-				c.attack(p);
+				c.attack(q.getPlayer());
 			}
 		}
 	}
@@ -263,7 +247,8 @@ public class Game {
 			return false;
 			
 		}else if(p.getLocation().getExits().length == 0) {
-			Game.end("Dead end found", false);
+			HMI.message("Dead end found");
+			//Game.end("Dead end found", false);
 			return false;
 		}
 		

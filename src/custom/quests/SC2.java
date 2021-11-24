@@ -2,6 +2,7 @@ package custom.quests;
 
 import core.Quest;
 import core.character.Monster;
+import core.character.Player;
 import core.places.Place;
 import custom.characters.monsters.Infestator;
 
@@ -27,7 +28,7 @@ public class SC2 extends Quest {
 	}
 	
 	public SC2() {
-		super(SC2.origin, SC2.dungeon, "Kill the Infestator", SC2.objective_object);
+		super(new Player("Stukof") ,SC2.origin, SC2.dungeon, "Kill the Infestator", SC2.objective_object);
 	}
 
 }
