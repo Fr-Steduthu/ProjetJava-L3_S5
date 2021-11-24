@@ -40,10 +40,10 @@ public final class HMI {
 	}
 
 	public static void message(String message) {
-		System.out.println(message);
+            System.out.println(message);
 	}
 	
 	public static void error(String message) {
-		System.err.println(message);
+            System.err.println(message);
 	}
 }
