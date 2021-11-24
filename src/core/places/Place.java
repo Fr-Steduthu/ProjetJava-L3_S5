@@ -30,12 +30,13 @@ public class Place implements Serializable{
 		}else {
 			this.hasBeenFilled = true;
                         
-                        itemList.forEach(i -> {
-                            this.itemList.add(i);
-                        });
-                        npcList.forEach(c -> {
-                            this.npcList.add(c);
-                        });
+            itemList.forEach(i -> {
+                this.itemList.add(i);
+            });
+            
+            npcList.forEach(c -> {
+                this.npcList.add(c);
+            });
 		}
 	}
 	
@@ -126,18 +127,21 @@ public class Place implements Serializable{
 		
 		//Characters
 		if(this.getNpcs().length != 0) {
-			out += "\n\nYou can see creatures :\n";
+			out += "\n\n---Creatures---\n";
 			for(Character c : this.getNpcs()) {
-                            if(c instanceof Monster) {
-                            	out += "\t[Monster] ";
-                            }else {
-                                out += "\t[NPC]     ";
-                            }
-                            	out += c.getName() + "\n";
-                            }
+				if(c.getHP() > 0) {
+	                if(c instanceof Monster) {
+	                	out += "\t[Monster] ";
+	                }else {
+	                    out += "\t[NPC]     ";
+	                }
+	                out += c.getName() + "\n";
+				}
+			}
 		}else {
 			out += "\n\nThere is no soul around here.";
 		}
+		
 		//items
 		if(this.getItems().length != 0) {
 			out += "\n\nYou can see something in the room\n";

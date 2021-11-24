@@ -8,26 +8,32 @@ public final class HMI {
 	public static PrintStream output;
 	public static PrintStream errorOutput;
 	
+	private static String inputDelimiter = "[\\t\\n\\x0B\\f\\r]";
+	
 	static {
-		HMI.input = new Scanner(System.in);
+		HMI.input = new Scanner(System.in).useDelimiter(HMI.inputDelimiter);
+		
 		HMI.output = System.out;
 		HMI.errorOutput = System.err;
 	}
 	
 	public static String read(String message, String regex) {
-
-		HMI.error(regex);
-		HMI.message(message);
-		
-		if(input.hasNext(regex)) {
-			return input.next(regex);
+			//HMI.error(regex);
+			HMI.message(message);
 			
-		}else {
-			String err = HMI.input.next();
-			HMI.error("You entered " + err);
-			HMI.message("An error has occured, please, try again.");
-			return HMI.read(message, regex);
-		}
+			if(input.hasNext(regex)) {
+				String res = input.next(regex);
+				if(res.equals("\n")) {
+					return HMI.read(message, regex);
+				}
+				return res;
+				
+			}else {
+				HMI.error(HMI.input.next());
+				HMI.message("An error has occured, please, try again.");
+				return HMI.read(message, regex);
+			}
+		
 	}
 	
 	public static String readCommand(String message) {

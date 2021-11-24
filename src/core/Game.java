@@ -50,23 +50,25 @@ public class Game {
 						HMI.read("Choisissez une cible a attaquer :\n","");//TODO FIX
 						hasFinishedTurn = true;
 						break;
-					case GO:
+					case GO:/*
 						HMI.message("Choose where to go:");
 						for(Exit e : current.getExits()) {
 							HMI.message(e.getRoomOmmiting(current).getName());
-						}
+						}*/
 						
-						String chosenRoom = HMI.read("Choose where to go", Regex.regex(current.getExits(), current)); //Game.message(current.getExits());
+						String chosenRoom = HMI.read("What room do you want to go in?", Regex.regex(current.getExits(), current)+"|"+Regex.regex("back")); //Game.message(current.getExits());
 						
-						for(Exit e : current.getExits()) {
-							if(chosenRoom.equals(e.getRoomOmmiting(current).getName())){
-								current = e.getRoomOmmiting(current);
-								p.setLocation(current);
+						if(!chosenRoom.toLowerCase().equals("back")) {
+							for(Exit e : current.getExits()) {
+								if(chosenRoom.toLowerCase().equals(e.getRoomOmmiting(current).getName().toLowerCase())){
+									current = e.getRoomOmmiting(current);
+									p.setLocation(e.getRoomOmmiting(current));
+								}
 							}
-						}
 						
 						Game.charactersActions(q); //Penaliser la fuite contre des monstres
 						hasFinishedTurn = true;
+						}
 						break;
 					case HELP:
 						Command.help();
@@ -192,31 +194,6 @@ public class Game {
         }
     
     	return null;
-    }
-    
-    private static Exit selectGo(Quest q) {
-        Exit toReturn = null;
-        Exit[] roomDoors = q.getPlayer().getLocation().getExits();
-        
-        if (roomDoors.length == 0) {
-            HMI.message("You have found a dead end.");
-            return toReturn;
-        }
-        
-        HMI.message("Choisissez une porte a passer :");
-        for (Exit ex : roomDoors) {
-            HMI.message(ex.getRooms()[1].getName()); //TODO a refaire
-        }
-        
-        String target = HMI.read("Please choose a door to go through", null); //TODO
-        
-        for (Exit ex : roomDoors) {
-            if (ex.getRooms()[1].getName().equals(target)) {
-                return ex;
-            }
-        }
-        
-        return toReturn;
     }
 
 	/**GAMEPLAY loop fundamental elements**/
