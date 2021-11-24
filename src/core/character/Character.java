@@ -38,16 +38,16 @@ public abstract class Character implements Serializable{
 	
 	protected boolean isLootable = false;
 	protected boolean isAbleToSpeak = false;
-        protected boolean canUseItems = false;
+	protected boolean canUseItems = false;
 	
 	
 	//@ParametersAreNonnullByDefault
 	public Character(String name, double maxHP, double maxAbilityRessource, int inventoryCapacity, int equipment_size) {
 		this.NAME = name;
 		this.maxHP = maxHP;
-                this.hp = this.maxHP;
+		this.hp = this.maxHP;
 		this.maxAbilityRessource = maxAbilityRessource;
-                this.ar = this.maxAbilityRessource;
+		this.ar = this.maxAbilityRessource;
 
 		this.inventory = new Inventory(this, inventoryCapacity, equipment_size);
 	}
@@ -60,10 +60,10 @@ public abstract class Character implements Serializable{
 	public final Item[] getInventory() {
 		return this.inventory.getItems();
 	}
-        
-        public Inventory getClassInventory() {
-                return this.inventory;
-        }
+	/*//Utilisee uniquement pour les tests
+	public Inventory getClassInventory() {
+            return this.inventory;
+    }/**/
 
 	public final Place getLocation() {
 		return this.location;

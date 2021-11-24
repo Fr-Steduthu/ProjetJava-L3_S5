@@ -51,13 +51,17 @@ public class Place implements Serializable{
                 } catch (ArrayIndexOutOfBoundsException e) {}
                 return characters;
 	}
+	
 	public final void addNpc(Character npc) {
 		this.npcList.add(npc);
 	}
+	
 	public final void removeNpc(Character npc) {
 		this.npcList.remove(npc);
 	}
+	
 	/**ITEMS**/
+	
 	public final Item[] getItems() {
                 Item[] items = new Item[this.itemList.size()];
                 int cmpt = 0;
@@ -78,11 +82,12 @@ public class Place implements Serializable{
 	}
 	
 	/**Exits**/
+	
 	public final void addExit(Exit c) {
 		this.exits.add(c);
 	}
 	public final void removeExit(Exit e) {
-		this.exits.remove(e); // pas de check si null car verifie dans ArrayList.remove()
+		this.exits.remove(e); // pas de check si n'est pas dedans car verifie dans ArrayList.remove()
 	}
 	
 	public final Exit[] getExits() {
@@ -141,6 +146,13 @@ public class Place implements Serializable{
 			
 		}
 		return out;
+	}
+	
+	public String getExitsRegex() {
+		String exitRegex = null;
+		//TODO
+		//for each exit : getRegexOmmiting(this)
+		return exitRegex;
 	}
 
 	/**Static**/

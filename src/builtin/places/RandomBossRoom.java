@@ -1,10 +1,10 @@
 package builtin.places;
 
+import builtin.characters.monsters.Sentinel;
+import builtin.characters.monsters.WarhammerZombie;
 import core.character.Monster;
 import core.places.Place;
 import core.places.RandomlyPlacedMobs;
-import custom.characters.monsters.Sentinel;
-import custom.characters.monsters.WarhammerZombie;
 
 public class RandomBossRoom extends Place implements RandomlyPlacedMobs {
 
