@@ -4,7 +4,8 @@ public enum Command {
 	GO, HELP, LOOK, ATTACK, TAKE, USE, QUIT, BACK;
     
     public static String getRegex() {
-    	return "GO|HELP|LOOK|ATTACK|TAKE|USE|QUIT|BACK";
+    	String[] commands = {"go", "attack", "help", "look", "quit", "take", "use", "back"};
+    	return Regex.regex(commands);
     }
         
 	@Override
@@ -32,7 +33,7 @@ public enum Command {
 	}
         
     public static Command toCommand(String cmd) {
-        switch(cmd) {
+        switch(cmd.toUpperCase()) {
 			case "GO" :
 				return GO;
 			case "ATTACK":

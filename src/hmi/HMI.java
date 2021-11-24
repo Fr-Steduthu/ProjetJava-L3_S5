@@ -15,23 +15,25 @@ public final class HMI {
 	}
 	
 	public static String read(String message, String regex) {
-		
-		HMI.message(message + "\n["+regex+"]");
+
+		HMI.error(regex);
+		HMI.message(message);
 		
 		if(input.hasNext(regex)) {
-			String next = input.next(regex);
-			HMI.error("You entered" + next);
-			return next;
+			return input.next(regex);
 			
 		}else {
-			HMI.input.next();
+			String err = HMI.input.next();
+			HMI.error("You entered " + err);
+			HMI.message("An error has occured, please, try again.");
 			return HMI.read(message, regex);
 		}
-		
 	}
 	
-	public static String read(String message) {
-		String cmd = null;
+	public static String readCommand(String message) {
+		/*String cmd = null;
+		HMI.message(message);
+		HMI.error(Command.getRegex());
 		
 		if(HMI.input.hasNext(Command.getRegex())) {
 			cmd = HMI.input.next(Command.getRegex());
@@ -43,11 +45,12 @@ public final class HMI {
 			HMI.input.next();
 			cmd = HMI.read(message);
 		}
-		return cmd;
+		return cmd;*/
+		return HMI.read(message, Command.getRegex());
 	}
 	
 	public static boolean confirm(String message) {
-		return HMI.read(message, "y|n").equals("y");
+		return HMI.read(message+"[y|n]", "y|n").equals("y");
 	}
 
 	public static void clear() {

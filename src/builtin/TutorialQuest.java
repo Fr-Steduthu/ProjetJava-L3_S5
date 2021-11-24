@@ -12,6 +12,7 @@ import builtin.places.SentinelRoom;
 import builtin.places.entrances.TutorialRoom;
 import core.Quest;
 import core.character.Monster;
+import core.character.Player;
 import core.places.Exit;
 import core.places.Place;
 
@@ -56,6 +57,6 @@ public class TutorialQuest extends Quest {
 	}
 
 	public TutorialQuest() {
-		super(origin, dungeon, objective, objective_object);
+		super(new Player("Dummy the dummy"), origin, dungeon, objective, objective_object);
 	}
 }

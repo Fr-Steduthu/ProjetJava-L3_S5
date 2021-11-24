@@ -177,7 +177,7 @@ public abstract class Character implements Serializable{
 		return this.getInventory();
 	}
 	
-	public void onDeath(Quest context, Player p){
+	public void onDeath(Quest context){
 		if(this.isLootable) {
 					Item[] items = this.getLoot();
 					Equipment[] equipped = this.inventory.getEquipment();
