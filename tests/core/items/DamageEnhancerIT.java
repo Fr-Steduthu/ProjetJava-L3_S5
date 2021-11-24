@@ -30,8 +30,8 @@ public class DamageEnhancerIT {
     @Before
     public void setUp () {
         p1 = new Player("Patate");
-        m1 = new Monster("Epluche-patate", 10.0, 20.0, 1000);
-        n1 = new NPC("Carotte", "Pour la carotte !", 1000);
+        m1 = new Monster("Epluche-patate", 10.0, 20.0, 10, 1);
+        n1 = new NPC("Carotte", "Pour la carotte !", 10, 1);
         spear = new LightIronSpear();
         gloves = new ReinforcedGloves();
     }
@@ -58,7 +58,7 @@ public class DamageEnhancerIT {
         n1.unequip(gloves);
     }
     
-        @Test
+    @Test
     public void testOnUnequip () {
         
         p1.give(spear);

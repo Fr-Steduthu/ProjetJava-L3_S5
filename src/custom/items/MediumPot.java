@@ -9,6 +9,8 @@ public class MediumPot extends Item {
 
 	public MediumPot() {
 		super("Medium pot");
+                isUsable = true;
+                currentlyUsable = true;
 	}
 
 	@Override

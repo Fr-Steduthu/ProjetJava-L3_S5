@@ -8,9 +8,8 @@ public class Skygeiir extends Item {
 
 	private static final long serialVersionUID = 2062637203045579827L;
 
-	public Skygeiir(String name) {
-		super(name);
-		// TODO Auto-generated constructor stub
+	public Skygeiir() {
+		super("Skygeiir");
 	}
 
 	@Override

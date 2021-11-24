@@ -12,7 +12,43 @@ import hmi.HMI;
 //import javax.annotation.ParametersAreNonnullByDefault;
 public abstract class Character implements Serializable{
 
-        private static final long serialVersionUID = 2171784611978154697L;
+	private static final long serialVersionUID = 2171784611978154697L;
+	
+	//Misc
+	private final String NAME;
+	private Place location;
+	
+	protected String dialogue = "[ERROR] No dialogue set";
+	
+	protected Inventory inventory;
+	
+	protected State currentState = State.ALIVE;
+	
+	//Combat
+	protected double maxHP;
+	protected double maxAbilityRessource;
+	
+	protected double hp;
+	protected double ar;
+	
+	protected double arRegen = 0.0;
+	
+	protected double attackDamage = 1.0;
+	protected double armor = 0.0;
+	
+	protected boolean isLootable = false;
+	protected boolean isAbleToSpeak = false;
+        protected boolean canUseItems = false;
+	
+	
+	//@ParametersAreNonnullByDefault
+	public Character(String name, double maxHP, double maxAbilityRessource, int inventoryCapacity, int equipment_size) {
+		this.NAME = name;
+		this.maxHP = maxHP;
+    this.hp = this.maxHP;
+		this.maxAbilityRessource = maxAbilityRessource;
+    this.ar = this.maxAbilityRessource;
+
 
         //Misc
         private final String NAME;
@@ -20,7 +56,13 @@ public abstract class Character implements Serializable{
 
         protected String dialogue = "[ERROR] No dialogue set";
 
-        protected Inventory inventory;
+        public final Item[] getInventory() {
+          return this.inventory.getItems();
+        }
+        
+        public Inventory getClassInventory() {
+                return this.inventory;
+        }
 
         protected State currentState = State.ALIVE;
 
@@ -31,7 +73,16 @@ public abstract class Character implements Serializable{
         protected double hp = this.maxHP;
         protected double ar = this.maxAbilityRessource;
 
-        protected double arRegen = 0.0;
+	public void hurt(double f) {
+		double temp = this.hp - f + this.armor;
+		if(temp < this.hp) {//On evite les soins par armure trop forte
+			this.hp = temp;
+			if(this.hp < 1) {
+				this.hp = 0;
+				this.currentState = State.DEAD;
+			}
+		}
+	}
 
         protected double attackDamage = 1.0;
         protected double armor = 0.0;
@@ -172,18 +223,19 @@ public abstract class Character implements Serializable{
 	}
 	
 	public final Item[] getLoot(){
-		return ((Character)this).getInventory();	
+		return this.getInventory();
 	}
 	
 	public void onDeath(Quest context, Player p){
 		if(this.isLootable) {
                     Item[] items = this.getLoot();
+                    Equipment[] equipped = this.inventory.getEquipment();
                     Place location = this.getLocation();
                     for (Item i : items) {
                         location.addItem(i);
                         this.inventory.removeItem(i);
                     }
-                    for (Equipment e : this.equiped_items) {
+                    for (Equipment e : equipped) {
                         location.addItem(e);
                     }
 		}
@@ -199,7 +251,7 @@ public abstract class Character implements Serializable{
 	public void take(Item item) {
 		if(!this.inventory.removeItem(item)) {
 			HMI.message("\t\t[ERROR>Player] An error has occured, you drop that");
-		};
+		}
 	}
 
 }

@@ -9,7 +9,8 @@ public class SaNDCure extends Item {
 
 	public SaNDCure() {
 		super("SaND-cure");
-		// TODO Auto-generated constructor stub
+                isUsable = true;
+                currentlyUsable = true;
 	}
 
 	@Override
