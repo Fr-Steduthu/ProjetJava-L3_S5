@@ -1,31 +1,43 @@
 package hmi;
 
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 public final class HMI {
 	public static Scanner input = new Scanner(System.in);
-
-	public static String read() {
-		String cmd = null;
-        if(HMI.input.hasNext(Command.getRegex()+"|\\d"+"|\\d\\d")) {
-        	cmd = HMI.input.next(Command.getRegex()+"|\\d"+"|\\d\\d"); //On considère des eniters de valeur 99 max
-        }else {
-        	HMI.input.next();
-        	cmd = HMI.read();
-        }
-        return cmd;
+	
+	public static String read(String message, String regex) {
+		
+		HMI.message(message + "\n["+regex+"]");
+		
+		if(input.hasNext(regex)) {
+			return HMI.input.next(regex);
+			
+		}else {
+			HMI.input.next();
+			return HMI.read(message, regex);
+		}
+		
 	}
 	
-    public static boolean confirm(String message) {
-    	HMI.message(message + "[y/n]");
-    	if(input.hasNext(Pattern.compile("y|n"))) {
-    		return HMI.input.next(Pattern.compile("y|n")).equals("y");
-    	}else {
-    		HMI.input.next();
-    		return HMI.confirm(message);
-    	}
-    }
+	public static String read(String message) {
+		String cmd = null;
+		
+		if(HMI.input.hasNext(Command.getRegex())) {
+			cmd = HMI.input.next(Command.getRegex());
+			
+		}else if(HMI.input.hasNextInt()) {
+			cmd = Integer.toString(HMI.input.nextInt());
+			
+		}else{
+			HMI.input.next();
+			cmd = HMI.read(message);
+		}
+		return cmd;
+	}
+	
+	public static boolean confirm(String message) {
+		return HMI.read(message, "y|n").equals("y");
+	}
 
 	public static void message(String message) {
 		System.out.println(message);
