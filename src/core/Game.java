@@ -30,16 +30,16 @@ public class Game {
 		Object destination = q.getObjectiveObject();
 		Place current = q.getStartingPoint();
 		Player p = q.getPlayer();
-                
-                boolean hasQuitted = false;
+				
+				boolean hasQuitted = false;
 		
 		//final String message;
 		Boolean victoryState = null;
 		
 		while(current !=  destination && victoryState == null && hasQuitted == false) {
-			
+
 			HMI.message("\n\nUn nouveau tour commence : choisissez une action à effectuer.");
-                    
+			
 			//Affichage
 		
             boolean hasFinishedTurn = false;
@@ -142,7 +142,7 @@ public class Game {
 		}
 	}
 	private static void checkLoosingConditions(Quest q) {
-            Player p = q.getPlayer();
+			Player p = q.getPlayer();
 		if(p.getState() == State.DEAD) {
 			Game.end("You lost all hp!", false);
 		}else if(p.getLocation().getExits().length == 0) {
@@ -165,21 +165,21 @@ public class Game {
 	 * Guide pour la s�rialization
 	 */
 	public static void save(Quest q) throws IOException {
-	    String path = "saves/";
-	    String saveName = "savegame_" + q.getClass().getSimpleName() + ".qa_sav";
-	    File saveFile = new File(path + saveName);
-	    
-            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(saveFile))) {
-                oos.writeObject(q);
-            }
+		String path = "saves/";
+		String saveName = "savegame_" + q.getClass().getSimpleName() + ".qa_sav";
+		File saveFile = new File(path + saveName);
+		
+			try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(saveFile))) {
+				oos.writeObject(q);
+			}
 	}
 	
 	public static void load(File saveFile) throws FileNotFoundException, IOException, ClassNotFoundException {
 		Quest q_loadedSave;
 		
-            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(saveFile))) {
-                q_loadedSave = (Quest)ois.readObject();
-            }
+			try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(saveFile))) {
+				q_loadedSave = (Quest)ois.readObject();
+			}
 		Game.start(q_loadedSave);
 	}
         
