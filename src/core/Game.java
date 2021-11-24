@@ -42,57 +42,50 @@ public class Game {
 			
 			//Affichage
 		
-            boolean hasFinishedTurn = false;
-            while (hasFinishedTurn) {
-            	
-                Command action = Command.toCommand(HMI.read());
-                //Command action = Command.toCommand(commandLine[0]);
-                
-                switch(action) {
-                    case ATTACK:
-                        Character target = selectAttack(q);
-                        p.attack(target);
-                        hasFinishedTurn = true;
-                        break;
-                    case GO:
-                        Exit exit = selectGo(q);
-                        p.setLocation(exit.getRooms()[1]);
-                        hasFinishedTurn = false;
-                        break;
-                    case HELP:
-                        Command.help();
-                        break;
-                    case LOOK:
-                        HMI.message(current.toString());
-                        break;
-                    case QUIT:
-                        if (HMI.confirm("Voulez vous vraiment quitter le jeu ?")) {
-                            if (HMI.confirm("Voulez-vous sauvegarder la partie ?")) {
-                                Game.save(q);
-                            }
-                            hasQuitted = true;
-                            hasFinishedTurn = true;
-                        }
-                        break;
-                    case TAKE:
-                        Item takeItem = selectTake(q);
-                        if (takeItem != null) {
-                            p.give(takeItem);
-                            hasFinishedTurn = true;
-                        }
-                        break;
-                    case USE:
-                        Item useItem = selectUse(q);
-                        if (useItem != null) {
-                            p.use(useItem);
-                            hasFinishedTurn = true;
-                        }
-                        break;
-                    default:
-                    	HMI.error("Game.start() -> unknown Command value -> no behavior defined -> please try again");
-                        break;
-                }
-            }
+
+			boolean hasFinishedTurn = false;
+			while (hasFinishedTurn == false) {
+				
+				Command action = Command.toCommand(HMI.read("Please enter wanted action"));
+				//Command action = Command.toCommand(commandLine[0]);
+				
+				switch(action) {
+					case ATTACK:
+						HMI.read("Choisissez une cible a attaquer :\n");
+						hasFinishedTurn = true;
+						break;
+					case GO:
+						String exit = HMI.read("Choisissez une porte ouverte a passer", current.getExitsRegex());
+						//TODO
+						break;
+					case HELP:
+						Command.help();
+						break;
+					case LOOK:
+						HMI.message(current.toString());
+						break;
+					case QUIT:
+						if (HMI.confirm("Voulez vous vraiment quitter le jeu ?")) {
+							if (HMI.confirm("Voulez-vous sauvegarder la partie ?")) {
+								Game.save(q);
+							}
+							hasQuitted = true;
+							hasFinishedTurn = true;
+						}
+						break;
+					case TAKE:
+						hasFinishedTurn = true;
+						//TODO
+						break;
+					case USE:
+						hasFinishedTurn = true;
+						//TODO
+						break;
+					default:
+						HMI.error("Game.start() -> unknown Command value -> no behavior defined -> please try again");
+						break;
+				}
+			}
 			
 			Game.charactersActions(p, q, current);
 			

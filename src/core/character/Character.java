@@ -51,16 +51,16 @@ public abstract class Character implements Serializable{
 		this.ar = this.maxAbilityRessource;
 	}
 
+
 	public final Item[] getInventory() {
 		return this.inventory.getItems();
 	}
-	
+  
 	/*//Utilisee uniquement pour les tests
 	public Inventory getClassInventory() {
-			return this.inventory;
-	}/**/
-
-
+            return this.inventory;
+    }/**/
+	
 	public void hurt(double f) {
 		double temp = this.hp - f + this.armor;
 		if(temp < this.hp) {//On evite les soins par armure trop forte
@@ -230,5 +230,6 @@ public abstract class Character implements Serializable{
 		if(!this.inventory.removeItem(item)) {
 			HMI.error("An error has occured, you drop that");
 		};
+
 	}
 }
