@@ -23,6 +23,7 @@ public class Quest implements Serializable{
 		this.origin = this.dungeon[0];
 		//this.objective_object = this.dungeon[this.dungeon.length-1];
 	}*/
+	
 	 //@ParametersAreNonNullByDefault
 	public Quest(Player p, Place origin, Place[] dungeon, String objective, Monster objective_object) {
 		this.origin = origin;

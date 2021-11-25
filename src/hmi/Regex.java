@@ -38,7 +38,7 @@ public final class Regex {
 			return "";
 			
 		}else if(stringToRegexify.charAt(0) == ' ') {
-			return " "+regex(stringToRegexify.substring(1)); // ne marche pas avec [ ]
+			return " "+regex(stringToRegexify.substring(1));
 		
 		}else {
 			return "["+stringToRegexify.toLowerCase().charAt(0)+stringToRegexify.toUpperCase().charAt(0)+"]"+regex(stringToRegexify.substring(1));
