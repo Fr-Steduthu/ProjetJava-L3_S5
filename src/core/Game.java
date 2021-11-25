@@ -35,6 +35,7 @@ public class Game {
 		while(current !=  destination && victoryState == null && hasQuitted == false) {
 			
 			HMI.clear();
+			HMI.message("------New turn------");
 			
 			//Affichage
 		
@@ -50,23 +51,24 @@ public class Game {
 						HMI.read("Choisissez une cible a attaquer :\n","");//TODO FIX
 						hasFinishedTurn = true;
 						break;
-					case GO:/*
-						HMI.message("Choose where to go:");
-						for(Exit e : current.getExits()) {
-							HMI.message(e.getRoomOmmiting(current).getName());
-						}*/
+					case GO:
+						String choosingRoomMessage = "What room do you want to go in?";
+						for(Exit e : current.getExits()) {	
+							choosingRoomMessage = "\n" + e.getRoomOmmiting(current).getName();
+						}
 						
-						String chosenRoom = HMI.read("What room do you want to go in?", Regex.regex(current.getExits(), current)+"|"+Regex.regex("back")); //Game.message(current.getExits());
+						String chosenRoom = HMI.read(choosingRoomMessage, Regex.regex(current.getExits(), current)+"|"+Regex.regex("back")); //Game.message(current.getExits());
 						
 						if(!chosenRoom.toLowerCase().equals("back")) {
 							for(Exit e : current.getExits()) {
 								if(chosenRoom.toLowerCase().equals(e.getRoomOmmiting(current).getName().toLowerCase())){
+									Game.charactersActions(q); //Penaliser la fuite contre des monstres
 									current = e.getRoomOmmiting(current);
 									p.setLocation(e.getRoomOmmiting(current));
+									HMI.message("You reach " + chosenRoom);
 								}
 							}
 						
-						Game.charactersActions(q); //Penaliser la fuite contre des monstres
 						hasFinishedTurn = true;
 						}
 						break;
@@ -86,12 +88,12 @@ public class Game {
 						}
 						break;
 					case TAKE:
-						hasFinishedTurn = true;
 						//TODO
+						hasFinishedTurn = true;
 						break;
 					case USE:
-						hasFinishedTurn = true;
 						//TODO
+						hasFinishedTurn = true;
 						break;
 					default:
 						HMI.error("Game.start() -> unknown Command -> no behavior defined -> please try again");
@@ -136,13 +138,11 @@ public class Game {
         HMI.message("Choose and item to use.");
         
         for (Item item : playerItems) {
-            HMI.message(item.toString());
+            HMI.message(item.getName());
         }
         
-        Item selectedItem = null;
-        while (selectedItem == null) {
-            selectedItem = Game.selectItem(playerItems);
-        }
+        Item selectedItem = null; 
+        selectedItem = Game.selectItem(playerItems);
         
         return selectedItem;
     }
@@ -274,9 +274,7 @@ public class Game {
 			//Le sleep n'est pas important mais agreable pour pouvoir lire le message
 		}
 		
-		HMI.input.close();
-		//HMI.output.close(); //On laisse a l'utilisateur le soin de fermer le jeu (System.out en ce moment)
-		HMI.errorOutput.close();
+		HMI.close();
 	}
 	
 	/*

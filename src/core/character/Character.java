@@ -26,7 +26,7 @@ public abstract class Character implements Serializable{
 	
 	//Combat
 	protected double maxHP;
-	protected double maxAbilityRessource;
+	protected double maxAbilityResource;
 	
 	protected double hp;
 	protected double ar;
@@ -41,10 +41,13 @@ public abstract class Character implements Serializable{
 	protected boolean canUseItems = false;
 
 	//@ParametersAreNonnullByDefault
-	public Character(String name, double maxHP, double maxAbilityRessource, int inventoryCapacity, int equipment_size) {
+	public Character(String name, double maxHP, double maxAbilityResource, int inventoryCapacity, int equipment_size) {
 			this.NAME = name;
 			this.maxHP = maxHP;
-			this.maxAbilityRessource = maxAbilityRessource;
+			this.maxAbilityResource = maxAbilityResource;
+			
+			this.hp = maxHP;
+			this.ar = maxAbilityResource;
 
 			this.inventory = new Inventory(this, inventoryCapacity, equipment_size);
 	}
@@ -103,8 +106,8 @@ public abstract class Character implements Serializable{
 
 	public final void giveAR(double amount) {
 			this.ar += amount;
-			if(this.ar > this.maxAbilityRessource) {
-					this.ar = this.maxAbilityRessource;
+			if(this.ar > this.maxAbilityResource) {
+					this.ar = this.maxAbilityResource;
 			}
 	}
 
