@@ -2,6 +2,8 @@ package builtin.characters.npcs;
 
 import builtin.items.SaND;
 import core.character.NPC;
+import core.Quest;
+import hmi.HMI;
 
 public class Grain extends NPC {
 
@@ -9,6 +11,16 @@ public class Grain extends NPC {
 
 	public Grain() {
         super("Grain", "Do yoU wAnT sOmE SaND?", 1);
-        this.inventory.addItem(new SaND());
     }
+	
+	@Override
+	public void interact(Quest context) {
+		/*if(this.ask(this.dialogue)) {
+			context.getPlayer().getLocation().addItem(new SaND());
+			HMI.message("A door has opened somewhere.");
+		}else {
+			this.speak("Aww yOu MEaNie!");
+		}*/
+		HMI.error("Unreachable code reached");
+	}
 }

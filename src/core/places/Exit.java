@@ -2,13 +2,17 @@ package core.places;
 
 import java.io.Serializable;
 
+import core.Quest;
+
 //import javax.annotation.*;
 
-public final class Exit implements Serializable{
+public class Exit implements Serializable{
 
 	private static final long serialVersionUID = 5674585445142853986L;
 	
 	private Place[] connectedRooms = new Place[2];
+
+	private boolean isOpen = true;
 
 	//@ParametersAreNonnullByDefault
 	public Exit(Place roomA, Place roomB) throws IllegalArgumentException{
@@ -43,5 +47,17 @@ public final class Exit implements Serializable{
 	
 	public final void removeFrom(Place p) {
 		p.removeExit(this);
+	}
+	
+	public boolean canPassThrough(Quest q) {
+		return this.isOpen;
+	}
+	
+	public void open() {
+		this.isOpen= true;
+	}
+	
+	public void close() {
+		this.isOpen = false;
 	}
 }

@@ -1,5 +1,7 @@
 package core.character;
 
+import core.Quest;
+
 public class Monster extends Character{
 
 	private static final long serialVersionUID = -5488094578355543197L;
@@ -17,7 +19,7 @@ public class Monster extends Character{
         }
 
 	@Override
-	public void interact() {
+	public void interact(Quest q) {
 		this.inspect();
 	}
 }

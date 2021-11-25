@@ -22,6 +22,12 @@ public class Place implements Serializable{
 	
 	public Place(String name) {
 		this.NAME = name;
+		this.setup();
+	}
+	
+	/**Used for inheritance in anonymous classes**/
+	protected void setup() {
+		return;
 	}
 	
 	public final void fill(List<Item> itemList, List<Character> npcList) throws Exception {
@@ -60,7 +66,7 @@ public class Place implements Serializable{
 	
 	public final void removeNpc(Character npc) {
 		this.npcList.remove(npc);
-		npc.setLocation(this);
+		npc.setLocation(null);
 	}
 	
 	/**ITEMS**/

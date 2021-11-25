@@ -1,5 +1,6 @@
 package core.character;
 
+import core.Quest;
 
 public class NPC extends Character{
 
@@ -20,7 +21,7 @@ public class NPC extends Character{
     }
     
     @Override
-    public void interact() {
+    public void interact(Quest context) {
         this.speak();
         this.getLocation().removeNpc(this);
     }   
