@@ -2,7 +2,7 @@ package core;
 
 import core.character.Player;
 import core.places.*;
-import custom.quests.SC2;
+import builtin.SC2;
 import java.io.IOException;
 
 import builtin.TutorialQuest;
