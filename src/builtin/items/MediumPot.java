@@ -15,8 +15,7 @@ public class MediumPot extends Item {
 
 	@Override
 	public String look() {
-		// TODO Auto-generated method stub
-		return null;
+		return "A medium effect potion. When used, it regenerates your hp by 5 points.";
 	}
 
 	@Override

@@ -17,8 +17,7 @@ public class SaND extends Item {
 
 	@Override
 	public String look() {
-		// TODO Auto-generated method stub
-		return null;
+		return "SaND. A special item. Might be useful on some Sentinel or something? Careful, it might.. sAnD you.";
 	}
 
 	@Override

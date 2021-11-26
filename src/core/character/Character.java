@@ -60,11 +60,23 @@ public abstract class Character implements Serializable{
 	public final Item[] getInventory() {
 			return this.inventory.getItems();
 	}
+        
+        public final String getInventoryItemsStr() {
+            return this.inventory.invToReadableString();
+        }
+        
+        public final String getInventoryEquippedStr() {
+            return this.inventory.equipmentToReadableString();
+        }
+        
+        public final String getInventoryStr() {
+            return this.inventory.toString();
+        }
 	
-	/*//Utilisee uniquement pour les tests
+	/*// Utilisé uniquement pour les tests
 	public Inventory getClassInventory() {
             return this.inventory;
-    }/**/
+        }*/
 
 	public final Place getLocation() {
 			return this.location;
@@ -82,7 +94,7 @@ public abstract class Character implements Serializable{
 	}
 
 	public void hurt(double f) {
-			double temp = this.hp - f - this.armor;
+			double temp = this.hp - f + this.armor;
 			if(temp < this.hp) {//On evite les soins par armure trop forte
 					this.hp = temp;
 					if(this.hp < 1) {

@@ -12,6 +12,6 @@ public class WoodGloves extends DamageEnhancer {
 
     @Override
     public String look() {
-        return "Some wood gloves. Using them gives you 1.5 additional damage points.";
+        return "Wood gloves. When equipped, it augments your damage by 1.5 points.";
     }
 }

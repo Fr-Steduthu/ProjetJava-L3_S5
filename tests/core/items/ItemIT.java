@@ -3,8 +3,8 @@ package core.items;
 import core.Inventory;
 import core.character.Player;
 import core.places.Place;
-import custom.items.SaND;
-import custom.items.SmallPot;
+import builtin.items.SaND;
+import builtin.items.SmallPot;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -63,7 +63,7 @@ public class ItemIT {
         player.setLocation(room);
         room.addItem(item);
         item.take(player);
-        assertEquals(player.getClassInventory(), item.getLocation());
+        assertEquals(player.getClassInventory(), item.getLocation()); // If this fails, please make sure that Character's getClassInventory method is available. (It's a comment by default btw)
     }
     
     // use

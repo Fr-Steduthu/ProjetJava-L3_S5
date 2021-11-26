@@ -3,7 +3,8 @@ package core.character;
 import core.Inventory;
 import core.items.Item;
 import core.places.Place;
-import custom.items.SaND;
+import builtin.items.SaND;
+import core.Quest;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -27,6 +28,11 @@ public class CharacterIT {
                 this.isLootable = true;
             }
             public void interact() {
+                System.out.println("This is not supposed to be tested.");
+            }
+
+            @Override
+            public void interact(Quest context) {
                 System.out.println("This is not supposed to be tested.");
             }
         };
@@ -122,7 +128,7 @@ public class CharacterIT {
     @Test
     public void testLoots() {
         Item item = new SaND();
-        character.getClassInventory().addItem(item);
+        character.getClassInventory().addItem(item); // If this fails, please make sure that Character's getClassInventory method is available. (It's a comment by default btw)
         inv.addItem(item);
         assertArrayEquals(inv.getItems(), character.getInventory());
     }
@@ -130,10 +136,10 @@ public class CharacterIT {
     // onDeath
     @Test
     public void dropLoots() {
-        character.getClassInventory().addItem(new SaND());
+        character.getClassInventory().addItem(new SaND()); // If this fails, please make sure that Character's getClassInventory method is available. (It's a comment by default btw)
         character.setLocation(room);
         Item[] oldInvItems = character.getInventory();
-        character.onDeath(null, null);
+        character.onDeath(null);
         assertArrayEquals(inv.getItems(), character.getInventory());
         assertArrayEquals(oldInvItems, room.getItems());
     }

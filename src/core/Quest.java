@@ -14,7 +14,7 @@ public class Quest implements Serializable{
 	private final Place origin;
 	private Player player;
 	private Place[] dungeon;
-	private String objective; // non-final car pouvant etre modifie au cours de l'aventure
+	private String objective; // non-final car pouvant etre modifie au cours de l'aventure, cela n'est pas le cas pour cette version cependant
 	private final Object objective_object;
 	/*
 	public Quest() {
@@ -82,13 +82,13 @@ public class Quest implements Serializable{
 	
 	public int find(Place l) {
 		int i = 0;
-		for( Place e : this.dungeon) {
+		for(Place e : this.dungeon) {
 			if(e == l) {
 				return i;
 			}
 			i++;
 		}
-		return i;
+		return -1;
 	}
 	
 	public Place getStartingPoint() {
