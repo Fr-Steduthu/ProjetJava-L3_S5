@@ -49,8 +49,14 @@ public class Game {
 				
 				switch(action) {
 					case ATTACK:
-						HMI.read("Choisissez une cible a attaquer :\n","");//TODO FIX
-						hasFinishedTurn = true;
+						Character target = selectAttack(q);
+                                                if (target != null) {
+                                                    p.attack(target);
+                                                    HMI.message("You've damaged the " + target.getName() + " for " + (int) p.getDamage() + " HP !");
+                                                    hasFinishedTurn = true;
+                                                } else {
+                                                    HMI.message("Please try again or select another command.");
+                                                }
 						break;
 					case GO:
 						String choosingRoomMessage = "What room do you want to go in?";
@@ -84,7 +90,7 @@ public class Game {
 						break;
 					case LOOK:
 						HMI.clear();
-						HMI.message(current.toString());
+						HMI.message(current.toString()); // TODO : Check room, inventaire ou autre
 						break;
 					case QUIT:
 						if (HMI.confirm("Voulez vous vraiment quitter le jeu ?")) {
@@ -221,6 +227,7 @@ public class Game {
             }
         }
     
+        HMI.message("You've tried to attack " + target + " howether it doesn't exit.");
     	return null;
     }
 
