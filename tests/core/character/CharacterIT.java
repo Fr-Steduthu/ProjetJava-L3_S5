@@ -18,6 +18,7 @@ public class CharacterIT {
     private final Integer DEF_EQ_CAP = 3;
     
     private Character character;
+    private Character nonLootableCharacter;
     private Inventory inv;
     private Place room;
     
@@ -27,9 +28,13 @@ public class CharacterIT {
             {
                 this.isLootable = true;
             }
-            public void interact() {
+
+            @Override
+            public void interact(Quest context) {
                 System.out.println("This is not supposed to be tested.");
             }
+        };
+        nonLootableCharacter = new Character(DEF_NAME, DEF_HP, DEF_AR, DEF_INV_CAP, DEF_EQ_CAP) {
 
             @Override
             public void interact(Quest context) {
@@ -142,6 +147,16 @@ public class CharacterIT {
         character.onDeath(null);
         assertArrayEquals(inv.getItems(), character.getInventory());
         assertArrayEquals(oldInvItems, room.getItems());
+    }
+    
+    // onDeath, except the caracter isn't lootable
+    @Test
+    public void dropLootsNonLootable() {
+        nonLootableCharacter.getClassInventory().addItem(new SaND()); // If this fails, please make sure that Character's getClassInventory method is available. (It's a comment by default btw)
+        nonLootableCharacter.setLocation(room);
+        Item[] empty = new Item[]{};
+        nonLootableCharacter.onDeath(null);
+        assertArrayEquals(empty, room.getItems());
     }
     
     // give and take already tested in inventory, they use the same methods
