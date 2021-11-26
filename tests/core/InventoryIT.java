@@ -87,6 +87,14 @@ public class InventoryIT {
         assertTrue(inv.isFull());
     }
     
+    @Test
+    public void overfill() {
+        for (int i = 0; i < 42; i++) {
+            inv.addItem(item);
+        }
+        assertTrue(inv.isFull());
+    }
+    
     // isFullyGeared (empty)
     @Test
     public void notFullyGeared() {
