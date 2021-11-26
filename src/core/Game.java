@@ -34,8 +34,8 @@ public class Game {
 		
 		while(current !=  destination && victoryState == null && hasQuitted == false) {
 			
-			HMI.clear();
-			HMI.message("------New turn------");
+			//HMI.clear();
+			HMI.message("------New turn------\nYou are in " + current.getName() +".\n");
 			
 			//Affichage
 		
@@ -43,7 +43,8 @@ public class Game {
 			boolean hasFinishedTurn = false;
 			while (hasFinishedTurn == false) {
 				
-				Command action = Command.toCommand(HMI.read("Please enter wanted action", Command.getRegex()));
+				Command action = Command.toCommand(HMI.read("Please enter wanted action; type help to see available commands", Command.getRegex()));
+				HMI.message("---------");
 				//Command action = Command.toCommand(commandLine[0]);
 				
 				switch(action) {
@@ -54,28 +55,35 @@ public class Game {
 					case GO:
 						String choosingRoomMessage = "What room do you want to go in?";
 						for(Exit e : current.getExits()) {	
-							choosingRoomMessage = "\n" + e.getRoomOmmiting(current).getName();
+							choosingRoomMessage += "\n" + e.getRoomOmmiting(current).getName();
 						}
 						
 						String chosenRoom = HMI.read(choosingRoomMessage, Regex.regex(current.getExits(), current)+"|"+Regex.regex("back")); //Game.message(current.getExits());
 						
 						if(!chosenRoom.toLowerCase().equals("back")) {
 							for(Exit e : current.getExits()) {
-								if(chosenRoom.toLowerCase().equals(e.getRoomOmmiting(current).getName().toLowerCase())){
-									Game.charactersActions(q); //Penaliser la fuite contre des monstres
-									current = e.getRoomOmmiting(current);
-									p.setLocation(e.getRoomOmmiting(current));
-									HMI.message("You reach " + chosenRoom);
+								Place i_place = e.getRoomOmmiting(current);
+								if(chosenRoom.toLowerCase().equals(i_place.getName().toLowerCase())){
+									if(e.canPassThrough(q)) {
+										Game.charactersActions(q); //Penaliser la fuite contre des monstres
+										current = e.getRoomOmmiting(current);
+										p.setLocation(e.getRoomOmmiting(current));
+										HMI.message("You reach " + chosenRoom);
+										hasFinishedTurn = false;
+									}else {
+										HMI.message("Can try all you can but cannot open the door.");
+										hasFinishedTurn = true;
+									}
 								}
 							}
 						
-						hasFinishedTurn = true;
 						}
 						break;
 					case HELP:
 						Command.help();
 						break;
 					case LOOK:
+						HMI.clear();
 						HMI.message(current.toString());
 						break;
 					case QUIT:
@@ -94,6 +102,28 @@ public class Game {
 					case USE:
 						//TODO
 						hasFinishedTurn = true;
+						break;
+					case BACK:
+						break;
+					case INTERACT:
+						
+						String message = "Who or what do you want to talk to?";
+						for(Character e : current.getNpcs()) {	
+							message += "\n" + e.getName();
+						}
+						
+						String input = HMI.read(message, Regex.regex(current.getNpcs())+"|"+Regex.regex("back")); //Game.message(current.getExits());
+						
+						if(!input.toLowerCase().equals("back")) {
+							for(Character e : current.getNpcs()) {
+
+								if(input.toLowerCase().equals(e.getName().toLowerCase())){
+									e.interact(q);
+								}
+							}
+						
+						hasFinishedTurn = true;
+						}
 						break;
 					default:
 						HMI.error("Game.start() -> unknown Command -> no behavior defined -> please try again");

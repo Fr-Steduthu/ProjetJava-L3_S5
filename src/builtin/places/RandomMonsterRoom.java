@@ -1,5 +1,8 @@
 package builtin.places;
 
+import builtin.characters.monsters.Blob;
+import builtin.characters.monsters.Slime;
+import builtin.characters.monsters.Zombie;
 import core.character.Monster;
 import core.places.Place;
 import core.places.RandomlyPlacedMobs;
@@ -14,8 +17,8 @@ public class RandomMonsterRoom extends Place implements RandomlyPlacedMobs{
 
 	@Override
 	public Monster[] getMonsterList() {
-		// TODO Auto-generated method stub
-		return null;
+		Monster retVal[] = {new Zombie(), new Blob(), new Slime()};
+		return retVal;
 	}
 
 }
