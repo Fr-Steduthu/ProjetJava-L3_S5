@@ -27,12 +27,13 @@ public class QuestIT {
     }
     
      @Test
-     public void testGets() {
+     public void testGetsAndConstructor() {
          assertEquals(objective, quest.getObjective());
          assertEquals(objectiveObj, quest.getObjectiveObject());
          assertArrayEquals(dungeonRooms, quest.getDungeon());
          assertEquals(spawnRoom, quest.getStartingPoint());
          assertEquals(player, quest.getPlayer());
+         assertEquals(spawnRoom, quest.getPlayer().getLocation());
      }
      
      @Test
