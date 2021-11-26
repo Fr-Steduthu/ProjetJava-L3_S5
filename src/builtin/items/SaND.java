@@ -21,19 +21,22 @@ public class SaND extends Item {
 	}
 
 	@Override
-	protected void onUse(Object target) {
-		assert(target == null);
+	protected boolean onUse(Object target) {
+		if(target != null) {
+			return false;
+		}
 		
 		if(Math.random() <= 1/16) {
 			((Inventory) this.getLocation()).getOwner().kill();
 			HMI.message("ThE SaND's pOWeR hAS coRRUPted yOu!");
+			
 		}else {
 			Character npcs[] = ((Inventory)this.getLocation()).getOwner().getLocation().getNpcs();
 			for(Character c : npcs) {
 				c.kill();
 			}
 			
-			HMI.message("All ennemies have fled the might of the SaND!");
+			HMI.message("All ennemies have sucumbded to the might of the SaND!");
 			
 			for(Item e : ((Inventory) this.getLocation()).getItems()) {
 				((Inventory) this.getLocation()).removeItem(e);
@@ -45,6 +48,7 @@ public class SaND extends Item {
 			
 			while(((Inventory) this.getLocation()).addItem(new SaND())) {}
 		}
+		return true;
 	}
 
 }

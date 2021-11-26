@@ -19,10 +19,17 @@ public class MegaPot extends Item {
 	}
 
 	@Override
-	protected void onUse(Object target) {
+	protected boolean onUse(Object target) {
+		if(target != null) {
+			return false;
+		}
+		
 		if(target instanceof Character) {
 			((Character) target).heal(10.0);
+			return true;
 		}
+		
+		return false;
 	}
 
 }

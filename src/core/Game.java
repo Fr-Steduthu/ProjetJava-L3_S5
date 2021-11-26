@@ -58,6 +58,7 @@ public class Game {
                                                     HMI.message("Please try again or select another command.");
                                                 }
 						break;
+						
 					case GO:
 						String choosingRoomMessage = "What room do you want to go in?";
 						for(Exit e : current.getExits()) {	
@@ -85,13 +86,19 @@ public class Game {
 						
 						}
 						break;
+						
+						
 					case HELP:
 						Command.help();
 						break;
+						
+						
 					case LOOK:
 						HMI.clear();
 						HMI.message(current.toString()); // TODO : Check room, inventaire ou autre
 						break;
+						
+						
 					case QUIT:
 						if (HMI.confirm("Voulez vous vraiment quitter le jeu ?")) {
 							if (HMI.confirm("Voulez-vous sauvegarder la partie ?")) {
@@ -101,16 +108,66 @@ public class Game {
 							hasFinishedTurn = true;
 						}
 						break;
+						
+						
 					case TAKE:
 						//TODO
 						hasFinishedTurn = true;
 						break;
+						
+						
 					case USE:
-						//TODO
-						hasFinishedTurn = true;
+						String messageUse = "What item do you want to use?";
+						for(Item e : p.getInventory()) {	
+							messageUse += "\n" + e.getName();
+						}
+						
+						String inputUse = HMI.read(messageUse, Regex.regex(p.getInventory())+"|"+Regex.regex("back")); //Game.message(current.getExits());
+						
+						if(!Regex.areEquals(inputUse, "back")) {
+							for(Item e : p.getInventory()) {
+
+								if(Regex.areEquals(inputUse, e.getName())){
+									
+									if(!e.needsTarget()) {
+										assert(p.use(e, null)); //Si false, il y a inconsistance entre la classe et needsTarget -> crash
+										hasFinishedTurn = true;
+										break;
+										
+									}else {
+										
+										String inputUseTarget = HMI.read("What do you want to use it on?", Regex.regex(p.getLocation().getNpcs())+"|"+Regex.regex("BACK")+"|"+Regex.regex("yourself"));
+										
+										if(Regex.areEquals(inputUseTarget, "yourself")) {
+											hasFinishedTurn = p.use(e, p);
+											if(!hasFinishedTurn) {
+												HMI.message("You cant' use that on yourself");
+											}
+											
+											break;
+										}else {
+											for(Character tar : p.getLocation().getNpcs()) {
+	
+												if(Regex.areEquals(inputUseTarget, tar.getName())){
+													hasFinishedTurn = p.use(e, tar);
+													if(!hasFinishedTurn) {
+														HMI.message("You can't use that on "+ inputUseTarget.toLowerCase());
+													}
+													break;
+												}
+											}
+										}
+									}
+								}
+							}
+						}
 						break;
+						
+						
 					case BACK:
 						break;
+						
+						
 					case INTERACT:
 						
 						String message = "Who or what do you want to talk to?";
@@ -131,6 +188,8 @@ public class Game {
 						hasFinishedTurn = true;
 						}
 						break;
+						
+						
 					default:
 						HMI.error("Game.start() -> unknown Command -> no behavior defined -> please try again");
 						break;
@@ -162,6 +221,7 @@ public class Game {
 		return null;
     }
     
+
     private static Item selectUse(Quest q) {
     	
         Item[] playerItems = q.getPlayer().getInventory();
@@ -181,6 +241,7 @@ public class Game {
         return selectedItem;
     }
     
+
     private static Item selectTake(Quest q) {
         Item[] roomItems = q.getPlayer().getLocation().getItems();
         if (roomItems.length == 0) {

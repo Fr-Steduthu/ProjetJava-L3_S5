@@ -18,11 +18,17 @@ public class Skygeiir extends Item {
 	}
 
 	@Override
-	protected void onUse(Object target) {
+	protected boolean onUse(Object target) {
+		if(target != null) {
+			return false;
+		}
+		
 		Character[] npcs = ((Inventory) this.getLocation()).getOwner().getLocation().getNpcs();
 		for(Character n : npcs){
 			n.kill();
 		}
+		
+		return true;
 	}
 
 }

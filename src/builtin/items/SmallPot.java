@@ -19,10 +19,18 @@ public class SmallPot extends Item {
 	}
 
 	@Override
-	protected void onUse(Object target) {
+	protected boolean onUse(Object target) {
+		if(target != null) {
+			return false;
+		}
+		
 		if(target instanceof Character) {
 			((Character) target).heal(3.0);
+			return true;
+		}else {
+			return false;
 		}
+		
 	}
 
 }
