@@ -75,8 +75,10 @@ public class CharacterIT {
     @Test
     public void health() {
         double dmg = 3.0;
+        
         character.hurt(dmg);
         assertEquals(DEF_HP - dmg, character.getHP(), 0.0);
+        
         character.heal(dmg);
         assertEquals(DEF_HP, character.getHP(), 0.0);
     }

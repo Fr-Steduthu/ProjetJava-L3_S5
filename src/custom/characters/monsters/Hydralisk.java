@@ -1,4 +1,4 @@
-package builtin.characters.monsters;
+package custom.characters.monsters;
 
 import core.character.Monster;
 import core.character.State;

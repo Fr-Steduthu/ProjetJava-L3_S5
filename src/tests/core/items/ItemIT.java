@@ -1,11 +1,11 @@
 package tests.core.items;
 
 import core.Inventory;
+import core.character.Character;
 import core.character.Player;
 import core.items.Item;
 import core.places.Place;
 import builtin.items.SaND;
-import builtin.items.SmallPot;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -70,20 +70,46 @@ public class ItemIT {
     public void takeItem(){
         player.setLocation(room);
         room.addItem(item);
-        item.take(player);
+        item.giveTo(player);
         assertEquals(player.getClassInventory(), item.getLocation()); // If this fails, please make sure that Character's getClassInventory method is available. (It's a comment by default btw)
     }
     
     // use
     @Test
     public void useItem(){
-        item = new SmallPot();
+        item = new Item("Healing item") {
+			private static final long serialVersionUID = 5818009875775401024L;
+			
+			{
+				this.isUsable = true;
+				this.isCurrentlyUsable = true;
+			}
+
+			@Override
+			public String look() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			protected boolean onUse(Object target) {
+				((Character) target).heal(3.0);
+				return false;
+			}
+        	
+        };
         player.setLocation(room);
         room.addItem(item);
-        item.take(player);
+        item.giveTo(player);
+        
         double beforeOperation = player.getHP();
+        
+        player.setArmor(0.0);
         player.hurt(3.0);
+        
+        
         item.use(player);
+        
         assertEquals(beforeOperation, player.getHP(), 0.0);
     }
 }

@@ -82,10 +82,11 @@ public abstract class Character implements Serializable{
 	}
 
 	public void heal(double f) {
-			this.hp += f;
-			if(this.hp > this.maxHP) {
-					this.hp = this.maxHP;
-			}
+		this.hp += f;
+		
+		if(this.hp > this.maxHP) {
+				this.hp = this.maxHP;
+		}
 	}
 	
     //peut se blesser lui-meme, a justifier 

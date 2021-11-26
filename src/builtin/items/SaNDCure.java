@@ -10,7 +10,7 @@ public class SaNDCure extends Item {
 	public SaNDCure() {
 		super("SaND-cure");
                 isUsable = true;
-                currentlyUsable = true;
+                isCurrentlyUsable = true;
 	}
 
 	@Override

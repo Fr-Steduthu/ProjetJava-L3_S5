@@ -10,7 +10,7 @@ public class MegaPot extends Item {
 	public MegaPot() {
 		super("Mega-pot");
                 isUsable = true;
-                currentlyUsable = true;
+                isCurrentlyUsable = true;
 	}
 
 	@Override

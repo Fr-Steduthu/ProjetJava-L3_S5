@@ -10,13 +10,13 @@ import hmi.HMI;
 public abstract class Item implements Serializable{
 	private static final long serialVersionUID = -2738172528031259592L;
 	
-	private String name; //Variable pour ne pas avoir � recreer l'objet apres "identification"
+	private String name; //Variable pour ne pas avoir a recreer l'objet apres "identification"
 	private Object location = null;
 
 	protected boolean isTakable = true;
-	protected boolean currentlyTakable = true;
+	protected boolean isCurrentlyTakable = true;
 	protected boolean isUsable = false;
-	protected boolean currentlyUsable = false;
+	protected boolean isCurrentlyUsable = false;
 
 
 	public Item(String name) {
@@ -45,9 +45,9 @@ public abstract class Item implements Serializable{
 	
 	public abstract String look();
 	
-	public final void take(Player player) {
+	public final void giveTo(Player player) {
 		if(this.isTakable) {
-			if(this.currentlyTakable) {
+			if(this.isCurrentlyTakable) {
 				player.addItem(this);
 				player.getLocation().removeItem(this);
 				HMI.message("You take the "+this.name);
@@ -59,9 +59,9 @@ public abstract class Item implements Serializable{
 		}
 	}
 	
-	public final boolean use(Object target) {
+	public /*final*/ boolean use(Object target) {
 		if(this.isUsable) {
-            if(this.currentlyUsable) {
+            if(this.isCurrentlyUsable) {
                 return this.onUse(target);
             } else {
                 HMI.message("This item cannot be used yet");

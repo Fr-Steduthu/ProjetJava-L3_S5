@@ -10,7 +10,7 @@ public abstract class Equipment extends Item {
 	public Equipment(String name) {
 		super(name);
 		this.isTakable = true;
-		this.currentlyTakable = true;
+		this.isCurrentlyTakable = true;
 	}
 
 	@Override

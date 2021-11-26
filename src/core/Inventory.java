@@ -35,29 +35,27 @@ public class Inventory implements Serializable{
 	}
 	
 	public Item[] getItems() {
-        /*Item[] items = new Item[this.contents.size()];
+        Item[] items = new Item[this.contents.size()];
         int cmpt = 0;
-        try {
-            for (Item i : this.contents) {
-                items[cmpt] = i;
-                cmpt++;
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {}*/
-        return (Item[]) this.contents.toArray();
+        
+        for (Item i : this.contents) {
+            items[cmpt] = i;
+            cmpt++;
+        }
+        
+        return items; //(Item[]) this.contents.toArray();
 	}
 	
 	public Equipment[] getEquipment() {
-        /*Equipment[] equipments = new Equipment[this.equiped.size()];
+        Equipment[] equipments = new Equipment[this.equiped.size()];
         int cmpt = 0;
-        try {
-            for (Equipment e : this.equiped) {
-                equipments[cmpt] = e;
-                cmpt++;
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {
-        	HMI.error(null);
-        }*/
-        return (Equipment[]) this.equiped.toArray();
+        
+        for (Equipment e : this.equiped) {
+            equipments[cmpt] = e;
+            cmpt++;
+        }
+        
+        return equipments; //(Equipment[]) this.equiped.toArray();
 	}
 	
 	public boolean isFull() {

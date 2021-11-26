@@ -56,7 +56,7 @@ public class InventoryIT {
     
     // getEquipments (empty)
     @Test
-    public void emptyEqpmt() {
+    public void emptyEquipemt() {
         Equipment[] equipped = inv.getEquipment();
         Equipment[] empty = new Equipment[]{};
         assertArrayEquals(empty, equipped);
