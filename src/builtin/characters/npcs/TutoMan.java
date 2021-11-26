@@ -15,11 +15,12 @@ public class TutoMan extends NPC {
     }
     
     @Override
-    public void interact() {
+    public void interact(Quest context) {
         int tipSelected = (int) (Math.random() * (tipsArray.length - 0));
         this.speak();
-        HMI.message(tipsArray[tipSelected]);
+        this.speak(tipsArray[tipSelected]);
         this.getLocation().addItem(new TutoStone());
+        HMI.message("The Tuto-MAN dropped some kind of stone");
         this.getLocation().removeNpc(this);
     }  
 }

@@ -2,6 +2,7 @@ package builtin.characters.npcs;
 
 import builtin.items.SaND;
 import core.character.NPC;
+import hmi.HMI;
 
 public class Grain extends NPC {
 
@@ -10,5 +11,15 @@ public class Grain extends NPC {
 	public Grain() {
         super("Grain", "Do yoU wAnT sOmE SaND?", 1);
         this.inventory.addItem(new SaND());
+    }
+        
+    @Override
+    public void interact(Quest context) {
+        if(this.ask(this.dialogue)) {
+            this.getLocation().addItem(new SaND());
+            HMI.message("Grain drops the sands of life. They fall on the ground.");
+        }else {
+            this.speak("Aww yOu MEaNie! :(\n");
+        }
     }
 }
