@@ -82,13 +82,13 @@ public class Quest implements Serializable{
 	
 	public int find(Place l) {
 		int i = 0;
-		for( Place e : this.dungeon) {
+		for(Place e : this.dungeon) {
 			if(e == l) {
 				return i;
 			}
 			i++;
 		}
-		return i;
+		return -1;
 	}
 	
 	public Place getStartingPoint() {
