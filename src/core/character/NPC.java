@@ -4,7 +4,7 @@ import core.Quest;
 
 public class NPC extends Character{
 
-	private static final long serialVersionUID = 1134079016999922837L;
+    private static final long serialVersionUID = 1134079016999922837L;
 
     public NPC(String name, String dialogue, int inventoryCapacity, int equipment_capacity) {
         super(name, 20.0, 0.0, inventoryCapacity, equipment_capacity);
@@ -24,5 +24,5 @@ public class NPC extends Character{
     public void interact(Quest context) {
         this.speak();
         this.getLocation().removeNpc(this);
-    }   
+    }
 }
