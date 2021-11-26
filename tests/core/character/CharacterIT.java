@@ -3,7 +3,7 @@ package core.character;
 import core.Inventory;
 import core.items.Item;
 import core.places.Place;
-import custom.items.SaND;
+import builtin.items.SaND;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -133,7 +133,7 @@ public class CharacterIT {
         character.getClassInventory().addItem(new SaND());
         character.setLocation(room);
         Item[] oldInvItems = character.getInventory();
-        character.onDeath(null, null);
+        character.onDeath(null);
         assertArrayEquals(inv.getItems(), character.getInventory());
         assertArrayEquals(oldInvItems, room.getItems());
     }
