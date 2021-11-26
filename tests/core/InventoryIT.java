@@ -158,6 +158,20 @@ public class InventoryIT {
         assertTrue(eInv.isEquiped(equipment));
     }
     
+    // Try to overfill the equipped items, search for not equipped item
+    @Test
+    public void overfillEquipped() {
+        eInv.addItem(equipment);
+        eInv.equip(equipment);
+        Equipment missing = new WoodGloves();
+        for (int i = 0; i < 42; i++) {
+            eInv.addItem(missing);
+            assertFalse(eInv.equip(missing));
+        }
+        assertTrue(eInv.isEquiped(equipment));
+        assertFalse(eInv.isEquiped(missing));
+    }
+    
     // findItem (not here)
     @Test
     public void notFound() {
