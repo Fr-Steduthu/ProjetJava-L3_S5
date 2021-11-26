@@ -1,6 +1,7 @@
 package core.character;
 
 
+import core.Quest;
 import hmi.HMI;
 
 public final class Player extends Character{
@@ -12,8 +13,7 @@ public final class Player extends Character{
 	public static final transient int DEFAULT_INVENTORY_CAPACITY = 20;
 
 	private static final int DEFAULT_EQUIPMENT_SIZE = 3;
-        
-        ;
+
 	
 	public Player(String name){
 		super(name, Player.DEFAULT_MAXHP, Player.DEFAULT_ABILLITYRESOURCES, Player.DEFAULT_INVENTORY_CAPACITY, Player.DEFAULT_EQUIPMENT_SIZE);
@@ -32,9 +32,9 @@ public final class Player extends Character{
                 this.isLootable = true;
                 this.canUseItems = true;
 	}
-
+        
 	@Override
-	public void interact() {
+	public void interact(Quest context) {
 		HMI.message("\t\t[ERROR>Player] UNREACHABLE CODE REACHED");
 	}
 }

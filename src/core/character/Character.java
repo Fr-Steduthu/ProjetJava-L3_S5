@@ -60,11 +60,23 @@ public abstract class Character implements Serializable{
 	public final Item[] getInventory() {
 			return this.inventory.getItems();
 	}
+        
+        public final String getInventoryItemsStr() {
+            return this.inventory.invToReadableString();
+        }
+        
+        public final String getInventoryEquippedStr() {
+            return this.inventory.equipmentToReadableString();
+        }
+        
+        public final String getInventoryStr() {
+            return this.inventory.toString();
+        }
 	
-	// Utilisé uniquement pour les tests
+	/*// Utilisé uniquement pour les tests
 	public Inventory getClassInventory() {
             return this.inventory;
-    }
+        }*/
 
 	public final Place getLocation() {
 			return this.location;
@@ -145,7 +157,7 @@ public abstract class Character implements Serializable{
 			this.hp = 0.0f;
 	}
 
-	public abstract void interact();
+	public abstract void interact(Quest context);
 
 	public final void inspect() {
 			HMI.message(getName() + " : " + this.getHP() + "/" + ((int)(this.maxHP+0.5)) + "health points\n\t"+(int)this.armor+" armor"); 
@@ -170,10 +182,18 @@ public abstract class Character implements Serializable{
 
 	public final void speak() {
 		if(this.isAbleToSpeak) {
-			HMI.message(this.dialogue);
+			this.speak(this.dialogue);
 		}else {
 			HMI.message("It doesn't seem to respond");
 		}
+	}
+	
+	public final void speak(String message) {
+		HMI.message("["+this.NAME+"]" + message);
+	}
+	
+	public final boolean ask(String message) {
+		return HMI.confirm("[" + this.NAME + "]" + message);
 	}
 	
 	public final Item[] getLoot(){
@@ -207,5 +227,9 @@ public abstract class Character implements Serializable{
 			HMI.error("An error has occured, you drop that");
 		};
 
+	}
+
+	public boolean canTalk() {
+		return this.isAbleToSpeak;
 	}
 }

@@ -12,7 +12,6 @@ public class LightIronSpear extends DamageEnhancer {
 
 	@Override
 	public String look() {
-		// TODO Auto-generated method stub
-		return null;
+		return "A light iron spear. When equipped, it augments your damage by 2 points.";
 	}
 }

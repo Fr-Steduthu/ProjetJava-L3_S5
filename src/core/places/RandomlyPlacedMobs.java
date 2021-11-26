@@ -7,6 +7,7 @@ public interface RandomlyPlacedMobs {
 	public abstract Monster[] getMonsterList();
 	
 	public default Monster getRandomMonster(){
-		return (Monster) this.getMonsterList()[Math.floorMod((int) Math.random() * this.getMonsterList().length, this.getMonsterList().length)];
+		Monster[] list = this.getMonsterList();
+		return (Monster) list[Math.floorMod((int) Math.random() * list.length, list.length)];
 	}
 }

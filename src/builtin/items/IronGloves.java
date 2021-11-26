@@ -11,7 +11,6 @@ public class IronGloves extends DamageEnhancer {
 
 	@Override
 	public String look() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Iron gloves. When equipped, it augments your damage by 3 points.";
 	}
 }

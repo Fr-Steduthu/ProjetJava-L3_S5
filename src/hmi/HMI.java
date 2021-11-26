@@ -41,7 +41,10 @@ public final class HMI {
 	}
 	
 	public static String readCommand(String message) {
-		return HMI.read(message, Command.getRegex());
+		HMI.input.useDelimiter("\\s");
+		String retVal =  HMI.read(message, Command.getRegex());
+		HMI.input.useDelimiter(HMI.inputDelimiter);
+		return retVal;
 	}
 	
 	public static boolean confirm(String message) {
@@ -49,7 +52,12 @@ public final class HMI {
 	}
 
 	public static void clear() {
-		//TODO ? Esce-ce seulement possible ? https://stackoverflow.com/questions/2979383/how-to-clear-the-console
+		try{  
+			HMI.output.print("\033[H\033[2J");  
+			HMI.output.flush();  
+		}catch(Exception e) {
+			HMI.errorOutput.println(e.getStackTrace().toString());
+		}
 	}
 	
 	public static void message(String message) {

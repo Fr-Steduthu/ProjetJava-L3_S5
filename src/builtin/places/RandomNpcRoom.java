@@ -1,10 +1,10 @@
 package builtin.places;
 
-import core.character.Monster;
+import core.character.NPC;
 import core.places.Place;
-import core.places.RandomlyPlacedMobs;
+import core.places.RandomlyPlacedNpcs;
 
-public class RandomNpcRoom extends Place implements RandomlyPlacedMobs {
+public class RandomNpcRoom extends Place implements RandomlyPlacedNpcs {
 
 	private static final long serialVersionUID = -6304241378807195612L;
 
@@ -13,7 +13,7 @@ public class RandomNpcRoom extends Place implements RandomlyPlacedMobs {
 	}
 
 	@Override
-	public Monster[] getMonsterList() {
+	public NPC[] getNpcList() {
 		// TODO Auto-generated method stub
 		return null;
 	}

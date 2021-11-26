@@ -38,4 +38,13 @@ public class ExitIT {
         exit.addTo(room1);
         assertArrayEquals(currentExits, room1.getExits());
     }
+    
+    @Test
+    public void openClose() {
+        assertTrue(exit.canPassThrough(null));
+        exit.close();
+        assertFalse(exit.canPassThrough(null));
+        exit.open();
+        assertTrue(exit.canPassThrough(null));
+    }
 }

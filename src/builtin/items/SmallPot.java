@@ -15,8 +15,7 @@ public class SmallPot extends Item {
 
 	@Override
 	public String look() {
-                // TODO Auto-generated method stub
-		return null;
+		return "A small effect potion. When used, it regenerates your hp by 3 points.";
 	}
 
 	@Override

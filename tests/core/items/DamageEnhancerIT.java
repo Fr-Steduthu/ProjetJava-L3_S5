@@ -1,21 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package core.items;
 
-/**
- *
- * @author ntimmers
- */
+
 import core.character.Player;
 import core.character.Monster;
 import core.character.NPC;
 import builtin.items.LightIronSpear;
 import builtin.items.ReinforcedGloves;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;

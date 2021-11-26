@@ -1,4 +1,4 @@
-package custom.characters.monsters;
+package builtin.characters.monsters;
 
 import core.character.Monster;
 

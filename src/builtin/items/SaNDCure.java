@@ -15,8 +15,7 @@ public class SaNDCure extends Item {
 
 	@Override
 	public String look() {
-		// TODO Auto-generated method stub
-		return null;
+		return "SaND-cure. A cure to the SaND disease. Removes every single SaND from your inventory.";
 	}
 
 	@Override

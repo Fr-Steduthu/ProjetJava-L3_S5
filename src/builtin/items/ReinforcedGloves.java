@@ -12,8 +12,7 @@ public class ReinforcedGloves extends DamageEnhancer {
 
 	@Override
 	public String look() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Reinforced gloves. When equipped, it augments your damage by 5 points.";
 	}
 
 }
