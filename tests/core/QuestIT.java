@@ -3,7 +3,6 @@ package core;
 import builtin.places.entrances.TutorialRoom;
 import core.character.Player;
 import core.places.Place;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;

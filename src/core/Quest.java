@@ -14,7 +14,7 @@ public class Quest implements Serializable{
 	private final Place origin;
 	private Player player;
 	private Place[] dungeon;
-	private String objective; // non-final car pouvant etre modifie au cours de l'aventure
+	private String objective; // non-final car pouvant etre modifie au cours de l'aventure, cela n'est pas le cas pour cette version cependant
 	private final Object objective_object;
 	/*
 	public Quest() {
