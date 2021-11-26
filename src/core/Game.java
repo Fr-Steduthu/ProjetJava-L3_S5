@@ -118,14 +118,14 @@ public class Game {
 						
 					case USE:
 						String messageUse = "What item do you want to use?";
-						for(Item e : p.getInventory()) {	
+						for(Item e : p.getItems()) {	
 							messageUse += "\n" + e.getName();
 						}
 						
-						String inputUse = HMI.read(messageUse, Regex.regex(p.getInventory())+"|"+Regex.regex("back")); //Game.message(current.getExits());
+						String inputUse = HMI.read(messageUse, Regex.regex(p.getItems())+"|"+Regex.regex("back")); //Game.message(current.getExits());
 						
 						if(!Regex.areEquals(inputUse, "back")) {
-							for(Item e : p.getInventory()) {
+							for(Item e : p.getItems()) {
 
 								if(Regex.areEquals(inputUse, e.getName())){
 									
@@ -224,7 +224,7 @@ public class Game {
 
     private static Item selectUse(Quest q) {
     	
-        Item[] playerItems = q.getPlayer().getInventory();
+        Item[] playerItems = q.getPlayer().getItems();
         
         if (playerItems.length == 0) {
             HMI.message("Your inventory is empty.");
@@ -311,7 +311,7 @@ public class Game {
 				}
 			}
 		}else if(objective instanceof Item) {//Possession et non utilisation d'un item
-			for( Item i : q.getPlayer().getInventory()){
+			for( Item i : q.getPlayer().getItems()){
 				if(i == objective) {
 					return true;
 				}

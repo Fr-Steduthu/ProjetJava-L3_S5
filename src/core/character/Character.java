@@ -57,7 +57,7 @@ public abstract class Character implements Serializable{
 			return NAME;
 	}
 
-	public final Item[] getInventory() {
+	public final Item[] getItems() {
 			return this.inventory.getItems();
 	}
         
@@ -198,7 +198,7 @@ public abstract class Character implements Serializable{
 	}
 	
 	public final Item[] getLoot(){
-		return this.getInventory();
+		return this.getItems();
 	}
 	
 	public void onDeath(Quest context){

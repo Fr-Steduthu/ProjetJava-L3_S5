@@ -8,6 +8,7 @@ import core.character.Character;
 import core.items.Equipment;
 import core.items.Item;
 import core.places.Place;
+import hmi.HMI;
 
 public class Inventory implements Serializable{
 
@@ -35,27 +36,14 @@ public class Inventory implements Serializable{
 	}
 	
 	public Item[] getItems() {
-        Item[] items = new Item[this.contents.size()];
-        int cmpt = 0;
-        
-        for (Item i : this.contents) {
-            items[cmpt] = i;
-            cmpt++;
-        }
-        
-        return items; //(Item[]) this.contents.toArray();
+        Item[] items = {};
+        return /*items = */this.contents.toArray(items);
+        //return items;
 	}
 	
 	public Equipment[] getEquipment() {
-        Equipment[] equipments = new Equipment[this.equiped.size()];
-        int cmpt = 0;
-        
-        for (Equipment e : this.equiped) {
-            equipments[cmpt] = e;
-            cmpt++;
-        }
-        
-        return equipments; //(Equipment[]) this.equiped.toArray();
+		Equipment[] items = {};
+        return this.equiped.toArray(items);
 	}
 	
 	public boolean isFull() {
@@ -103,19 +91,23 @@ public class Inventory implements Serializable{
 	
 	/**Manipulation methods**/
 	public boolean addItem(Item e) {
-		assert(e != null);
+		if(e == null) {
+			HMI.error("Inventory.addItem(Item e) -> Tried to put null object in inventory");
+			return false;
+		}
 		
 		if(this.isFull()) {
 			return false;
 		}else {
-			if(e.getLocation() != this && e.getLocation() != null) {
+			if(e.getLocation() != null) {
 				if(e.getLocation() instanceof Place) {
 					((Place) e.getLocation()).removeItem(e);
+					
 				}else if(e.getLocation() instanceof Inventory) {
 					((Inventory)e.getLocation()).removeItem(e);
 				}
 			}
-			
+
 			e.setLocation(this);
 			this.contents.add(e);
 			return true;

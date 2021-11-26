@@ -83,7 +83,7 @@ public class InventoryIT {
     @Test
     public void fullInv() {
         for (int i = 0; i < invSize; i++) {
-            inv.addItem(item);
+            inv.addItem(new SaND());
         }
         assertTrue(inv.isFull());
     }
@@ -145,8 +145,9 @@ public class InventoryIT {
     @Test
     public void overfillMissing() {
         for (int i = 0; i < invSize; i++) {
-            assertTrue(inv.addItem(item));
+            assertTrue(inv.addItem(new SaND()));
         }
+        
         for (int i = 0; i < 42; i++) {
             Item missing = new SaND();
             inv.addItem(missing);
@@ -208,9 +209,11 @@ public class InventoryIT {
     @Test
     public void overfillMissingLook() {
         for (int i = 0; i < 42; i++) {
-            inv.addItem(item);
+            inv.addItem(new SaND());
         }
+        
         Item missing = new SaND();
+        
         inv.addItem(missing);
         assertEquals(-1, inv.findItem(missing));
     }
@@ -239,7 +242,7 @@ public class InventoryIT {
     @Test
     public void cannotBeAdded() {
         for (int i = 0; i < invSize; i++) {
-            inv.addItem(item);
+            inv.addItem(new SaND());
         }
         assertFalse(inv.addItem(item));
     }

@@ -27,7 +27,7 @@ public class CharacterIT {
     
     @Before
     public void setup() {
-        character = new core.character.Character(DEF_NAME, DEF_HP, DEF_AR, DEF_INV_CAP, DEF_EQ_CAP) {
+        character = new Character(DEF_NAME, DEF_HP, DEF_AR, DEF_INV_CAP, DEF_EQ_CAP) {
 
 			private static final long serialVersionUID = -1034399115046921467L;
 			{
@@ -56,7 +56,7 @@ public class CharacterIT {
     @Test
     public void checkSetup() {
         assertEquals(DEF_NAME, character.getName());
-        assertArrayEquals(inv.getItems(), character.getInventory());
+        assertArrayEquals(inv.getItems(), character.getItems());
         assertEquals(null, character.getLocation());
         assertEquals(DEF_HP, character.getHP(), 0.0);
         assertEquals(DEF_AR, character.getAR(), 0.0);
@@ -139,29 +139,31 @@ public class CharacterIT {
     // equip is tested in InventoryIT, they use the same methods
     
     // getLoot
-    @Test
+    /*@Test
     public void testLoots() {
-        Item item = new SaND();
-        character.addItem(item); // If this fails, please make sure that Character's getClassInventory method is available. (It's a comment by default btw)
-        inv.addItem(item);
-        assertArrayEquals(inv.getItems(), character.getInventory());
-    }
+        character.addItem(new SaND());
+        inv.addItem(new SaND());
+        assertArrayEquals(inv.getItems(), character.getItems());
+    }*/
     
     // onDeath
     @Test
     public void dropLoots() {
-        character.addItem(new SaND()); // If this fails, please make sure that Character's getClassInventory method is available. (It's a comment by default btw)
+        character.addItem(new SaND());
         character.setLocation(room);
-        Item[] oldInvItems = character.getInventory();
+        
+        Item[] oldInvItems = character.getItems();
+        
         character.onDeath(null);
-        assertArrayEquals(inv.getItems(), character.getInventory());
+        
+        assertArrayEquals(inv.getItems(), character.getItems());
         assertArrayEquals(oldInvItems, room.getItems());
     }
     
     // onDeath, except the caracter isn't lootable
     @Test
     public void dropLootsNonLootable() {
-        nonLootableCharacter.addItem(new SaND()); // If this fails, please make sure that Character's getClassInventory method is available. (It's a comment by default btw)
+        nonLootableCharacter.addItem(new SaND());
         nonLootableCharacter.setLocation(room);
         Item[] empty = new Item[]{};
         nonLootableCharacter.onDeath(null);

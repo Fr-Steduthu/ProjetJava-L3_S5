@@ -89,7 +89,7 @@ public class TutorialQuest extends Quest {
 
 			@Override
 			public boolean canPassThrough(Quest q) {
-				for(Item e : q.getPlayer().getInventory()) {
+				for(Item e : q.getPlayer().getItems()) {
 					if(e instanceof SaND) {
 						return true;
 					}
