@@ -17,8 +17,9 @@ public abstract class Equipment extends Item {
 	public abstract String look();
 
 	@Override
-	protected final void onUse(Object target) {
+	protected final boolean onUse(Object target) {
 		HMI.message("This item is an equipment and cannot be used");
+		return false;
 	}
 	
 	public abstract void onEquip(Character target);

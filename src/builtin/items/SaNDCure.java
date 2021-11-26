@@ -19,12 +19,18 @@ public class SaNDCure extends Item {
 	}
 
 	@Override
-	protected void onUse(Object target) {
+	protected boolean onUse(Object target) {
+		if(target != null) {
+			return false;
+		}
+		
 		for(Item e : ((Inventory) this.getLocation()).getItems()) {
 			if(e instanceof SaND) {
 				((Inventory) this.getLocation()).removeItem(e);
 			}
 		}
+		
+		return true;
 	}
 
 }

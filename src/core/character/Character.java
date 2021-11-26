@@ -163,12 +163,12 @@ public abstract class Character implements Serializable{
 			HMI.message(getName() + " : " + this.getHP() + "/" + ((int)(this.maxHP+0.5)) + "health points\n\t"+(int)this.armor+" armor"); 
 	}
 
-	public final void use(Item e) {
+	public final boolean use(Item e, Object target) {
 		if(this.canUseItems) {
-			e.use(this);
-			//TODO a completer
+			return e.use(target);
 		} else {
-			HMI.message(this.getClass().getSimpleName() + " tried to use an item.. except it can't.");
+			HMI.message(this.getClass().getSimpleName() + " tried to use an item... except it can't.\nWhat a pitiful display...");
+			return false;
 		}
 	}
 

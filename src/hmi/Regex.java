@@ -116,4 +116,8 @@ public final class Regex {
 		}
 		return regex.substring(1);
 	}
+	
+	public static boolean areEquals(String str1, String str2) {
+		return str1.toLowerCase().equals(str2.toLowerCase());
+	}
 }

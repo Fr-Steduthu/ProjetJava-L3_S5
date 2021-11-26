@@ -19,9 +19,12 @@ public class Flesh extends Item {
 	}
 
 	@Override
-	protected void onUse(Object target) {
+	protected boolean onUse(Object target) {
 		if(target instanceof Character) {
-			((Character) target).giveAR(2.0);;
+			((Character) target).giveAR(2.0);
+			return true;
+		}else {
+			return false;
 		}
 	}
 

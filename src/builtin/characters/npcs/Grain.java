@@ -6,6 +6,7 @@ import core.Quest;
 
 import hmi.HMI;
 
+
 public class Grain extends NPC {
 
     private static final long serialVersionUID = -4833448121672637644L;
@@ -24,4 +25,5 @@ public class Grain extends NPC {
             this.speak("Aww yOu MEaNie! :(\n");
         }
     }
+
 }

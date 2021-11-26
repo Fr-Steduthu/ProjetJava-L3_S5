@@ -59,22 +59,27 @@ public abstract class Item implements Serializable{
 		}
 	}
 	
-	public final void use(Object target) {
+	public final boolean use(Object target) {
 		if(this.isUsable) {
-                    if(this.currentlyUsable) {
-                        this.onUse(target);
-                    } else {
-                        HMI.message("This item cannot be used yet");
-                    }
+            if(this.currentlyUsable) {
+                return this.onUse(target);
+            } else {
+                HMI.message("This item cannot be used yet");
+            }
 		}else {
 			HMI.message("This cannot be used");
 		}
+		return false;
 	}
 
-	protected abstract void onUse(Object target);
+	protected abstract boolean onUse(Object target);
         
-        @Override
-        public String toString() {
-            return this.name;
-        }
+    @Override
+    public String toString() {
+        return this.name;
+    }
+
+	public boolean needsTarget() {
+		return false;
+	}
 }
