@@ -99,7 +99,8 @@ public class Quest implements Serializable{
 		return this.player;
 	}
         
-	protected void setPlayer(Player p) {
+        //On passe cette fonction en public pour si l'on veut avoir une équipe dans son jeux / phases avec personnages différent 
+	public void setPlayer(Player p) {
 		this.player = p;
 	}
 }
