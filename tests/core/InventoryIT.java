@@ -89,8 +89,15 @@ public class InventoryIT {
     
     @Test
     public void overfillItems() {
-        for (int i = 0; i < 42; i++) {
+        for (int i = 0; i < invSize; i++) {
+            item = new SaND();
             inv.addItem(item);
+            assertEquals(i, inv.findItem(item));
+        }
+        for (int i = 0; i < 42; i++) {
+            item = new SaND();
+            inv.addItem(item);
+            assertEquals(-1, inv.findItem(item));
         }
         assertTrue(inv.isFull());
     }
@@ -113,9 +120,16 @@ public class InventoryIT {
     
     @Test
     public void overfillEquipments() {
-        for (int i = 0; i < 42; i++) {
+        for (int i = 0; i < eInvSize; i++) {
             eInv.addItem(equipment);
-            eInv.equip(equipment);
+            assertTrue(eInv.equip(equipment));
+            assertEquals(i, eInv.findEquipment(equipment));
+        }
+        for (int i = 0; i < 42; i++) {
+            equipment = new WoodGloves();
+            eInv.addItem(equipment);
+            assertFalse(eInv.equip(equipment));
+            assertEquals(-1, eInv.findEquipment(equipment));
         }
         assertTrue(eInv.isFullyGeared());
     }
@@ -130,11 +144,14 @@ public class InventoryIT {
     @Test
     public void overfillMissing() {
         for (int i = 0; i < invSize; i++) {
-            inv.addItem(item);
+            assertTrue(inv.addItem(item));
         }
-        Item missing = new SaND();
-        inv.addItem(missing);
-        assertFalse(inv.contains(missing));
+        for (int i = 0; i < 42; i++) {
+            Item missing = new SaND();
+            inv.addItem(missing);
+            assertFalse(inv.contains(missing));
+        }
+        
     }
     
     // contains (here)
