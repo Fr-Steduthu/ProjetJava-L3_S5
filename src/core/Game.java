@@ -167,9 +167,7 @@ public class Game {
         
         HMI.message("Choose and item to use.");
         
-        for (Item item : playerItems) {
-            HMI.message(item.getName());
-        }
+        HMI.message(q.getPlayer().getInventoryItemsStr());
         
         Item selectedItem = null; 
         selectedItem = Game.selectItem(playerItems);

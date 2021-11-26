@@ -8,6 +8,7 @@ import core.character.Character;
 import core.items.Equipment;
 import core.items.Item;
 import core.places.Place;
+import hmi.HMI;
 
 public class Inventory implements Serializable{
 
@@ -147,5 +148,28 @@ public class Inventory implements Serializable{
 			return false;
 		}
 	}
+        
+        public String invToReadableString() {
+            String inv = "";
+            inv = this.contents.stream().map(item -> item.getName() + "\n").reduce(inv, String::concat);
+            return inv;
+        }
+        
+        public String equipmentToReadableString() {
+            String eInv = "";
+            eInv = this.equiped.stream().map(equipment -> equipment.getName() + "\n").reduce(eInv, String::concat);
+            return eInv;
+        }
+        
+        @Override
+        public String toString() {
+            String inv = "Here is your inventory :\nItems :";
+            inv += invToReadableString();
+            
+            inv += "Equipped : \n";
+            inv += equipmentToReadableString();
+            
+            return inv;
+        }
 }
 

@@ -60,11 +60,23 @@ public abstract class Character implements Serializable{
 	public final Item[] getInventory() {
 			return this.inventory.getItems();
 	}
+        
+        public final String getInventoryItemsStr() {
+            return this.inventory.invToReadableString();
+        }
+        
+        public final String getInventoryEquippedStr() {
+            return this.inventory.equipmentToReadableString();
+        }
+        
+        public final String getInventoryStr() {
+            return this.inventory.toString();
+        }
 	
-	// Utilisé uniquement pour les tests
+	/*// Utilisé uniquement pour les tests
 	public Inventory getClassInventory() {
             return this.inventory;
-    }
+        }*/
 
 	public final Place getLocation() {
 			return this.location;
