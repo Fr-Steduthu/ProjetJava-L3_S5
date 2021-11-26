@@ -88,7 +88,7 @@ public class InventoryIT {
     }
     
     @Test
-    public void overfill() {
+    public void overfillItems() {
         for (int i = 0; i < 42; i++) {
             inv.addItem(item);
         }
@@ -105,6 +105,15 @@ public class InventoryIT {
     @Test
     public void fullyGeared() {
         for (int i = 0; i < eInvSize; i++) {
+            eInv.addItem(equipment);
+            eInv.equip(equipment);
+        }
+        assertTrue(eInv.isFullyGeared());
+    }
+    
+    @Test
+    public void overfillEquipments() {
+        for (int i = 0; i < 42; i++) {
             eInv.addItem(equipment);
             eInv.equip(equipment);
         }
