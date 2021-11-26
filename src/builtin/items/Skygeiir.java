@@ -14,7 +14,7 @@ public class Skygeiir extends Item {
 
 	@Override
 	public String look() {
-		return "Skygeiir the sky lance";
+		return "Skygeiir the sky lance. A dev item, you shouldn't have this unless you are a dev. Kills every single npc and monster in the room.";
 	}
 
 	@Override

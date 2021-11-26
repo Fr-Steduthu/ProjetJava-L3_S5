@@ -15,8 +15,7 @@ public class MegaPot extends Item {
 
 	@Override
 	public String look() {
-		// TODO Auto-generated method stub
-		return null;
+		return "A mega effect potion. When used, it regenerates your hp by 10 points.";
 	}
 
 	@Override

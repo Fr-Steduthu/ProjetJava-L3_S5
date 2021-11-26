@@ -15,8 +15,7 @@ public class Flesh extends Item {
 
 	@Override
 	public String look() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Some flesh. Regenerates your AR by 2 points when used";
 	}
 
 	@Override
