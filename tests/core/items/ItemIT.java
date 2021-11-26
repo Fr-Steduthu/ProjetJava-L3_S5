@@ -63,7 +63,7 @@ public class ItemIT {
         player.setLocation(room);
         room.addItem(item);
         item.take(player);
-        assertEquals(player.getClassInventory(), item.getLocation());
+        assertEquals(player.getClassInventory(), item.getLocation()); // If this fails, please make sure that Character's getClassInventory method is available. (It's a comment by default btw)
     }
     
     // use

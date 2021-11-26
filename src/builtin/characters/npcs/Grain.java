@@ -12,6 +12,7 @@ public class Grain extends NPC {
 
     public Grain() {
         super("Grain", "Do yoU wAnT sOmE SaND?", 1);
+        this.isAbleToSpeak = true;
     }
        
     @Override

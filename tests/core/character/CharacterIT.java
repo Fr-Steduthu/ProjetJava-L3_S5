@@ -128,7 +128,7 @@ public class CharacterIT {
     @Test
     public void testLoots() {
         Item item = new SaND();
-        character.getClassInventory().addItem(item);
+        character.getClassInventory().addItem(item); // If this fails, please make sure that Character's getClassInventory method is available. (It's a comment by default btw)
         inv.addItem(item);
         assertArrayEquals(inv.getItems(), character.getInventory());
     }
@@ -136,7 +136,7 @@ public class CharacterIT {
     // onDeath
     @Test
     public void dropLoots() {
-        character.getClassInventory().addItem(new SaND());
+        character.getClassInventory().addItem(new SaND()); // If this fails, please make sure that Character's getClassInventory method is available. (It's a comment by default btw)
         character.setLocation(room);
         Item[] oldInvItems = character.getInventory();
         character.onDeath(null);

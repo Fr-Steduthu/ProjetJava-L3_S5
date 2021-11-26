@@ -13,6 +13,7 @@ public class TutoMan extends NPC {
 
     public TutoMan() {
         super("Tuto-MAN", "I don't know if you know but..", 1);
+        this.isAbleToSpeak = true;
     }
     
     @Override
