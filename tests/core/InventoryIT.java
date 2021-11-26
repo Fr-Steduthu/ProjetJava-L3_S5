@@ -126,6 +126,17 @@ public class InventoryIT {
         assertFalse(eInv.contains(item));
     }
     
+    // An overfill test to check for a missing item
+    @Test
+    public void overfillMissing() {
+        for (int i = 0; i < invSize; i++) {
+            inv.addItem(item);
+        }
+        Item missing = new SaND();
+        inv.addItem(missing);
+        assertFalse(inv.contains(missing));
+    }
+    
     // contains (here)
     @Test
     public void inInv() {
