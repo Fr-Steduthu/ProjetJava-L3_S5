@@ -4,6 +4,7 @@ import core.Inventory;
 import core.items.Item;
 import core.places.Place;
 import builtin.items.SaND;
+import core.Quest;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -27,6 +28,11 @@ public class CharacterIT {
                 this.isLootable = true;
             }
             public void interact() {
+                System.out.println("This is not supposed to be tested.");
+            }
+
+            @Override
+            public void interact(Quest context) {
                 System.out.println("This is not supposed to be tested.");
             }
         };

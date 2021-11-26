@@ -1,6 +1,7 @@
 package builtin.characters.npcs;
 
 import builtin.items.TutoStone;
+import core.Quest;
 import core.character.NPC;
 import hmi.HMI;
 
