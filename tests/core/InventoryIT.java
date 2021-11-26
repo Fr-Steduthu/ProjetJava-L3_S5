@@ -89,8 +89,15 @@ public class InventoryIT {
     
     @Test
     public void overfillItems() {
-        for (int i = 0; i < 42; i++) {
+        for (int i = 0; i < invSize; i++) {
+            item = new SaND();
             inv.addItem(item);
+            assertEquals(i, inv.findItem(item));
+        }
+        for (int i = 0; i < 42; i++) {
+            item = new SaND();
+            inv.addItem(item);
+            assertEquals(-1, inv.findItem(item));
         }
         assertTrue(inv.isFull());
     }
