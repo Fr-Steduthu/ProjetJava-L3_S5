@@ -12,8 +12,8 @@ package core.items;
 import core.character.Player;
 import core.character.Monster;
 import core.character.NPC;
-import custom.items.LightIronSpear;
-import custom.items.ReinforcedGloves;
+import builtin.items.LightIronSpear;
+import builtin.items.ReinforcedGloves;
 
 import org.junit.After;
 import org.junit.Before;
