@@ -186,7 +186,16 @@ public class InventoryIT {
         assertEquals(0, inv.findItem(item));
     }
     
-    
+    // Overfill and then look for an item
+    @Test
+    public void overfillMissingLook() {
+        for (int i = 0; i < 42; i++) {
+            inv.addItem(item);
+        }
+        Item missing = new SaND();
+        inv.addItem(missing);
+        assertEquals(-1, inv.findItem(missing));
+    }
     
     // FindEquipment (false)
     @Test
