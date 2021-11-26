@@ -11,7 +11,7 @@ public abstract class Item implements Serializable{
 	private static final long serialVersionUID = -2738172528031259592L;
 	
 	private String name; //Variable pour ne pas avoir � recreer l'objet apres "identification"
-	private Object location;
+	private Object location = null;
 
 	protected boolean isTakable = true;
 	protected boolean currentlyTakable = true;
@@ -48,7 +48,7 @@ public abstract class Item implements Serializable{
 	public final void take(Player player) {
 		if(this.isTakable) {
 			if(this.currentlyTakable) {
-				player.give(this);
+				player.addItem(this);
 				player.getLocation().removeItem(this);
 				HMI.message("You take the "+this.name);
 			}else {

@@ -1,6 +1,8 @@
-package core.places;
+package tests.core.places;
 
 import core.items.Item;
+import core.places.Exit;
+import core.places.Place;
 import core.character.Character;
 import builtin.characters.npcs.Grain;
 import builtin.items.SaND;

@@ -26,6 +26,6 @@ public class Main {
 		@SuppressWarnings("unused")
 		Quest sc2 = new SC2();
 		
-		Game.start(new TutorialQuest());
+		//Game.start(new TutorialQuest());
 	}
 }

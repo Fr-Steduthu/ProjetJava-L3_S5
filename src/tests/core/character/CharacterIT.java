@@ -1,10 +1,13 @@
-package core.character;
+package tests.core.character;
 
 import core.Inventory;
 import core.items.Item;
 import core.places.Place;
 import builtin.items.SaND;
 import core.Quest;
+import core.character.Character;
+import core.character.State;
+
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -24,19 +27,23 @@ public class CharacterIT {
     
     @Before
     public void setup() {
-        character = new Character(DEF_NAME, DEF_HP, DEF_AR, DEF_INV_CAP, DEF_EQ_CAP) {
-            {
-                this.isLootable = true;
-            }
+        character = new core.character.Character(DEF_NAME, DEF_HP, DEF_AR, DEF_INV_CAP, DEF_EQ_CAP) {
 
-            @Override
+			private static final long serialVersionUID = -1034399115046921467L;
+			{
+				this.isLootable = true;
+			}
+			
+			@Override
             public void interact(Quest context) {
                 System.out.println("This is not supposed to be tested.");
             }
         };
+        
         nonLootableCharacter = new Character(DEF_NAME, DEF_HP, DEF_AR, DEF_INV_CAP, DEF_EQ_CAP) {
+			private static final long serialVersionUID = 5390515375152353402L;
 
-            @Override
+			@Override
             public void interact(Quest context) {
                 System.out.println("This is not supposed to be tested.");
             }
@@ -90,7 +97,7 @@ public class CharacterIT {
         double dmg = 3.0;
         double armor = 4.0;
         character.setArmor(armor);
-        assertEquals(armor, character.armor, 0.0);
+        assertEquals(armor, (int) character.getArmor(), 0.0);
         character.hurt(dmg);
         assertEquals(DEF_HP, character.getHP(), 0.0);
     }
@@ -133,7 +140,7 @@ public class CharacterIT {
     @Test
     public void testLoots() {
         Item item = new SaND();
-        character.getClassInventory().addItem(item); // If this fails, please make sure that Character's getClassInventory method is available. (It's a comment by default btw)
+        character.addItem(item); // If this fails, please make sure that Character's getClassInventory method is available. (It's a comment by default btw)
         inv.addItem(item);
         assertArrayEquals(inv.getItems(), character.getInventory());
     }
@@ -141,7 +148,7 @@ public class CharacterIT {
     // onDeath
     @Test
     public void dropLoots() {
-        character.getClassInventory().addItem(new SaND()); // If this fails, please make sure that Character's getClassInventory method is available. (It's a comment by default btw)
+        character.addItem(new SaND()); // If this fails, please make sure that Character's getClassInventory method is available. (It's a comment by default btw)
         character.setLocation(room);
         Item[] oldInvItems = character.getInventory();
         character.onDeath(null);
@@ -152,7 +159,7 @@ public class CharacterIT {
     // onDeath, except the caracter isn't lootable
     @Test
     public void dropLootsNonLootable() {
-        nonLootableCharacter.getClassInventory().addItem(new SaND()); // If this fails, please make sure that Character's getClassInventory method is available. (It's a comment by default btw)
+        nonLootableCharacter.addItem(new SaND()); // If this fails, please make sure that Character's getClassInventory method is available. (It's a comment by default btw)
         nonLootableCharacter.setLocation(room);
         Item[] empty = new Item[]{};
         nonLootableCharacter.onDeath(null);

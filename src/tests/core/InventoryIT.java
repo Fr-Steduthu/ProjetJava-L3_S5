@@ -1,7 +1,8 @@
-package core;
+package tests.core;
 
 import core.items.Equipment;
 import core.items.Item;
+import core.Inventory;
 import core.character.Player;
 import builtin.items.SaND;
 import builtin.items.WoodGloves;

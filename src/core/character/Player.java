@@ -4,7 +4,7 @@ package core.character;
 import core.Quest;
 import hmi.HMI;
 
-public final class Player extends Character{
+public class Player extends Character{
 
 	private static final long serialVersionUID = -4378126790245045248L;
 	
@@ -27,14 +27,19 @@ public final class Player extends Character{
                 this.canUseItems = true;
 	}
         
-        public Player(String name, double hp, double mana, int inventorySize, int equipmentSize) {
-		super(name, hp, mana, inventorySize, equipmentSize);
-                this.isLootable = true;
-                this.canUseItems = true;
+    public Player(String name, double hp, double mana, int inventorySize, int equipmentSize) {
+	super(name, hp, mana, inventorySize, equipmentSize);
+            this.isLootable = true;
+            this.canUseItems = true;
 	}
         
 	@Override
 	public void interact(Quest context) {
 		HMI.message("\t\t[ERROR>Player] UNREACHABLE CODE REACHED");
+	}
+
+	/**FOR TESTING ONLY**/
+	public Object getClassInventory() {
+		return super.inventory;
 	}
 }

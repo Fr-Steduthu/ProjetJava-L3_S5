@@ -8,7 +8,6 @@ import core.character.Character;
 import core.items.Equipment;
 import core.items.Item;
 import core.places.Place;
-import hmi.HMI;
 
 public class Inventory implements Serializable{
 
@@ -36,32 +35,35 @@ public class Inventory implements Serializable{
 	}
 	
 	public Item[] getItems() {
-                Item[] items = new Item[this.contents.size()];
-                int cmpt = 0;
-                try {
-                    for (Item i : this.contents) {
-                        items[cmpt] = i;
-                        cmpt++;
-                    }
-                } catch (ArrayIndexOutOfBoundsException e) {}
-                return items;
+        /*Item[] items = new Item[this.contents.size()];
+        int cmpt = 0;
+        try {
+            for (Item i : this.contents) {
+                items[cmpt] = i;
+                cmpt++;
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {}*/
+        return (Item[]) this.contents.toArray();
 	}
 	
 	public Equipment[] getEquipment() {
-                Equipment[] equipments = new Equipment[this.equiped.size()];
-                int cmpt = 0;
-                try {
-                    for (Equipment e : this.equiped) {
-                        equipments[cmpt] = e;
-                        cmpt++;
-                    }
-                } catch (ArrayIndexOutOfBoundsException e) {}
-                return equipments;
+        /*Equipment[] equipments = new Equipment[this.equiped.size()];
+        int cmpt = 0;
+        try {
+            for (Equipment e : this.equiped) {
+                equipments[cmpt] = e;
+                cmpt++;
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+        	HMI.error(null);
+        }*/
+        return (Equipment[]) this.equiped.toArray();
 	}
 	
 	public boolean isFull() {
 		return this.CAPACITY <= this.contents.size();
 	}
+	
 	public boolean isFullyGeared() {
 		return this.EQUIPMENT_CAPACITY <= this.equiped.size();
 	}
@@ -103,9 +105,19 @@ public class Inventory implements Serializable{
 	
 	/**Manipulation methods**/
 	public boolean addItem(Item e) {
+		assert(e != null);
+		
 		if(this.isFull()) {
 			return false;
 		}else {
+			if(e.getLocation() != this && e.getLocation() != null) {
+				if(e.getLocation() instanceof Place) {
+					((Place) e.getLocation()).removeItem(e);
+				}else if(e.getLocation() instanceof Inventory) {
+					((Inventory)e.getLocation()).removeItem(e);
+				}
+			}
+			
 			e.setLocation(this);
 			this.contents.add(e);
 			return true;

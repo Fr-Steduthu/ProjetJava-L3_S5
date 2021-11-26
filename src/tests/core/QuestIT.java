@@ -1,6 +1,7 @@
-package core;
+package tests.core;
 
 import builtin.places.entrances.TutorialRoom;
+import core.Quest;
 import core.character.Player;
 import core.places.Place;
 import org.junit.Before;

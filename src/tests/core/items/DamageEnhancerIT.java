@@ -1,4 +1,4 @@
-package core.items;
+package tests.core.items;
 
 
 import core.character.Player;
@@ -33,11 +33,11 @@ public class DamageEnhancerIT {
         double dmgMonster1 = m1.getDamage();
         double dmgNPC1 = n1.getDamage();
         
-        p1.give(spear);
+        p1.addItem(spear);
         p1.equip(spear);
-        m1.give(spear);
+        m1.addItem(spear);
         m1.equip(spear);
-        n1.give(gloves);
+        n1.addItem(gloves);
         n1.equip(gloves);
         
         assertEquals(p1.getDamage(), dmgPlayer1 + spear.getDamage(), 0.0);
@@ -52,11 +52,11 @@ public class DamageEnhancerIT {
     @Test
     public void testOnUnequip () {
         
-        p1.give(spear);
+        p1.addItem(spear);
         p1.equip(spear);
-        m1.give(spear);
+        m1.addItem(spear);
         m1.equip(spear);
-        n1.give(gloves);
+        n1.addItem(gloves);
         n1.equip(gloves);
         
         double dmgPlayer2 = p1.getDamage();

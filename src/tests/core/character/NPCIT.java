@@ -1,5 +1,7 @@
-package core.character;
+package tests.core.character;
 
+import core.character.NPC;
+import core.character.Character;
 import core.places.Place;
 import org.junit.Before;
 import org.junit.Test;

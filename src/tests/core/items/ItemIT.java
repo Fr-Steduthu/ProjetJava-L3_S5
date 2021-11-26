@@ -1,7 +1,8 @@
-package core.items;
+package tests.core.items;
 
 import core.Inventory;
 import core.character.Player;
+import core.items.Item;
 import core.places.Place;
 import builtin.items.SaND;
 import builtin.items.SmallPot;
@@ -21,7 +22,14 @@ public class ItemIT {
         item = new SaND();
         inv = new Inventory(null, 0, 0);
         room = new Place("Test room");
-        player = new Player("A test entity");
+        player = new Player("A test entity") {
+
+			private static final long serialVersionUID = 580166051356204320L;
+
+			public Inventory getClassInventory() {
+                return super.inventory;
+        	}
+        };
     }
     
     // getName

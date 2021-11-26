@@ -50,13 +50,13 @@ public class Game {
 				switch(action) {
 					case ATTACK:
 						Character target = selectAttack(q);
-                                                if (target != null) {
-                                                    p.attack(target);
-                                                    HMI.message("You've damaged the " + target.getName() + " for " + (int) p.getDamage() + " HP !");
-                                                    hasFinishedTurn = true;
-                                                } else {
-                                                    HMI.message("Please try again or select another command.");
-                                                }
+                            if (target != null) {
+                                p.attack(target);
+                                HMI.message("You've damaged the " + target.getName() + " for " + (int) p.getDamage() + " HP !");
+                                hasFinishedTurn = true;
+                            } else {
+                                HMI.message("Please try again or select another command.");
+                            }
 						break;
 						
 					case GO:

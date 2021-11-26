@@ -61,22 +61,17 @@ public abstract class Character implements Serializable{
 			return this.inventory.getItems();
 	}
         
-        public final String getInventoryItemsStr() {
-            return this.inventory.invToReadableString();
-        }
-        
-        public final String getInventoryEquippedStr() {
-            return this.inventory.equipmentToReadableString();
-        }
-        
-        public final String getInventoryStr() {
-            return this.inventory.toString();
-        }
-	
-	/*// Only to be used for tests
-	public Inventory getClassInventory() {
-            return this.inventory;
-        }*/
+    public final String getInventoryItemsStr() {
+        return this.inventory.invToReadableString();
+    }
+    
+    public final String getInventoryEquippedStr() {
+        return this.inventory.equipmentToReadableString();
+    }
+    
+    public final String getInventoryStr() {
+        return this.inventory.toString();
+    }
 
 	public final Place getLocation() {
 			return this.location;
@@ -92,7 +87,8 @@ public abstract class Character implements Serializable{
 					this.hp = this.maxHP;
 			}
 	}
-        //peut se blesser lui-même, à justifier 
+	
+    //peut se blesser lui-meme, a justifier 
 	public void hurt(double f) {
 			double temp = this.hp - f + this.armor;
 			if(temp < this.hp) {//On evite les soins par armure trop forte
@@ -117,34 +113,38 @@ public abstract class Character implements Serializable{
 	}
 
 	public final void giveAR(double amount) {
-			this.ar += amount;
-			if(this.ar > this.maxAbilityResource) {
-					this.ar = this.maxAbilityResource;
-			}
+		this.ar += amount;
+		if(this.ar > this.maxAbilityResource) {
+				this.ar = this.maxAbilityResource;
+		}
 	}
 
 	public final void regenAR() {
-			this.giveAR(this.arRegen);
+		this.giveAR(this.arRegen);
 	}
 
 	public void setArmor(double val){
-			this.armor = val;
+		this.armor = val;
+	}
+	
+	public final double getArmor() {
+		return this.armor;
 	}
 
 	public void setState(State state) {
-			this.currentState = state;
+		this.currentState = state;
 	}
 
 	public final State getState() {
-			return this.currentState;
+		return this.currentState;
 	}
 
 	public final double getDamage() {
-			return this.attackDamage;
+		return this.attackDamage;
 	}
 
 	public void setDamage(double value) {
-			this.attackDamage = value;
+		this.attackDamage = value;
 	}
 
 	/**Methods**/
@@ -216,17 +216,12 @@ public abstract class Character implements Serializable{
 		this.currentState = State.DEAD;
 	}
 	
-	public void give(Item item) {
-		if(!this.inventory.addItem(item)) {
-			HMI.message("You couldn't pick" + item.getName() + " up; your inventory is full.");
-		}
+	public boolean addItem(Item item) {
+		return this.inventory.addItem(item);
 	}
 	
-	public void take(Item item) {
-		if(!this.inventory.removeItem(item)) {
-			HMI.error("An error has occured, you drop that");
-		};
-
+	public boolean removeItem(Item item) {
+		return this.inventory.removeItem(item);
 	}
 
 	public boolean canTalk() {

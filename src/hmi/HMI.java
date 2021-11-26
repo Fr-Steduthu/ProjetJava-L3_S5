@@ -19,6 +19,11 @@ public final class HMI {
 		HMI.debug = System.err;
 	}
 	
+	public void setInput(Scanner input){
+		HMI.input.close();
+		HMI.input = input;
+	}
+	
 	public static String read(String message, String regex) {
 			//HMI.error(regex);
 			HMI.message(message);
