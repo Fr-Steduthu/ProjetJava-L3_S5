@@ -91,8 +91,8 @@ public class Inventory implements Serializable{
 	public int findEquipment(Equipment e) {
 		/**Returns -1 if not given item is not found (works by reference); its index in the container otherwise**/
 		int o = 0;
-		for(Item i : this.equiped) {
-			if(i == e) {
+		for(Equipment equipment : this.equiped) {
+			if(equipment == e) {
 				return o;
 			}
 			o++;

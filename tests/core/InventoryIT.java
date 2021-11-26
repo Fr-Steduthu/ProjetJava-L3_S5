@@ -120,9 +120,16 @@ public class InventoryIT {
     
     @Test
     public void overfillEquipments() {
-        for (int i = 0; i < 42; i++) {
+        for (int i = 0; i < eInvSize; i++) {
             eInv.addItem(equipment);
-            eInv.equip(equipment);
+            assertTrue(eInv.equip(equipment));
+            assertEquals(i, eInv.findEquipment(equipment));
+        }
+        for (int i = 0; i < 42; i++) {
+            equipment = new WoodGloves();
+            eInv.addItem(equipment);
+            assertFalse(eInv.equip(equipment));
+            assertEquals(-1, eInv.findEquipment(equipment));
         }
         assertTrue(eInv.isFullyGeared());
     }
