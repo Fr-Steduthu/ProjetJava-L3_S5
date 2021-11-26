@@ -87,6 +87,14 @@ public class InventoryIT {
         assertTrue(inv.isFull());
     }
     
+    @Test
+    public void overfillItems() {
+        for (int i = 0; i < 42; i++) {
+            inv.addItem(item);
+        }
+        assertTrue(inv.isFull());
+    }
+    
     // isFullyGeared (empty)
     @Test
     public void notFullyGeared() {
@@ -103,10 +111,30 @@ public class InventoryIT {
         assertTrue(eInv.isFullyGeared());
     }
     
+    @Test
+    public void overfillEquipments() {
+        for (int i = 0; i < 42; i++) {
+            eInv.addItem(equipment);
+            eInv.equip(equipment);
+        }
+        assertTrue(eInv.isFullyGeared());
+    }
+    
     // contains (not here)
     @Test
     public void notInInv() {
         assertFalse(eInv.contains(item));
+    }
+    
+    // An overfill test to check for a missing item
+    @Test
+    public void overfillMissing() {
+        for (int i = 0; i < invSize; i++) {
+            inv.addItem(item);
+        }
+        Item missing = new SaND();
+        inv.addItem(missing);
+        assertFalse(inv.contains(missing));
     }
     
     // contains (here)
@@ -130,6 +158,20 @@ public class InventoryIT {
         assertTrue(eInv.isEquiped(equipment));
     }
     
+    // Try to overfill the equipped items, search for not equipped item
+    @Test
+    public void overfillEquipped() {
+        eInv.addItem(equipment);
+        eInv.equip(equipment);
+        Equipment missing = new WoodGloves();
+        for (int i = 0; i < 42; i++) {
+            eInv.addItem(missing);
+            assertFalse(eInv.equip(missing));
+        }
+        assertTrue(eInv.isEquiped(equipment));
+        assertFalse(eInv.isEquiped(missing));
+    }
+    
     // findItem (not here)
     @Test
     public void notFound() {
@@ -144,7 +186,16 @@ public class InventoryIT {
         assertEquals(0, inv.findItem(item));
     }
     
-    
+    // Overfill and then look for an item
+    @Test
+    public void overfillMissingLook() {
+        for (int i = 0; i < 42; i++) {
+            inv.addItem(item);
+        }
+        Item missing = new SaND();
+        inv.addItem(missing);
+        assertEquals(-1, inv.findItem(missing));
+    }
     
     // FindEquipment (false)
     @Test

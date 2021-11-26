@@ -73,7 +73,7 @@ public abstract class Character implements Serializable{
             return this.inventory.toString();
         }
 	
-	/*// Utilisé uniquement pour les tests
+	/*// Only to be used for tests
 	public Inventory getClassInventory() {
             return this.inventory;
         }*/
