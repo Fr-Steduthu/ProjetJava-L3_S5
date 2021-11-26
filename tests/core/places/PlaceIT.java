@@ -15,6 +15,7 @@ public class PlaceIT {
     private final String roomName = "A test room";
     
     private Place room;
+    private Place room2;
     private List<Item> itemList;
     private List<Character> npcList;
     private List<Exit> exits;
@@ -22,12 +23,13 @@ public class PlaceIT {
     @Before
     public void setup() {
         room = new Place(roomName);
+        room2 = new Place(roomName);
         itemList = new ArrayList<>();
         npcList = new ArrayList<>();
         exits = new ArrayList<>();
         itemList.add(new SaND());
         npcList.add(new Grain());
-        exits.add(new Exit(room, null));
+        exits.add(new Exit(room, room2)); // An exit must now know the two connected rooms
     }
     
     // fill, getItems, getNpcs
@@ -80,6 +82,8 @@ public class PlaceIT {
         room.setExits(exitToArray((ArrayList<Exit>) exits));
         assertArrayEquals(exits.toArray(), room.getExits());
     }
+    
+    // addExits and removeExits tested indirectly by ExitIT's removeToAndAddFrom
     
     // getName
     @Test
