@@ -92,7 +92,7 @@ public abstract class Character implements Serializable{
 					this.hp = this.maxHP;
 			}
 	}
-
+        //peut se blesser lui-même, à justifier 
 	public void hurt(double f) {
 			double temp = this.hp - f + this.armor;
 			if(temp < this.hp) {//On evite les soins par armure trop forte
