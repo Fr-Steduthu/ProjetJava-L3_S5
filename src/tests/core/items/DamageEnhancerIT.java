@@ -1,5 +1,4 @@
-package tests.core.items;
-
+package core.items;
 
 import core.character.Player;
 import core.character.Monster;

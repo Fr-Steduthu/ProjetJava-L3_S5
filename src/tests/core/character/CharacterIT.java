@@ -1,12 +1,10 @@
-package tests.core.character;
+package core.character;
 
 import core.Inventory;
 import core.items.Item;
 import core.places.Place;
 import builtin.items.SaND;
 import core.Quest;
-import core.character.Character;
-import core.character.State;
 
 import org.junit.Before;
 import org.junit.Test;

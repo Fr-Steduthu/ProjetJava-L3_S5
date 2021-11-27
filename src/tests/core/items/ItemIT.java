@@ -1,9 +1,8 @@
-package tests.core.items;
+package core.items;
 
 import core.Inventory;
 import core.character.Character;
 import core.character.Player;
-import core.items.Item;
 import core.places.Place;
 import builtin.items.SaND;
 import org.junit.Before;

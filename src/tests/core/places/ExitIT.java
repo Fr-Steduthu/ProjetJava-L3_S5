@@ -1,10 +1,7 @@
-package tests.core.places;
+package core.places;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import core.places.Exit;
-import core.places.Place;
 
 import static org.junit.Assert.*;
 
