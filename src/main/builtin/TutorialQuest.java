@@ -82,7 +82,7 @@ public class TutorialQuest extends Quest {
 		links[5] = new Exit(dungeon[5], dungeon[8]); // RandomMonsterRoom vers RandomBossRoom
 		links[6] = new Exit(dungeon[8], dungeon[9]); // RandomBossRoom vers BossRoom
 		links[6].removeFrom(dungeon[9]); // One way
-		links[7] = new Exit(dungeon[8], dungeon[3]); //RandomBossRoom vers SentinelRoom, ne peut être ouverte que si le joueur parle a Grain
+		links[7] = new Exit(dungeon[8], dungeon[3]); //RandomBossRoom vers SentinelRoom, ne peut etre ouverte que si le joueur parle a Grain
 		links[7].close();
 		links[8] = new Exit(dungeon[3], dungeon[4]){
 			private static final long serialVersionUID = -7785743492747823627L;
