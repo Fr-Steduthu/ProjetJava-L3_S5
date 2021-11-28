@@ -387,13 +387,21 @@ public class Game {
 	/**SAVING OF GAME**/
 	
 	public static void save(Quest q) throws IOException {
-		String path = "saves/"; // TODO : Check si le dossier EXISTE.
-		String saveName = "savegame_" + q.getClass().getSimpleName() + ".qa_sav";
-		File saveFile = new File(path + saveName);
+                String path = "saves/";
+		File saveFile = new File(path);
                 
-                if (!saveFile.mkdir()) {
+                if (!saveFile.exists()&& !saveFile.mkdir()) { // Checks if the folder exists, if not it will try to create the folder
                     HMI.error("Unable to create folder for the save file. Exiting anyway");
                     return;
+                }
+                
+                String saveName = "savegame_" + q.getClass().getSimpleName() + ".qa_sav";
+                saveFile = new File(path + saveName);
+                
+                if (!saveFile.exists()) {
+                    if (!HMI.confirm("A save file already exists, do you want to overwrite it ?")) {
+                        return;
+                    }
                 }
 		
 		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(saveFile))) {
