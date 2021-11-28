@@ -36,10 +36,8 @@ public class Game {
 			
 			//HMI.clear();
 			HMI.message("------New turn------\nYou are in " + current.getName() +".\n");
-			
-			//Affichage
 		
-
+                        // Player Turn
 			boolean hasFinishedTurn = false;
 			while (hasFinishedTurn == false) {
 				
@@ -50,13 +48,13 @@ public class Game {
 				switch(action) {
 					case ATTACK:
 						Character target = selectAttack(q);
-                            if (target != null) {
-                                p.attack(target);
-                                HMI.message("You've damaged the " + target.getName() + " for " + (int) p.getDamage() + " HP !");
-                                hasFinishedTurn = true;
-                            } else {
-                                HMI.message("Please try again or select another command.");
-                            }
+                                                if (target != null) {
+                                                    p.attack(target);
+                                                    HMI.message("You've damaged the " + target.getName() + " for " + (int) p.getDamage() + " HP !");
+                                                    hasFinishedTurn = true;
+                                                } else {
+                                                    HMI.message("Please try again or select another command.");
+                                                }
 						break;
 						
 					case GO:
@@ -95,13 +93,13 @@ public class Game {
 						
 					case LOOK:
 						HMI.clear();
-						HMI.message(current.toString()); // TODO : Check room, inventaire ou autre
+						HMI.message(current.toString());
 						break;
 						
 						
 					case QUIT:
-						if (HMI.confirm("Voulez vous vraiment quitter le jeu ?")) {
-							if (HMI.confirm("Voulez-vous sauvegarder la partie ?")) {
+						if (HMI.confirm("Do you want to exit the game ?")) {
+							if (HMI.confirm("Do you wish to save your current progression ?")) {
 								Game.save(q);
 							}
 							hasQuitted = true;
@@ -142,7 +140,9 @@ public class Game {
 											hasFinishedTurn = p.use(e, p);
 											if(!hasFinishedTurn) {
 												HMI.message("You cant' use that on yourself");
-											}
+											} else {
+                                                                                            p.removeItem(e);
+                                                                                        }
 											
 											break;
 										}else {
@@ -323,6 +323,7 @@ public class Game {
 	
 	private static void charactersActions(Quest q) {
 		Place current = q.getPlayer().getLocation();
+                Player p = q.getPlayer();
 		
 		for(Character c : current.getNpcs()) {
 			if(c.getHP() <= 0 && c.getState() != State.DEAD) {
@@ -331,8 +332,13 @@ public class Game {
 			}
 			
 			if(c instanceof Monster && c.getState() != State.STUNNED) {
-				c.attack(q.getPlayer());
+				c.attack(p);
 			}
+		}
+                
+                if(p.getHP() <= 0 && p.getState() != State.DEAD) {
+                    p.onDeath(q);
+                    p.setState(State.DEAD);
 		}
 	}
 	private static Boolean checkLoosingConditions(Quest q) {

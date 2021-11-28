@@ -70,7 +70,7 @@ public class ItemIT {
         player.setLocation(room);
         room.addItem(item);
         item.giveTo(player);
-        assertEquals(player.getClassInventory(), item.getLocation()); // If this fails, please make sure that Character's getClassInventory method is available. (It's a comment by default btw)
+        assertEquals(player.getClassInventory(), item.getLocation()); // If this fails, please make sure that Character's getClassInventory method is available.
     }
     
     // use
@@ -86,7 +86,6 @@ public class ItemIT {
 
 			@Override
 			public String look() {
-				// TODO Auto-generated method stub
 				return null;
 			}
 
