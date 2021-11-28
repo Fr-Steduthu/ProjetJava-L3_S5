@@ -18,6 +18,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class Game {
@@ -387,13 +390,18 @@ public class Game {
 	/**SAVING OF GAME**/
 	
 	public static void save(Quest q) throws IOException {
-		String path = "saves/";
+		String path = "saves/"; // TODO : Check si le dossier EXISTE.
 		String saveName = "savegame_" + q.getClass().getSimpleName() + ".qa_sav";
 		File saveFile = new File(path + saveName);
+                
+                if (!saveFile.mkdir()) {
+                    HMI.error("Unable to create folder for the save file. Exiting anyway");
+                    return;
+                }
 		
-			try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(saveFile))) {
-				oos.writeObject(q);
-			}
+		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(saveFile))) {
+                    oos.writeObject(q);
+		}
 	}
 	
 	public static void load(File saveFile) throws FileNotFoundException, IOException, ClassNotFoundException {
