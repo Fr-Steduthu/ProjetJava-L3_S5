@@ -26,7 +26,7 @@ public class TutorialQuest extends Quest {
 	private static Place origin;
 	private static Place[] dungeon;
 	private static Exit[] links;
-	private static String objective = "Beat the dragon lord";
+	private static String objective = "Beat the zombie lord";
 	private static Monster objective_object = new WarhammerZombie();
 	
 	static {
