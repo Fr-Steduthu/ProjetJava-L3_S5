@@ -272,7 +272,7 @@ public class Game {
         ArrayList<Character> monsterList = new ArrayList<>();
         Character[] roomNpcs = q.getPlayer().getLocation().getNpcs();
         
-        if (roomNpcs.length == 0) { // TODO : La length avec un monstre est de 0. Pourquoi? Idk mais faudra le fix
+        if (roomNpcs.length == 0) { // TODO : La length avec un monstre est de 0. Pourquoi? Prob du a la romm attribuee au player étant donne que le test marche.
             HMI.message("There is nothing to satisfy your bloodlust here.");
             return null;
         }

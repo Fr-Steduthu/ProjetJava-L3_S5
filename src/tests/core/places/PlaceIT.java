@@ -1,5 +1,6 @@
 package core.places;
 
+import builtin.characters.monsters.Blob;
 import core.items.Item;
 import core.character.Character;
 import builtin.characters.npcs.Grain;
@@ -44,9 +45,22 @@ public class PlaceIT {
         }
     }
     
-    // addNpc, removeNpc
+    // addNpc, removeNpc (NPC)
     @Test
     public void npc() {
+        room.addNpc(npcList.get(0));
+        assertArrayEquals(npcList.toArray(), room.getNpcs());
+        assertEquals(1, room.getNpcs().length);
+        room.removeNpc(npcList.get(0));
+        npcList.remove(0);
+        assertArrayEquals(npcList.toArray(), room.getNpcs());
+    }
+    
+    // addNpc, removeNpc (Monster)
+    @Test
+    public void monster() {
+        npcList.remove(npcList.get(0));
+        npcList.add(new Blob());
         room.addNpc(npcList.get(0));
         assertArrayEquals(npcList.toArray(), room.getNpcs());
         assertEquals(1, room.getNpcs().length);
