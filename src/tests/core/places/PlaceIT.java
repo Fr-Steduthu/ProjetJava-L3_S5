@@ -49,6 +49,7 @@ public class PlaceIT {
     public void npc() {
         room.addNpc(npcList.get(0));
         assertArrayEquals(npcList.toArray(), room.getNpcs());
+        assertEquals(1, room.getNpcs().length);
         room.removeNpc(npcList.get(0));
         npcList.remove(0);
         assertArrayEquals(npcList.toArray(), room.getNpcs());
@@ -65,15 +66,8 @@ public class PlaceIT {
     }
     
     public Exit[] exitToArray(ArrayList<Exit> exitsAList) {
-        Exit[] exits = new Exit[exitsAList.size()];
-        int cmpt = 0;
-        try {
-            for (Exit e : exitsAList) {
-                    exits[cmpt] = e;
-                    cmpt++;
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {}
-        return exits;
+        Exit[] exits = {};
+        return exitsAList.toArray(exits);
     }
     
     // setExits, getExits

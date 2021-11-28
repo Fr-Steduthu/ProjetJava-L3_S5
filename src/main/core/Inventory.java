@@ -166,10 +166,10 @@ public class Inventory implements Serializable{
         @Override
         public String toString() {
             String inv = "Here is your inventory :\nItems :";
-            inv += invToReadableString();
+            inv += invToReadableString() + "\n";
             
             inv += "Equipped : \n";
-            inv += equipmentToReadableString();
+            inv += equipmentToReadableString() + "\n";
             
             return inv;
         }

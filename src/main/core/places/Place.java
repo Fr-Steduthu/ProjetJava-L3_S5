@@ -48,15 +48,8 @@ public class Place implements Serializable{
 	
 	/**NPCs**/
 	public final Character[] getNpcs() {
-                Character[] characters = new Character[this.npcList.size()];
-                int cmpt = 0;
-                try {
-                    for (Character c : this.npcList) {
-                        characters[cmpt] = c;
-                        cmpt++;
-                    }
-                } catch (ArrayIndexOutOfBoundsException e) {}
-                return characters;
+                Character[] characters = {};
+                return this.npcList.toArray(characters);
 	}
 	
 	public final void addNpc(Character npc) {
@@ -72,15 +65,8 @@ public class Place implements Serializable{
 	/**ITEMS**/
 	
 	public final Item[] getItems() {
-                Item[] items = new Item[this.itemList.size()];
-                int cmpt = 0;
-                try {
-                    for (Item i : this.itemList) {
-                        items[cmpt] = i;
-                        cmpt++;
-                    }
-                } catch (ArrayIndexOutOfBoundsException e) {}
-                return items;
+                Item[] items = {};
+                return this.itemList.toArray(items);
 	}
 	public final void addItem(Item item) {
 		this.itemList.add(item);
@@ -100,15 +86,8 @@ public class Place implements Serializable{
 	}
 	
 	public final Exit[] getExits() {
-                Exit[] exits = new Exit[this.exits.size()];
-                int cmpt = 0;
-                try {
-                    for (Exit e : this.exits) {
-                        exits[cmpt] = e;
-                        cmpt++;
-                    }
-                } catch (ArrayIndexOutOfBoundsException e) {}
-                return exits;
+                Exit[] exits = {};
+                return this.exits.toArray(exits);
 	}
 	
 	public final void setExits(Exit[] exits) {

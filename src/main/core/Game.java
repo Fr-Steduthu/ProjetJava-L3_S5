@@ -189,7 +189,13 @@ public class Game {
 						}
 						break;
 						
-						
+                                        case ME:
+                                            
+                                            HMI.message(p.toString());
+                                            hasFinishedTurn = false;
+                                            break;
+                                            
+                                            
 					default:
 						HMI.error("Game.start() -> unknown Command -> no behavior defined -> please try again");
 						break;
@@ -266,7 +272,7 @@ public class Game {
         ArrayList<Character> monsterList = new ArrayList<>();
         Character[] roomNpcs = q.getPlayer().getLocation().getNpcs();
         
-        if (roomNpcs.length == 0) {
+        if (roomNpcs.length == 0) { // TODO : La length avec un monstre est de 0. Pourquoi? Idk mais faudra le fix
             HMI.message("There is nothing to satisfy your bloodlust here.");
             return null;
         }

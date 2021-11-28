@@ -37,7 +37,21 @@ public class Player extends Character{
 	public void interact(Quest context) {
 		HMI.message("\t\t[ERROR>Player] UNREACHABLE CODE REACHED");
 	}
-
+        
+        @Override
+        public String toString() {
+            String playerData = "This is your current player :\n\n";
+            
+            playerData+= "Name : " + this.getName() + "\n";
+            playerData+= "Health : " + this.hp + "/" + this.maxHP + "\n";
+            playerData+= "Energy : " + this.ar + "/" + this.maxAbilityResource + "\n";
+            playerData+= "Attack Damage : " + this.attackDamage + "\n";
+            playerData+= "Armor : " + this.armor + "\n\n";
+            playerData+= this.inventory.toString() + "\n";
+            
+            return playerData;
+        }
+        
 	/**FOR TESTING ONLY**/
 	public Object getClassInventory() {
 		return super.inventory;
