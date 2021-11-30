@@ -26,6 +26,8 @@ public class Game {
 		Object destination = q.getObjectiveObject();
 		Place current = q.getStartingPoint();
 		Player p = q.getPlayer();
+		
+		ArrayList<Character> deadEnnemies = new ArrayList<>();
 				
 		boolean hasQuitted = false;
 		
@@ -33,48 +35,62 @@ public class Game {
 		Boolean victoryState = null;
 		
 		while(current !=  destination && victoryState == null && hasQuitted == false) {
-			
-			//HMI.clear();
 			HMI.message("------New turn------\nYou are in " + current.getName() +".\n");
 		
                         // Player Turn
 			boolean hasFinishedTurn = false;
-			while (hasFinishedTurn == false) {
+			boolean hasToClear = false;
+			while (!hasFinishedTurn) {
+				if(hasToClear) {
+					HMI.clear();
+					hasToClear = false;
+				}
 				
-				Command action = Command.toCommand(HMI.read("Please enter wanted action; type help to see available commands", Command.getRegex()));
+				Command action = Command.toCommand(HMI.readCommand("Please enter wanted action; type help to see available commands"));
 				HMI.message("---------");
-				//Command action = Command.toCommand(commandLine[0]);
 				
 				switch(action) {
 					case ATTACK:
 						Character target = selectAttack(q);
-                                                if (target != null) {
-                                                    p.attack(target);
-                                                    HMI.message("You've damaged the " + target.getName() + " for " + (int) p.getDamage() + " HP !");
-                                                    hasFinishedTurn = true;
-                                                } else {
-                                                    HMI.message("Please try again or select another command.");
-                                                }
+						
+                        if(target != null){
+                            p.attack(target);
+                            HMI.message("You've damaged the " + target.getName() + " for " + (int) p.getDamage() + " HP !");
+                            hasFinishedTurn = true;
+                        }else{
+                            HMI.message("Please try again or select another command.");
+                        }
+                        
 						break;
 						
 					case GO:
 						String choosingRoomMessage = "What room do you want to go in?";
-						for(Exit e : current.getExits()) {	
+						
+						for(Exit e : current.getExits()) {
 							choosingRoomMessage += "\n" + e.getRoomOmmiting(current).getName();
 						}
 						
 						String chosenRoom = HMI.read(choosingRoomMessage, Regex.regex(current.getExits(), current)+"|"+Regex.regex("back")); //Game.message(current.getExits());
 						
 						if(!chosenRoom.toLowerCase().equals("back")) {
+							
 							for(Exit e : current.getExits()) {
+								
 								Place i_place = e.getRoomOmmiting(current);
+								
 								if(chosenRoom.toLowerCase().equals(i_place.getName().toLowerCase())){
+									
 									if(e.canPassThrough(q)) {
+										
 										Game.charactersActions(q); //Penaliser la fuite contre des monstres
+										
 										current = e.getRoomOmmiting(current);
 										p.setLocation(e.getRoomOmmiting(current));
+										
 										HMI.message("You reach " + chosenRoom);
+										
 										hasFinishedTurn = false;
+										
 									}else {
 										HMI.message("Can try all you can but cannot open the door.");
 										hasFinishedTurn = true;
@@ -92,7 +108,7 @@ public class Game {
 						
 						
 					case LOOK:
-						HMI.clear();
+						hasToClear = true;
 						HMI.message(current.toString());
 						break;
 						
@@ -189,12 +205,12 @@ public class Game {
 						}
 						break;
 						
-                                        case ME:
-                                            
-                                            HMI.message(p.toString());
-                                            hasFinishedTurn = false;
-                                            break;
-                                            
+                    case ME:
+                        
+                        HMI.message(p.toString());
+                        hasFinishedTurn = false;
+                        break;
+                        
                                             
 					default:
 						HMI.error("Game.start() -> unknown Command -> no behavior defined -> please try again");

@@ -10,9 +10,9 @@ public class Exit implements Serializable{
 
 	private static final long serialVersionUID = 5674585445142853986L;
 	
-	private Place[] connectedRooms = new Place[2];
+	protected Place[] connectedRooms = new Place[2];
 
-	private boolean isOpen = true;
+	protected boolean isOpen = true;
 
 	//@ParametersAreNonnullByDefault
 	public Exit(Place roomA, Place roomB) throws IllegalArgumentException{

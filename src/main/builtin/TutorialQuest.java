@@ -47,7 +47,7 @@ public class TutorialQuest extends Quest {
 					public void interact(Quest context) {
 						if(this.ask(this.dialogue)) {
 							this.getLocation().addItem(new SaND());
-							links[7].open();
+							links[7].open(); //Evalue a l'execution -> pas de null
 							HMI.message("Grain drops the sands of life. They fall on the ground.");
 							HMI.message("A door has opened somewhere.\n");
 						}else {
@@ -96,7 +96,7 @@ public class TutorialQuest extends Quest {
 				}
 				return false;
 			}
-		};; //SentinelRoom vers ItemRoom, ne peut etre ouvert que si le joueur possede le SaND
+		}; //SentinelRoom vers ItemRoom, ne peut etre ouvert que si le joueur possede le SaND
 	}
 
 	public TutorialQuest() {

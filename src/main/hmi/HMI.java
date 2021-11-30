@@ -46,9 +46,9 @@ public final class HMI {
 	}
 	
 	public static String readCommand(String message) {
-		HMI.input.useDelimiter("\\s");
+		//HMI.input.useDelimiter("\\s");
 		String retVal =  HMI.read(message, Command.getRegex());
-		HMI.input.useDelimiter(HMI.inputDelimiter);
+		//HMI.input.useDelimiter(HMI.inputDelimiter);
 		return retVal;
 	}
 	
