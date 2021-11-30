@@ -1,6 +1,6 @@
-package core.items;
+package main.core.items;
 
-import core.character.Character;
+import main.core.character.Character;
 
 public abstract class DamageEnhancer extends Equipment {
 

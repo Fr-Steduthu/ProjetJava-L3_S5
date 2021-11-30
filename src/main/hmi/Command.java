@@ -1,4 +1,4 @@
-package hmi;
+package main.hmi;
 
 public enum Command {
 	GO, HELP, LOOK, ATTACK, TAKE, USE, QUIT, BACK, /*TALK, */INTERACT, ME;

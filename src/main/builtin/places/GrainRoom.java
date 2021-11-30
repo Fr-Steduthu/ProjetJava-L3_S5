@@ -1,7 +1,7 @@
-package builtin.places;
+package main.builtin.places;
 
-import builtin.characters.npcs.Grain;
-import core.places.Place;
+import main.builtin.characters.npcs.Grain;
+import main.core.places.Place;
 
 public class GrainRoom extends Place {
 

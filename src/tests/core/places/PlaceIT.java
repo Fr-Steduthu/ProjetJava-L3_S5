@@ -1,10 +1,12 @@
-package core.places;
+package tests.core.places;
 
-import builtin.characters.monsters.Blob;
-import core.items.Item;
-import core.character.Character;
-import builtin.characters.npcs.Grain;
-import builtin.items.SaND;
+import main.builtin.characters.monsters.Blob;
+import main.core.items.Item;
+import main.core.places.Exit;
+import main.core.places.Place;
+import main.core.character.Character;
+import main.builtin.characters.npcs.Grain;
+import main.builtin.items.SaND;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;

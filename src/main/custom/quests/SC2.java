@@ -1,10 +1,10 @@
-package custom.quests;
+package main.custom.quests;
 
-import core.Quest;
-import core.character.Monster;
-import core.character.Player;
-import core.places.Place;
-import custom.characters.monsters.Infestator;
+import main.core.Quest;
+import main.core.character.Monster;
+import main.core.character.Player;
+import main.core.places.Place;
+import main.custom.characters.monsters.Infestator;
 
 public class SC2 extends Quest {
 

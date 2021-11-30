@@ -1,7 +1,7 @@
-package builtin.places.entrances;
+package main.builtin.places.entrances;
 
-import builtin.characters.npcs.TutoMan;
-import core.places.Place;
+import main.builtin.characters.npcs.TutoMan;
+import main.core.places.Place;
 
 public class TutorialRoom extends Place {
 

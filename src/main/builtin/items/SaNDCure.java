@@ -1,7 +1,7 @@
-package builtin.items;
+package main.builtin.items;
 
-import core.Inventory;
-import core.items.Item;
+import main.core.Inventory;
+import main.core.items.Item;
 
 public class SaNDCure extends Item {
 

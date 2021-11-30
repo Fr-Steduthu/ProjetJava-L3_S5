@@ -1,6 +1,6 @@
-package core.places;
+package main.core.places;
 
-import core.items.Item;
+import main.core.items.Item;
 
 public interface RandomlyPlacedItem {
 

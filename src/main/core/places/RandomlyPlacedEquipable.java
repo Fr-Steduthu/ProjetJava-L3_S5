@@ -1,6 +1,6 @@
-package core.places;
+package main.core.places;
 
-import core.items.Equipment;
+import main.core.items.Equipment;
 
 public interface RandomlyPlacedEquipable {
 

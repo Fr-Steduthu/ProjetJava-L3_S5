@@ -1,12 +1,12 @@
-package builtin.places;
+package main.builtin.places;
 
-import builtin.items.Flesh;
-import builtin.items.SmallPot;
-import builtin.items.TutoStone;
-import builtin.items.WoodGloves;
-import core.items.Item;
-import core.places.Place;
-import core.places.RandomlyPlacedItem;
+import main.builtin.items.Flesh;
+import main.builtin.items.SmallPot;
+import main.builtin.items.TutoStone;
+import main.builtin.items.WoodGloves;
+import main.core.items.Item;
+import main.core.places.Place;
+import main.core.places.RandomlyPlacedItem;
 
 public class RandomItemRoom extends Place implements RandomlyPlacedItem{
 

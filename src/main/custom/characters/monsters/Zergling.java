@@ -1,6 +1,6 @@
-package custom.characters.monsters;
+package main.custom.characters.monsters;
 
-import core.character.Monster;
+import main.core.character.Monster;
 
 public class Zergling extends Monster{
 

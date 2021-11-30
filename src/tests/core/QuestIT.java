@@ -1,8 +1,9 @@
-package core;
+package tests.core;
 
-import builtin.places.entrances.TutorialRoom;
-import core.character.Player;
-import core.places.Place;
+import main.builtin.places.entrances.TutorialRoom;
+import main.core.Quest;
+import main.core.character.Player;
+import main.core.places.Place;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;

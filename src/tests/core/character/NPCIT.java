@@ -1,6 +1,8 @@
-package core.character;
+package tests.core.character;
 
-import core.places.Place;
+import main.core.character.Character;
+import main.core.character.NPC;
+import main.core.places.Place;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;

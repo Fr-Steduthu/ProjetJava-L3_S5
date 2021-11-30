@@ -1,10 +1,10 @@
-package core.items;
+package tests.core.items;
 
-import core.character.Player;
-import core.character.Monster;
-import core.character.NPC;
-import builtin.items.LightIronSpear;
-import builtin.items.ReinforcedGloves;
+import main.core.character.Player;
+import main.core.character.Monster;
+import main.core.character.NPC;
+import main.builtin.items.LightIronSpear;
+import main.builtin.items.ReinforcedGloves;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -1,7 +1,7 @@
-package builtin.places.entrances;
+package main.builtin.places.entrances;
 
-import builtin.items.WoodGloves;
-import core.places.Place;
+import main.builtin.items.WoodGloves;
+import main.core.places.Place;
 
 public class WarriorRoom extends Place {
 

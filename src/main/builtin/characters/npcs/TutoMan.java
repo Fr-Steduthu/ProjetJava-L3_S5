@@ -1,9 +1,9 @@
-package builtin.characters.npcs;
+package main.builtin.characters.npcs;
 
-import builtin.items.TutoStone;
-import core.Quest;
-import core.character.NPC;
-import hmi.HMI;
+import main.builtin.items.TutoStone;
+import main.core.Quest;
+import main.core.character.NPC;
+import main.hmi.HMI;
 
 public class TutoMan extends NPC {
 

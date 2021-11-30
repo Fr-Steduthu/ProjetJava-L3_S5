@@ -1,14 +1,14 @@
-package core;
+package main.core;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import core.character.Character;
-import core.items.Equipment;
-import core.items.Item;
-import core.places.Place;
-import hmi.HMI;
+import main.core.character.Character;
+import main.core.items.Equipment;
+import main.core.items.Item;
+import main.core.places.Place;
+import main.hmi.HMI;
 
 public class Inventory implements Serializable{
 

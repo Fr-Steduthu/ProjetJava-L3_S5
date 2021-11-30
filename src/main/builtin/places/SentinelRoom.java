@@ -1,7 +1,7 @@
-package builtin.places;
+package main.builtin.places;
 
-import builtin.characters.monsters.Sentinel;
-import core.places.Place;
+import main.builtin.characters.monsters.Sentinel;
+import main.core.places.Place;
 
 public class SentinelRoom extends Place {
 

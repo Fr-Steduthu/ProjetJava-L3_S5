@@ -1,6 +1,6 @@
-package core.places;
+package main.core.places;
 
-import core.character.Character;
+import main.core.character.Character;
 
 public interface RandomlyPlacedCharacter {
 

@@ -1,4 +1,4 @@
-package core.items;
+package main.core.items;
 
 public class Usable extends Item {
 

@@ -1,9 +1,9 @@
-package core;
+package main.core;
 
 import java.io.IOException;
 
-import builtin.TutorialQuest;
-import hmi.HMI;
+import main.builtin.TutorialQuest;
+import main.hmi.HMI;
 
 public class Main {
 	

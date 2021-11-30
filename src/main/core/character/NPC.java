@@ -1,6 +1,6 @@
-package core.character;
+package main.core.character;
 
-import core.Quest;
+import main.core.Quest;
 
 public class NPC extends Character{
 

@@ -1,9 +1,10 @@
-package builtin.items;
-import core.Inventory;
-import core.items.Equipment;
-import core.items.Item;
-import hmi.HMI;
-import core.character.Character;
+package main.builtin.items;
+
+import main.core.Inventory;
+import main.core.items.Equipment;
+import main.core.items.Item;
+import main.hmi.HMI;
+import main.core.character.Character;
 
 public class SaND extends Item {
 

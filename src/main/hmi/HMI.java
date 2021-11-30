@@ -1,4 +1,4 @@
-package hmi;
+package main.hmi;
 
 import java.io.PrintStream;
 import java.util.Scanner;

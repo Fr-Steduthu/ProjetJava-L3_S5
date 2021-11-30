@@ -1,7 +1,7 @@
-package builtin.characters.monsters;
+package main.builtin.characters.monsters;
 
-import builtin.items.Flesh;
-import core.character.Monster;
+import main.builtin.items.Flesh;
+import main.core.character.Monster;
 
 public class Zombie extends Monster {
 

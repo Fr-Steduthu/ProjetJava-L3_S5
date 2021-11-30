@@ -1,8 +1,8 @@
-package builtin.items;
+package main.builtin.items;
 
-import core.items.Item;
-import builtin.characters.npcs.TutoMan;
-import core.Inventory;
+import main.core.items.Item;
+import main.builtin.characters.npcs.TutoMan;
+import main.core.Inventory;
 
 public class TutoStone extends Item {
 	private static final long serialVersionUID = 1085466083168420693L;

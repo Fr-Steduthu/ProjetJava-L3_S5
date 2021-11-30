@@ -1,16 +1,16 @@
-package core;
+package main.core;
 
 import java.io.File;
 
-import core.character.Character;
-import core.character.Monster;
-import core.character.Player;
-import core.character.State;
-import core.items.Item;
-import core.places.Exit;
-import core.places.Place;
+import main.core.character.Character;
+import main.core.character.Monster;
+import main.core.character.Player;
+import main.core.character.State;
+import main.core.items.Item;
+import main.core.places.Exit;
+import main.core.places.Place;
 
-import hmi.*;
+import main.hmi.*;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

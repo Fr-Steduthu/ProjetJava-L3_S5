@@ -1,7 +1,7 @@
-package core.items;
+package main.core.items;
 
-import hmi.HMI;
-import core.character.Character;
+import main.hmi.HMI;
+import main.core.character.Character;
 
 public abstract class Equipment extends Item {
 

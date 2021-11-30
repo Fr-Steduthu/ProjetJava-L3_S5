@@ -1,8 +1,8 @@
-package builtin.characters.monsters;
+package main.builtin.characters.monsters;
 
-import builtin.items.SaNDCure;
-import core.character.Monster;
-import hmi.HMI;
+import main.builtin.items.SaNDCure;
+import main.core.character.Monster;
+import main.hmi.HMI;
 
 public class Sentinel extends Monster {
 

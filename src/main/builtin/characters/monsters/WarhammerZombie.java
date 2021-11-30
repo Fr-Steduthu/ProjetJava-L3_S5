@@ -1,7 +1,8 @@
-package builtin.characters.monsters;
+package main.builtin.characters.monsters;
 
-import builtin.items.Flesh;
-import core.character.Monster;
+import main.builtin.items.Flesh;
+import main.core.character.Monster;
+import main.core.character.Character;
 
 public class WarhammerZombie extends Monster {
 
@@ -19,7 +20,7 @@ public class WarhammerZombie extends Monster {
     }
     
     @Override
-    public final void attack(core.character.Character target){
+    public final void attack(Character target){
 	target.hurt((int) this.attackDamage);
     }
 }

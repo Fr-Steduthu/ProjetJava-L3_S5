@@ -1,7 +1,7 @@
-package builtin.items;
+package main.builtin.items;
 
-import core.items.Item;
-import core.character.Character;
+import main.core.items.Item;
+import main.core.character.Character;
 
 public class SmallPot extends Item {
 

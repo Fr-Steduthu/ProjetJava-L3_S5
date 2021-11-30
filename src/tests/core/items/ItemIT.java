@@ -1,10 +1,11 @@
-package core.items;
+package tests.core.items;
 
-import core.Inventory;
-import core.character.Character;
-import core.character.Player;
-import core.places.Place;
-import builtin.items.SaND;
+import main.core.Inventory;
+import main.core.character.Character;
+import main.core.character.Player;
+import main.core.items.Item;
+import main.core.places.Place;
+import main.builtin.items.SaND;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;

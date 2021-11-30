@@ -1,9 +1,9 @@
-package hmi;
+package main.hmi;
 
-import core.items.Item;
-import core.places.Exit;
-import core.places.Place;
-import core.character.Character;
+import main.core.items.Item;
+import main.core.places.Exit;
+import main.core.places.Place;
+import main.core.character.Character;
 
 public final class Regex {
 	/*

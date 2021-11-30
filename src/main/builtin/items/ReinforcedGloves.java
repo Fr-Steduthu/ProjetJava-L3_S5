@@ -1,6 +1,6 @@
-package builtin.items;
+package main.builtin.items;
 
-import core.items.DamageEnhancer;
+import main.core.items.DamageEnhancer;
 
 public class ReinforcedGloves extends DamageEnhancer {
 

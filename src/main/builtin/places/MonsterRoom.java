@@ -1,9 +1,9 @@
-package builtin.places;
+package main.builtin.places;
 
-import builtin.characters.monsters.Skeleton;
-import builtin.characters.monsters.Slime;
-import builtin.characters.monsters.Zombie;
-import core.places.Place;
+import main.builtin.characters.monsters.Skeleton;
+import main.builtin.characters.monsters.Slime;
+import main.builtin.characters.monsters.Zombie;
+import main.core.places.Place;
 
 public class MonsterRoom extends Place {
 

@@ -1,23 +1,23 @@
-package builtin;
+package main.builtin;
 
-import builtin.characters.monsters.WarhammerZombie;
-import builtin.characters.npcs.Grain;
-import builtin.items.SaND;
-import builtin.places.EmptyRoom;
-import builtin.places.ItemRoom;
-import builtin.places.RandomBossRoom;
-import builtin.places.RandomItemRoom;
-import builtin.places.RandomMonsterRoom;
-import builtin.places.RandomNpcRoom;
-import builtin.places.SentinelRoom;
-import builtin.places.entrances.TutorialRoom;
-import core.Quest;
-import core.character.Monster;
-import core.character.Player;
-import core.items.Item;
-import core.places.Exit;
-import core.places.Place;
-import hmi.HMI;
+import main.builtin.characters.monsters.WarhammerZombie;
+import main.builtin.characters.npcs.Grain;
+import main.builtin.items.SaND;
+import main.builtin.places.EmptyRoom;
+import main.builtin.places.ItemRoom;
+import main.builtin.places.RandomBossRoom;
+import main.builtin.places.RandomItemRoom;
+import main.builtin.places.RandomMonsterRoom;
+import main.builtin.places.RandomNpcRoom;
+import main.builtin.places.SentinelRoom;
+import main.builtin.places.entrances.TutorialRoom;
+import main.core.Quest;
+import main.core.character.Monster;
+import main.core.character.Player;
+import main.core.items.Item;
+import main.core.places.Exit;
+import main.core.places.Place;
+import main.hmi.HMI;
 
 public class TutorialQuest extends Quest {
 

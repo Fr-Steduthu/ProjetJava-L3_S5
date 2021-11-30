@@ -1,10 +1,10 @@
-package builtin.characters.npcs;
+package main.builtin.characters.npcs;
 
-import builtin.items.SaND;
-import core.character.NPC;
-import core.Quest;
+import main.builtin.items.SaND;
+import main.core.character.NPC;
+import main.core.Quest;
 
-import hmi.HMI;
+import main.hmi.HMI;
 
 
 public class Grain extends NPC {

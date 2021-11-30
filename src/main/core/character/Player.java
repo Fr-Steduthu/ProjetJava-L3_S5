@@ -1,8 +1,8 @@
-package core.character;
+package main.core.character;
 
 
-import core.Quest;
-import hmi.HMI;
+import main.core.Quest;
+import main.hmi.HMI;
 
 public class Player extends Character{
 

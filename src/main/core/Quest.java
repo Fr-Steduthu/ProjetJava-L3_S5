@@ -1,12 +1,12 @@
-package core;
+package main.core;
 
 import java.io.Serializable;
 
-import core.character.Monster;
-import core.character.NPC;
-import core.character.Player;
-import core.items.Item;
-import core.places.Place;
+import main.core.character.Monster;
+import main.core.character.NPC;
+import main.core.character.Player;
+import main.core.items.Item;
+import main.core.places.Place;
 
 public class Quest implements Serializable{
 	private static final long serialVersionUID = 4043237045943967915L;

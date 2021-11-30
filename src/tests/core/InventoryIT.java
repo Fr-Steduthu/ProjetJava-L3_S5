@@ -1,10 +1,11 @@
-package core;
+package tests.core;
 
-import core.items.Equipment;
-import core.items.Item;
-import core.character.Player;
-import builtin.items.SaND;
-import builtin.items.WoodGloves;
+import main.core.items.Equipment;
+import main.core.items.Item;
+import main.core.Inventory;
+import main.core.character.Player;
+import main.builtin.items.SaND;
+import main.builtin.items.WoodGloves;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;

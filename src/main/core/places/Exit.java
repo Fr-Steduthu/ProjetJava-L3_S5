@@ -1,8 +1,8 @@
-package core.places;
+package main.core.places;
 
 import java.io.Serializable;
 
-import core.Quest;
+import main.core.Quest;
 
 //import javax.annotation.*;
 

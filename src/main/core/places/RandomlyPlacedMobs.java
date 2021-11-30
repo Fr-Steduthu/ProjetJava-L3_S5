@@ -1,6 +1,6 @@
-package core.places;
+package main.core.places;
 
-import core.character.Monster;
+import main.core.character.Monster;
 
 public interface RandomlyPlacedMobs {
 

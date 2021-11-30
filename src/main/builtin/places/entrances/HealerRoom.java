@@ -1,7 +1,7 @@
-package builtin.places.entrances;
+package main.builtin.places.entrances;
 
-import builtin.items.SmallPot;
-import core.places.Place;
+import main.builtin.items.SmallPot;
+import main.core.places.Place;
 
 public class HealerRoom extends Place {
 

@@ -1,6 +1,6 @@
-package builtin.places;
+package main.builtin.places;
 
-import core.places.Place;
+import main.core.places.Place;
 
 public class EmptyRoom extends Place {
 

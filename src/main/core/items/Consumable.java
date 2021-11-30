@@ -1,8 +1,8 @@
-package core.items;
+package main.core.items;
 
-import core.Inventory;
-import core.places.Place;
-import hmi.HMI;
+import main.core.Inventory;
+import main.core.places.Place;
+import main.hmi.HMI;
 
 public abstract class Consumable extends Usable {
 

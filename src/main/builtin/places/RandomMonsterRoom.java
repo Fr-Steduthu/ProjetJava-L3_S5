@@ -1,11 +1,11 @@
-package builtin.places;
+package main.builtin.places;
 
-import builtin.characters.monsters.Blob;
-import builtin.characters.monsters.Slime;
-import builtin.characters.monsters.Zombie;
-import core.character.Monster;
-import core.places.Place;
-import core.places.RandomlyPlacedMobs;
+import main.builtin.characters.monsters.Blob;
+import main.builtin.characters.monsters.Slime;
+import main.builtin.characters.monsters.Zombie;
+import main.core.character.Monster;
+import main.core.places.Place;
+import main.core.places.RandomlyPlacedMobs;
 
 public class RandomMonsterRoom extends Place implements RandomlyPlacedMobs{
 

@@ -1,12 +1,12 @@
-package core.places;
+package main.core.places;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import core.character.Character;
-import core.character.Monster;
-import core.items.Item;
+import main.core.character.Character;
+import main.core.character.Monster;
+import main.core.items.Item;
 
 public class Place implements Serializable{
 

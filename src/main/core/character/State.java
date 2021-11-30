@@ -1,4 +1,4 @@
-package core.character;
+package main.core.character;
 
 public enum State {
 	ALIVE, /*AWAITING_DEATH,*/ DEAD,

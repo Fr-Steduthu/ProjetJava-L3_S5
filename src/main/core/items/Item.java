@@ -1,11 +1,11 @@
-package core.items;
+package main.core.items;
 
 import java.io.Serializable;
 
-import core.Inventory;
-import core.character.Player;
-import core.places.Place;
-import hmi.HMI;
+import main.core.Inventory;
+import main.core.character.Player;
+import main.core.places.Place;
+import main.hmi.HMI;
 
 public abstract class Item implements Serializable{
 	private static final long serialVersionUID = -2738172528031259592L;

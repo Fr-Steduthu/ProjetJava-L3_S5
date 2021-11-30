@@ -1,7 +1,7 @@
-package builtin.places;
+package main.builtin.places;
 
-import builtin.items.IronGloves;
-import core.places.Place;
+import main.builtin.items.IronGloves;
+import main.core.places.Place;
 
 public class ItemRoom extends Place {
 

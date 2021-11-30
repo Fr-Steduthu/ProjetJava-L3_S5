@@ -1,13 +1,13 @@
-package core.character;
+package main.core.character;
 
 import java.io.Serializable;
 
-import core.Inventory;
-import core.Quest;
-import core.items.Equipment;
-import core.items.Item;
-import core.places.Place;
-import hmi.HMI;
+import main.core.Inventory;
+import main.core.Quest;
+import main.core.items.Equipment;
+import main.core.items.Item;
+import main.core.places.Place;
+import main.hmi.HMI;
 
 //import javax.annotation.ParametersAreNonnullByDefault;
 public abstract class Character implements Serializable{

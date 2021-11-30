@@ -1,6 +1,6 @@
-package core.places;
+package main.core.places;
 
-import core.character.NPC;
+import main.core.character.NPC;
 
 public interface RandomlyPlacedNpcs {
 

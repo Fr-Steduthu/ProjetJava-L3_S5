@@ -1,8 +1,8 @@
-package builtin.places;
+package main.builtin.places;
 
-import core.character.NPC;
-import core.places.Place;
-import core.places.RandomlyPlacedNpcs;
+import main.core.character.NPC;
+import main.core.places.Place;
+import main.core.places.RandomlyPlacedNpcs;
 
 public class RandomNpcRoom extends Place implements RandomlyPlacedNpcs {
 
