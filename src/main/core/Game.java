@@ -28,6 +28,7 @@ public class Game {
 		Player p = q.getPlayer();
 		
 		ArrayList<Character> deadEnnemies = new ArrayList<>();
+	// TODO PAS ATTAQUABLE ET PAS CAPABLE D ATTAQUER
 				
 		boolean hasQuitted = false;
 		
@@ -52,8 +53,16 @@ public class Game {
 				switch(action) {
 					case ATTACK:
 						Character target = selectAttack(q);
+						boolean is_alive = true;
 						
-                        if(target != null){
+						for(Character dead_c : deadEnnemies) {
+							if(dead_c.equals(target)) {
+								is_alive = false;
+								break;
+							}
+						}
+						
+                        if(target != null && is_alive){
                             p.attack(target);
                             HMI.message("You've damaged the " + target.getName() + " for " + (int) p.getDamage() + " HP !");
                             hasFinishedTurn = true;
@@ -82,7 +91,7 @@ public class Game {
 									
 									if(e.canPassThrough(q)) {
 										
-										Game.charactersActions(q); //Penaliser la fuite contre des monstres
+										Game.charactersActions(q, deadEnnemies); //Penaliser la fuite contre des monstres
 										
 										current = e.getRoomOmmiting(current);
 										p.setLocation(e.getRoomOmmiting(current));
@@ -125,8 +134,24 @@ public class Game {
 						
 						
 					case TAKE:
-						//TODO
-						hasFinishedTurn = true;
+						String messageTake = "What item do you want to pick up ?";
+						for(Item e : p.getLocation().getItems()) {	
+							messageTake += "\n" + e.getName();
+						}
+						
+						String inputTake = HMI.read(messageTake, Regex.regex(p.getLocation().getItems())+"|"+Regex.regex("back")); //Game.message(current.getExits());
+						
+						if(!Regex.areEquals(inputTake, "back")) {
+							for(Item e : p.getLocation().getItems()) {
+									
+								if(Regex.areEquals(inputTake, e.getName())){
+									if (e.giveTo(p)) {
+										hasFinishedTurn = true;
+									}
+									
+								}
+							}
+						}
 						break;
 						
 						
@@ -218,7 +243,7 @@ public class Game {
 				}
 			}
 			
-			Game.charactersActions(q);
+			Game.charactersActions(q, deadEnnemies);
 			
 			victoryState = Game.checkWinningConditions(current, q);
 			victoryState = Game.checkLoosingConditions(q);
@@ -226,63 +251,6 @@ public class Game {
 	}
 	
 	/**SELECTORS for commands**/
-	
-	private static Item selectItem(Item[] items) {
-        String item =  HMI.read("Select an item. Enter BACK to cancel.",Regex.regex(items)+"|BACK");
-        
-        if(!item.equals("BACK")) {
-        	
-        	for(Item i : items) {
-        		
-        		if(i.getName().equals(item)) {
-        			return i;
-        			
-        		}
-        	}
-        }
-		return null;
-    }
-    
-
-    private static Item selectUse(Quest q) {
-    	
-        Item[] playerItems = q.getPlayer().getItems();
-        
-        if (playerItems.length == 0) {
-            HMI.message("Your inventory is empty.");
-            return null;
-        }
-        
-        HMI.message("Choose and item to use.");
-        
-        HMI.message(q.getPlayer().getInventoryItemsStr());
-        
-        Item selectedItem = null; 
-        selectedItem = Game.selectItem(playerItems);
-        
-        return selectedItem;
-    }
-    
-
-    private static Item selectTake(Quest q) {
-        Item[] roomItems = q.getPlayer().getLocation().getItems();
-        if (roomItems.length == 0) {
-            HMI.message("There is nothing you can pickup around here.");
-            return null;
-        }
-        
-        HMI.message("Choose and item to pick u.p");
-        for (Item item : roomItems) {
-            HMI.message(item.toString());
-        }
-        
-        Item selectedItem = null;
-        while (selectedItem == null) {
-            selectedItem = Game.selectItem(roomItems);
-        }
-        return selectedItem;
-        
-    }
     
     private static Character selectAttack(Quest q){
         ArrayList<Character> monsterList = new ArrayList<>();
@@ -343,24 +311,33 @@ public class Game {
 		return null;
 	}
 	
-	private static void charactersActions(Quest q) {
+	private static void charactersActions(Quest q, ArrayList<Character> deadEnnemies) {
 		Place current = q.getPlayer().getLocation();
                 Player p = q.getPlayer();
+        boolean is_alive = true;
 		
 		for(Character c : current.getNpcs()) {
-			if(c.getHP() <= 0 && c.getState() != State.DEAD) {
-				c.onDeath(q);
-				c.setState(State.DEAD);
+			for(Character dead_c : deadEnnemies) {
+				if(dead_c.equals(c)) {
+					is_alive = false;
+					break;
+				}
 			}
 			
-			if(c instanceof Monster && c.getState() != State.STUNNED) {
+			if(c.getHP() <= 0 && c.getState() != State.DEAD && !is_alive) {
+				c.onDeath(q);
+				c.setState(State.DEAD);
+				deadEnnemies.add(c);
+			}
+			
+			if(c instanceof Monster && c.getState() != State.STUNNED && !is_alive) {
 				c.attack(p);
 			}
 		}
                 
-                if(p.getHP() <= 0 && p.getState() != State.DEAD) {
-                    p.onDeath(q);
-                    p.setState(State.DEAD);
+		if(p.getHP() <= 0 && p.getState() != State.DEAD) {
+            p.onDeath(q);
+            p.setState(State.DEAD);
 		}
 	}
 	private static Boolean checkLoosingConditions(Quest q) {

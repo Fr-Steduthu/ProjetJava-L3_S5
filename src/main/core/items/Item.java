@@ -45,18 +45,20 @@ public abstract class Item implements Serializable{
 	
 	public abstract String look();
 	
-	public final void giveTo(Player player) {
+	public final boolean giveTo(Player player) {
 		if(this.isTakable) {
 			if(this.isCurrentlyTakable) {
 				player.addItem(this);
 				player.getLocation().removeItem(this);
 				HMI.message("You take the "+this.name);
+				return true;
 			}else {
 				HMI.message("You may not take this item yet");
 			}
 		}else {
 			HMI.message("You can't pick up that !");
 		}
+		return false;
 	}
 	
 	public /*final*/ boolean use(Object target) {
