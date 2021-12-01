@@ -22,6 +22,14 @@ import core.place.Place;
 
 public class Game {
 	
+        /**
+         * Start's the game
+         * 
+         * @param q
+         * The quest to use to start the game
+         * 
+         * @throws IOException 
+         */
 	public static void start(Quest q) throws IOException{
 		Object destination = q.getObjectiveObject();
 		Place current = q.getStartingPoint();
@@ -260,38 +268,57 @@ public class Game {
 	
 	/**SELECTORS for commands**/
     
-    private static Character selectAttack(Quest q){
-        ArrayList<Character> monsterList = new ArrayList<>();
-        Character[] roomNpcs = q.getPlayer().getLocation().getNpcs();
-        
-        if (roomNpcs.length == 0) { // TODO : La length avec un monstre est de 0. Pourquoi? Prob du a la romm attribuee au player etant donne que le test marche.
-            HMI.message("There is nothing to satisfy your bloodlust here.");
+        /**
+         * Used to select the player's target
+         * 
+         * @param q
+         * The current quest
+         * 
+         * @return the player's target
+         */
+        private static Character selectAttack(Quest q){
+            ArrayList<Character> monsterList = new ArrayList<>();
+            Character[] roomNpcs = q.getPlayer().getLocation().getNpcs();
+
+            if (roomNpcs.length == 0) { // TODO : La length avec un monstre est de 0. Pourquoi? Prob du a la romm attribuee au player etant donne que le test marche.
+                HMI.message("There is nothing to satisfy your bloodlust here.");
+                return null;
+            }
+
+            HMI.message("Monsters in room:");
+
+            for (Character charac : roomNpcs) {
+                if (charac instanceof Monster) {
+                    HMI.message(charac.toString());
+                    monsterList.add(charac);
+                }
+            }
+
+            String target = HMI.read("Choose an ennemy to attack.",Regex.regex((Character[])monsterList.toArray())+"BACK");
+
+            for (Character charac : monsterList) {
+                if (charac.getName().equals(target)) {
+                        return charac;
+                }
+            }
+
+            HMI.message("You've tried to attack " + target + " however it doesn't exist.");
             return null;
         }
-        
-        HMI.message("Monsters in room:");
-        
-        for (Character charac : roomNpcs) {
-            if (charac instanceof Monster) {
-                HMI.message(charac.toString());
-                monsterList.add(charac);
-            }
-        }
-        
-        String target = HMI.read("Choose an ennemy to attack.",Regex.regex((Character[])monsterList.toArray())+"BACK");
-
-        for (Character charac : monsterList) {
-            if (charac.getName().equals(target)) {
-                    return charac;
-            }
-        }
-    
-        HMI.message("You've tried to attack " + target + " however it doesn't exist.");
-    	return null;
-    }
 
 	/**GAMEPLAY loop fundamental elements**/
 
+        /**
+         * Used to send some messages according to the current ending. Can be used for either victory or death of the player
+         * 
+         * @param message
+         * The message to send to the player
+         * 
+         * @param victoryState
+         * If the player has won or not
+         * 
+         * @throws GameHasEnded 
+         */
 	public static void end(String message, boolean victoryState) throws GameHasEnded {
 		
 		HMI.message(message);
@@ -306,13 +333,17 @@ public class Game {
 		throw new GameHasEnded();
 	}
 	
-	/*
-	 * http://blog.paumard.org/cours/java/chap10-entrees-sorties-serialization.html
-	 * Guide pour la serialization
-	 */
-	
+
 	/**SAVING OF GAME**/
 	
+        /**
+         * Saves the game
+         * 
+         * @param q
+         * The current quest
+         * 
+         * @throws IOException 
+         */
 	public static void save(Quest q) throws IOException {
                 String path = "saves/";
 		File saveFile = new File(path);
@@ -336,6 +367,16 @@ public class Game {
 		}
 	}
 	
+        /**
+         * Loads the game
+         * 
+         * @param saveFile
+         * The file to load
+         * 
+         * @throws FileNotFoundException
+         * @throws IOException
+         * @throws ClassNotFoundException 
+         */
 	public static void load(File saveFile) throws FileNotFoundException, IOException, ClassNotFoundException {
 		Quest q_loadedSave;
 		
