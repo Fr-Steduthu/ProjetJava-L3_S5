@@ -24,8 +24,7 @@ public class TutoStone extends Usable {
 			return false;
 		}
 		((Inventory) this.getLocation()).getOwner().getLocation().addNpc(new TutoMan());
-		HMI.debug("Tuto-stone used");
-		//((Inventory) this.getLocation()).getOwner().getLocation().
+		HMI.message("The Tuto-MAN appeared in the room");
 		return true;
 	}
 
