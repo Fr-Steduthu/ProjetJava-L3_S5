@@ -280,9 +280,9 @@ public class Quest implements Serializable{
 		
 		if(p.getState() == State.DEAD) {
 			Game.end("You lost all hp!", false);
-		}else if(p.getLocation().getExits().length == 0) {
+		}/*else if(p.getLocation().getExits().length == 0) {
 			Game.end("Dead end found", false);
-		}
+		}*/
 	}
 
         /**

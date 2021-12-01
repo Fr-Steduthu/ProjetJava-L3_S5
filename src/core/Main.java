@@ -2,11 +2,8 @@ package core;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import core.builtin.TutorialQuest;
-import core.character.Character;
-import core.character.Monster;
 import core.game.Game;
 import core.game.Quest;
 import core.hmi.HMI;
@@ -16,6 +13,7 @@ import custom.quests.SC2;
 public class Main {
 	
 	
+
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
 		
 		HMI.message("Welcome to our game.");
@@ -24,6 +22,9 @@ public class Main {
 		File f = new File("./saves/");
 		
 		files = f.listFiles();
+		if(files == null) {
+			files = new File[0];
+		}
 		Quest[] availableQuests = new Quest[files.length + 2];
 
 		availableQuests[0] = new TutorialQuest();
@@ -44,10 +45,10 @@ public class Main {
             HMI.message(q.getObjective());
         }
         
-        String target = HMI.read("Choose a quest to play.",Regex.regex((Quest[])availableQuests)+"BACK");
+        String target = HMI.read("Choose a quest to play.",Regex.regex((Quest[])availableQuests)+"|BACK");
 
         for (Quest quest : availableQuests) {
-            if (quest.getObjective().equals(target)) {
+            if (quest.getObjective().toLowerCase().equals(target.toLowerCase())) {
                     selectedQuest =  quest;
             }
         }    

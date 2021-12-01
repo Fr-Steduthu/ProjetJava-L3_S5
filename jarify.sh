@@ -35,6 +35,7 @@ manifestChecker
 mkdir build/
 javac src/core/Main.java -cp src/ -d build/
 
+
 # We move into the created build folder, create the jar from there and then delete the folder
 cd build/ || { whiptail --title "Jarify script" --msgbox "Unable to access newly created build folder. Exiting." 0 0; exit 3; }
 jar -cfm ../game.jar ../manifest.mf .
