@@ -8,13 +8,30 @@ public abstract class Consumable extends Usable {
 
 	private static final long serialVersionUID = -8702740635104341473L;
 
+        /**
+         * Default constructor of a consumable item
+         * 
+         * @param name 
+         * The item name
+         */
 	public Consumable(String name) {
 		super(name);
 	}
 
+        /**
+         * @return a readable string giving info on the item
+         */
 	@Override
 	public abstract String look();
 	
+        /**
+         * Uses an item on a target
+         * 
+         * @param target
+         * The target, can be anything
+         * 
+         * @return if item was used
+         */
 	@Override
 	public boolean use(Object target) {
 		if(this.isUsable) {
@@ -42,6 +59,14 @@ public abstract class Consumable extends Usable {
 		
 	}
 
+         /**
+         * What to do on the item use
+         * 
+         * @param target
+         * The target
+         * 
+         * @return if the item was used
+         */
 	@Override
 	protected abstract boolean onUse(Object target);
 

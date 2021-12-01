@@ -4,11 +4,29 @@ import java.io.PrintStream;
 import java.util.Scanner;
 
 public final class HMI {
+        /**
+         * The input scanner used during the game
+         */
 	private static Scanner input;
+        
+        /**
+         * The output stream used for the text
+         */
 	private static PrintStream output;
+        
+        /**
+         * The output stream used for the errors
+         */
 	private static PrintStream errorOutput;
+        
+        /**
+         * The output stream used for debugging purposes
+         */
 	private static PrintStream debug;
 	
+        /**
+         * The delimiter for the inputs
+         */
 	private static String inputDelimiter = "[\\t\\n\\x0B\\f\\r]"; //\x0b = "BELL" character
 	
 	static {
@@ -19,11 +37,28 @@ public final class HMI {
 		HMI.debug = System.err;
 	}
 	
+        /**
+         * Sets up the current scanner to use
+         * 
+         * @param input 
+         * The scanner to use
+         */
 	public void setInput(Scanner input){
 		HMI.input.close();
 		HMI.input = input;
 	}
 	
+        /**
+         * Reads some info using a message and a regex
+         * 
+         * @param message
+         * The message to read
+         * 
+         * @param regex
+         * The regex to use for reading
+         * 
+         * @return a string if the function found a concording one from the input
+         */
 	public static String read(String message, String regex) {
 			//HMI.error(regex);
 			HMI.message(message);
@@ -45,6 +80,14 @@ public final class HMI {
 		
 	}
 	
+        /**
+         * Reads a command
+         * 
+         * @param message
+         * The command to read
+         * 
+         * @return a string containing a command 
+         */
 	public static String readCommand(String message) {
 		//HMI.input.useDelimiter("\\s");
 		String retVal =  HMI.read(message, Command.getRegex());
@@ -52,10 +95,21 @@ public final class HMI {
 		return retVal;
 	}
 	
+        /**
+         * Asks the user to confirm based on a message
+         * 
+         * @param message
+         * The message to send to the user
+         * 
+         * @return if the user accepted or not
+         */
 	public static boolean confirm(String message) {
 		return HMI.read(message+"[y|n]", "y|n").equals("y");
 	}
 
+        /**
+         * Clears the output
+         */
 	public static void clear() {
 		try{  
 			HMI.output.print("\033[H\033[2J");  
@@ -65,18 +119,39 @@ public final class HMI {
 		}
 	}
 	
+        /**
+         * Prints a message
+         * 
+         * @param message 
+         * The message to print
+         */
 	public static void message(String message) {
             HMI.output.println(message);
 	}
 	
+        /**
+         * Prints an error
+         * 
+         * @param message 
+         * The error to print
+         */
 	public static void error(String message) {
             HMI.errorOutput.println(message);
 	}
 	
+        /**
+         * Prints a debug message
+         * 
+         * @param message 
+         * The debug message to print
+         */
 	public static void debug(String message) {
 		HMI.debug.println("\t[DEBUG] " + message);
 	}
 	
+        /**
+         * Closes the input and outputs
+         */
 	public static void close() {
 		HMI.input.close();
 		//HMI.output.close(); //On laisse a l'utilisateur le soin de fermer le jeu (System.out en ce moment)
