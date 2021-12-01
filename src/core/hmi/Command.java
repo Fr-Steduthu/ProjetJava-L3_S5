@@ -3,11 +3,18 @@ package core.hmi;
 public enum Command {
 	GO, HELP, LOOK, ATTACK, TAKE, USE, QUIT, BACK, /*TALK, */INTERACT, ME;
     
+     /**
+     * 
+     * @return a regexified expression of the commands
+     */
     public static String getRegex() {
     	String[] commands = {"go", "attack", "help", "look", "quit", "take", "use", "back", "interact", "me"};
     	return Regex.regex(commands);
     }
         
+        /**
+         * @return the corresponding string for the command
+         */
 	@Override
 	public String toString() {
 		switch(this) {
@@ -36,6 +43,14 @@ public enum Command {
 		}
 	}
         
+    /**
+     * Transforms a command into a string
+     * 
+     * @param cmd
+     * The string to transform into a command
+     * 
+     * @return a command
+     */
     public static Command toCommand(String cmd) {
         switch(cmd.toUpperCase()) {
 			case "GO" :
@@ -64,6 +79,9 @@ public enum Command {
     }
 
 
+        /**
+         * Prints the help message
+         */
 	public static void help() {
 		HMI.message(
 		"To show this page, use the action [HELP] in the menu.\n"
