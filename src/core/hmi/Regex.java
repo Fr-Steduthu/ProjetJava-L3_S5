@@ -149,6 +149,9 @@ public final class Regex {
          * @param e
          * The place array
          * 
+         * @param placeToOmmit
+         * The place to ommit
+         * 
          * @return a regex expression
          */
 	public static String regex(Exit[] e, Place placeToOmmit) {

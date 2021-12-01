@@ -101,7 +101,12 @@ public class Inventory implements Serializable{
 	}
 	
 	/**
-         * @return if the equipment is in the item inventory
+         * Checks if the given item is in the item inventory
+         * 
+         * @param e
+         * The item to seek
+         * 
+         * @return if the item is in the item inventory
          */
 	public boolean contains(Item e) {
 		return this.findItem(e) != -1;

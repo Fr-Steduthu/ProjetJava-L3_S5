@@ -52,7 +52,10 @@ public final class HMI {
          * Reads some info using a message and a regex
          * 
          * @param message
+         * The message to read
+         * 
          * @param regex
+         * The regex to use for reading
          * 
          * @return a string if the function found a concording one from the input
          */

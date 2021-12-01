@@ -29,6 +29,7 @@ public class Game {
          * The quest to use to start the game
          * 
          * @throws IOException 
+         * Throws an IOException on read error
          */
 	public static void start(Quest q) throws IOException{
 		Object destination = q.getObjectiveObject();
@@ -318,6 +319,7 @@ public class Game {
          * If the player has won or not
          * 
          * @throws GameHasEnded 
+         * Throws if the game has ended or not
          */
 	public static void end(String message, boolean victoryState) throws GameHasEnded {
 		
@@ -343,6 +345,7 @@ public class Game {
          * The current quest
          * 
          * @throws IOException 
+         * Throws an IOException on read error
          */
 	public static void save(Quest q) throws IOException {
                 String path = "saves/";
@@ -374,8 +377,13 @@ public class Game {
          * The file to load
          * 
          * @throws FileNotFoundException
+         * Throws an FileNotFoundException if the file isn't found
+         * 
          * @throws IOException
+         * Throws an IOException on read error
+         * 
          * @throws ClassNotFoundException 
+         * Throws an ClassNotFoundException if the object doesn't exist's
          */
 	public static void load(File saveFile) throws FileNotFoundException, IOException, ClassNotFoundException {
 		Quest q_loadedSave;

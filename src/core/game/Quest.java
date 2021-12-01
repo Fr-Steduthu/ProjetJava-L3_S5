@@ -234,6 +234,7 @@ public class Quest implements Serializable{
          * The current dead ennemies
          * 
          * @throws GameHasEnded 
+         * Throws an GameHasEnded if the game is ended
          */
 	public void charactersActions(ArrayList<Character> deadEnnemies) throws GameHasEnded {
 		Place current = this.getPlayer().getLocation();
@@ -272,6 +273,7 @@ public class Quest implements Serializable{
          * Checks if the player has lost
          * 
          * @throws GameHasEnded 
+         * Throws an GameHasEnded if the game is ended
          */
 	public void checkLoosingConditions() throws GameHasEnded {
 		Player p = this.getPlayer();
@@ -287,6 +289,7 @@ public class Quest implements Serializable{
          * Checks if the player has won
          * 
          * @throws GameHasEnded 
+         * Throws an GameHasEnded if the game is ended
          */
 	public void checkWinningConditions() throws GameHasEnded {
 		Object objective = this.getObjectiveObject();
