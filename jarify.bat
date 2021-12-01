@@ -12,7 +12,7 @@ C:\Languages\Java\8JDK291\bin\javac src/core/Main.java -cp src/ -d build/
 echo "Manifest-Version: 1.0!\n!Main-Class: core.Main" > manifest.mf
 
 cd %cd%\build
-C:\Languages\Java\8JDK291\bin\jar -cfm ../game.jar ../manifest.mf .
+C:\Languages\Java\8JDK291\bin\jar -cfm ..\game.jar ..\manifest.mf .
 cd..
 
 RMDIR %cd%\build /S
