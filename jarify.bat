@@ -1,6 +1,12 @@
 @echo off
-%JAVA_HOME%="C:\Program Files\Java\jdk1.6\bin"
+echo %JAVA_HOME% = "C:\Program Files\Java\jdk1.6\bin"
 
-C:\Languages\Java\8JDK291\bin\javac < DIR "./src/main/ *.java" /S
-C:\Languages\Java\8JRE-1.8.0-291\bin\java src/main/core/Main
+
+MKDIR %cd%\build
+
+C:\Languages\Java\8JDK291\bin\javac src/core/Main.java -cp src/ -d build/
+
+C:\Languages\Java\8JDK291\bin\jar cf game.jar -M core/Main -C ./
+
+RMDIR %cd%\build /S
 pause
