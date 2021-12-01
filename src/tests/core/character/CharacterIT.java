@@ -1,15 +1,16 @@
 package tests.core.character;
 
-import main.core.Inventory;
-import main.core.items.Item;
-import main.core.places.Place;
-import main.core.character.Character;
-import main.core.character.State;
-import main.builtin.items.SaND;
-import main.core.Quest;
-
 import org.junit.Before;
 import org.junit.Test;
+
+import core.builtin.items.SaND;
+import core.character.Character;
+import core.character.State;
+import core.game.Inventory;
+import core.game.Quest;
+import core.item.Item;
+import core.place.Place;
+
 import static org.junit.Assert.*;
 
 public class CharacterIT {

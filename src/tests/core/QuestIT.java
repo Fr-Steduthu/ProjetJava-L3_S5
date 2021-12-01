@@ -1,11 +1,13 @@
 package tests.core;
 
-import main.builtin.places.entrances.TutorialRoom;
-import main.core.Quest;
-import main.core.character.Player;
-import main.core.places.Place;
 import org.junit.Before;
 import org.junit.Test;
+
+import core.builtin.places.TutorialRoom;
+import core.character.Player;
+import core.game.Quest;
+import core.place.Place;
+
 import static org.junit.Assert.*;
 
 public class QuestIT {

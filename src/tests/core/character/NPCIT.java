@@ -1,10 +1,12 @@
 package tests.core.character;
 
-import main.core.character.Character;
-import main.core.character.NPC;
-import main.core.places.Place;
 import org.junit.Before;
 import org.junit.Test;
+
+import core.character.Character;
+import core.character.NPC;
+import core.place.Place;
+
 import static org.junit.Assert.*;
 
 public class NPCIT {

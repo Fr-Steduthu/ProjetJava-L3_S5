@@ -1,13 +1,14 @@
 package tests.core.items;
 
-import main.core.character.Player;
-import main.core.character.Monster;
-import main.core.character.NPC;
-import main.builtin.items.LightIronSpear;
-import main.builtin.items.ReinforcedGloves;
-
 import org.junit.Before;
 import org.junit.Test;
+
+import core.builtin.items.LightIronSpear;
+import core.builtin.items.ReinforcedGloves;
+import core.character.Monster;
+import core.character.NPC;
+import core.character.Player;
+
 import static org.junit.Assert.*;
 
 public class DamageEnhancerIT {
