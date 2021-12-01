@@ -15,6 +15,9 @@ public abstract class Character implements Serializable{
 	private static final long serialVersionUID = 2171784611978154697L;
 	
 	//Misc
+        /**
+         * The chracter's name
+         */
 	private final String NAME;
         
         /**
@@ -24,6 +27,9 @@ public abstract class Character implements Serializable{
          */
 	private Place location;
 	
+        /**
+         * The chracter's dialogue, error message set by default
+         */
 	protected String dialogue = "[ERROR] No dialogue set";
 	
         /**
@@ -45,7 +51,14 @@ public abstract class Character implements Serializable{
 	protected State currentState = State.ALIVE;
 	
 	//Combat
+        /**
+         * The chracter's maximum health points
+         */
 	protected double maxHP;
+        
+        /**
+         * The chracter's maximum ressource points
+         */
 	protected double maxAbilityResource;
 	
         /**
@@ -65,6 +78,9 @@ public abstract class Character implements Serializable{
          */
 	protected double ar;
 	
+        /**
+         * The chracter's ressource points regeneration
+         */
 	protected double arRegen = 0.0;
 	
         /**
@@ -81,11 +97,40 @@ public abstract class Character implements Serializable{
          */
 	protected double armor = 0.0;
 	
+        /**
+         * Indicates if the character's item can be looted from him
+         */
 	protected boolean isLootable = false;
+        
+        /**
+         * Indicates if the character's is able to speak
+         */
 	protected boolean isAbleToSpeak = false;
+        
+        /**
+         * Indicates if the character's item can use items
+         */
 	protected boolean canUseItems = false;
 
 	//@ParametersAreNonnullByDefault
+        /**
+         * The character's default constructor
+         * 
+         * @param name
+         * The character's name
+         * 
+         * @param maxHP
+         * The character's maximum health
+         * 
+         * @param maxAbilityResource
+         * The character's maximum ressource points
+         * 
+         * @param inventoryCapacity
+         * The character's inventory capacity
+         * 
+         * @param equipment_size
+         * The character's equipment capacity
+         */
 	public Character(String name, double maxHP, double maxAbilityResource, int inventoryCapacity, int equipment_size) {
 			this.NAME = name;
 			this.maxHP = maxHP;
