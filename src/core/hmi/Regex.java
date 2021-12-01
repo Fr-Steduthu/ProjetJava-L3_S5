@@ -1,6 +1,7 @@
 package core.hmi;
 
 import core.character.Character;
+import core.game.Quest;
 import core.item.Item;
 import core.place.Exit;
 import core.place.Place;
@@ -71,17 +72,29 @@ public final class Regex {
 		return Regex.regex(e.getName());
 	}
 	
-        /**
-         * Transforms the exit's place names into a regex expression, with an ommited place
-         * 
-         * @param e
-         * The exit
-         * 
-         * @param placeToOmmit
-         * The place to ignore
-         * 
-         * @return a regexified string containing some place's names
-         */
+
+  /**
+   * @param q
+   * The current quest
+   *
+   * @return a regexified quest objective
+   */
+	public static String regex(Quest q) {
+		return Regex.regex(q.getObjective());
+	}
+	
+
+  /**
+   * Transforms the exit's place names into a regex expression, with an ommited place
+   * 
+   * @param e
+   * The exit
+   * 
+   * @param placeToOmmit
+   * The place to ignore
+   * 
+   * @return a regexified string containing some place's names
+   */
 	public static String regex(Exit e, Place placeToOmmit) {
 		String regex = "";
 		
@@ -180,17 +193,32 @@ public final class Regex {
 		return regex.substring(1);
 	}
 	
-        /**
-         * Returns if the given strings are equal
-         * 
-         * @param str1
-         * A string
-         * 
-         * @param str2
-         * A string
-         * 
-         * @return if the strings are equal or not
-         */
+  /**
+   * @param q
+   * A quest array
+   *
+   * @return a regex expression
+   */
+	public static String regex(Quest[] q) {
+		String regex = "";
+		
+		for(Quest quest : q) {
+			regex += "|" + Regex.regex(quest);
+		}
+		return regex.substring(1);
+	}
+	
+   /**
+    * Returns if the given strings are equal
+    * 
+    * @param str1
+    * A string
+    * 
+    * @param str2
+    * A string
+    * 
+    * @return if the strings are equal or not
+    */
 	public static boolean areEquals(String str1, String str2) {
 		return str1.toLowerCase().equals(str2.toLowerCase());
 	}
