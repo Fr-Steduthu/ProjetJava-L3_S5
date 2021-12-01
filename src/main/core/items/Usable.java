@@ -1,6 +1,6 @@
 package main.core.items;
 
-public class Usable extends Item {
+public abstract class Usable extends Item {
 
 	private static final long serialVersionUID = 8588907239114065167L;
 
@@ -17,9 +17,6 @@ public class Usable extends Item {
 	}
 
 	@Override
-	protected boolean onUse(Object target) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	protected abstract boolean onUse(Object target);
 
 }

@@ -16,6 +16,5 @@ public class Main {
         //HMI.message("Please keep in mind that the rooms will be the same for every attempt you'll do, some items and monsters might not though.");
         //HMI.message("We hope you enjoy, and good luck !");
 		Game.start(new TutorialQuest());
-                HMI.message("End of the DEMO. Thanks for playing !");
 	}
 }

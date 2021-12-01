@@ -1,10 +1,13 @@
 package main.core;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
+import main.core.character.Character;
 import main.core.character.Monster;
 import main.core.character.NPC;
 import main.core.character.Player;
+import main.core.character.State;
 import main.core.items.Item;
 import main.core.places.Place;
 
@@ -99,8 +102,85 @@ public class Quest implements Serializable{
 		return this.player;
 	}
         
-        //On passe cette fonction en public pour si l'on veut avoir une équipe dans son jeux / phases avec personnages différent 
+        //On passe cette fonction en public pour si l'on veut avoir une equipe dans son jeux / phases avec personnages different 
 	public void setPlayer(Player p) {
 		this.player = p;
+	}
+
+	public void charactersActions(ArrayList<Character> deadEnnemies) throws GameHasEnded {
+		Place current = this.getPlayer().getLocation();
+        Player p = this.getPlayer();
+		boolean is_alive = true;
+		
+		for(Character c : current.getNpcs()) {
+			is_alive = true;
+			for(Character dead_c : deadEnnemies) {
+				if(dead_c == c) {
+					is_alive = false;
+					break;
+				}
+			}
+			
+			if(c.getHP() <= 0 && !is_alive) {
+				c.onDeath(this);
+				c.setState(State.DEAD);
+				deadEnnemies.add(c);
+				continue;
+			}
+			
+			if(c instanceof Monster && (c.getState() != State.STUNNED /*|| c.getState() == State.IMMUNE_STUNNED || c.getState() == State.IMMUNE_ALL*/) && is_alive) {
+				c.attack(p);
+			}
+		}
+		        
+		if(p.getState() == State.DEAD) {
+		    p.onDeath(this);
+		    p.setState(State.DEAD);
+		    Game.end("You lost", false);
+		}
+	}
+
+	public void checkLoosingConditions() throws GameHasEnded {
+		Player p = this.getPlayer();
+		
+		if(p.getState() == State.DEAD) {
+			Game.end("You lost all hp!", false);
+		}else if(p.getLocation().getExits().length == 0) {
+			Game.end("Dead end found", false);
+		}
+	}
+
+	public void checkWinningConditions() throws GameHasEnded {
+		Object objective = this.getObjectiveObject();
+		
+		boolean retVal = false;
+		
+		if(objective instanceof Place) {
+			if(this.getPlayer().getLocation() == objective) {
+				retVal = true;
+			}
+			
+		}else if(objective instanceof Monster) {
+			if(((Monster) objective).getState() == State.DEAD) {
+				retVal = true;
+			}
+			
+		}else if(objective instanceof Character) {
+			for(Character c : this.getPlayer().getLocation().getNpcs()) {
+				if(c == objective) {
+					retVal = true;
+				}
+			}
+		}else if(objective instanceof Item) {//Possession et non utilisation d'un item
+			for(Item i : this.getPlayer().getItems()){
+				if(i == objective) {
+					retVal = true;
+				}
+			}
+		}
+		
+		if(retVal) {
+			Game.end("You have won", retVal);
+		}
 	}
 }

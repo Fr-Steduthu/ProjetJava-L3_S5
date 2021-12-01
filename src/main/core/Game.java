@@ -5,7 +5,6 @@ import java.io.File;
 import main.core.character.Character;
 import main.core.character.Monster;
 import main.core.character.Player;
-import main.core.character.State;
 import main.core.items.Item;
 import main.core.places.Exit;
 import main.core.places.Place;
@@ -35,218 +34,226 @@ public class Game {
 		//final String message;
 		Boolean victoryState = null;
 		
-		while(current !=  destination && victoryState == null && hasQuitted == false) {
-			HMI.message("------New turn------\nYou are in " + current.getName() +".\n");
-		
-                        // Player Turn
-			boolean hasFinishedTurn = false;
-			boolean hasToClear = false;
-			while (!hasFinishedTurn) {
-				if(hasToClear) {
-					HMI.clear();
-					hasToClear = false;
-				}
-				
-				Command action = Command.toCommand(HMI.readCommand("Please enter wanted action; type help to see available commands"));
-				HMI.message("---------");
-				
-				switch(action) {
-					case ATTACK:
-						Character target = selectAttack(q);
-						boolean is_alive = true;
-						
-						for(Character dead_c : deadEnnemies) {
-							if(dead_c.equals(target)) {
-								is_alive = false;
-								break;
+		try {
+			while(current !=  destination && victoryState == null && hasQuitted == false) {
+				HMI.message("------New turn------\nYou are in " + current.getName() +".\n");
+			
+	                        // Player Turn
+				boolean hasFinishedTurn = false;
+				boolean hasToClear = false;
+				while (!hasFinishedTurn) {
+					if(hasToClear) {
+						HMI.clear();
+						hasToClear = false;
+					}
+					
+					Command action = Command.toCommand(HMI.readCommand("Please enter wanted action; type help to see available commands"));
+					HMI.message("---------");
+					
+					switch(action) {
+						case ATTACK:
+							Character target = selectAttack(q);
+							boolean is_alive = true;
+							
+							for(Character dead_c : deadEnnemies) {
+								if(dead_c.equals(target)) {
+									is_alive = false;
+									break;
+								}
 							}
-						}
-						
-                        if(target != null && is_alive){
-                            p.attack(target);
-                            HMI.message("You've damaged the " + target.getName() + " for " + (int) p.getDamage() + " HP !");
-                            hasFinishedTurn = true;
-                        }else{
-                            HMI.message("Please try again or select another command.");
-                        }
-                        
-						break;
-						
-					case GO:
-						String choosingRoomMessage = "What room do you want to go in?";
-						
-						for(Exit e : current.getExits()) {
-							choosingRoomMessage += "\n" + e.getRoomOmmiting(current).getName();
-						}
-						
-						String chosenRoom = HMI.read(choosingRoomMessage, Regex.regex(current.getExits(), current)+"|"+Regex.regex("back")); //Game.message(current.getExits());
-						
-						if(!chosenRoom.toLowerCase().equals("back")) {
+							
+	                        if(target != null && is_alive){
+	                            p.attack(target);
+	                            HMI.message("You've damaged the " + target.getName() + " for " + (int) p.getDamage() + " HP !");
+	                            hasFinishedTurn = true;
+	                        }else{
+	                            HMI.message("Please try again or select another command.");
+	                        }
+	                        
+							break;
+							
+						case GO:
+							String choosingRoomMessage = "What room do you want to go in?";
 							
 							for(Exit e : current.getExits()) {
+								choosingRoomMessage += "\n" + e.getRoomOmmiting(current).getName();
+							}
+							
+							String chosenRoom = HMI.read(choosingRoomMessage, Regex.regex(current.getExits(), current)+"|"+Regex.regex("back")); //Game.message(current.getExits());
+							
+							if(!chosenRoom.toLowerCase().equals("back")) {
 								
-								Place i_place = e.getRoomOmmiting(current);
-								
-								if(chosenRoom.toLowerCase().equals(i_place.getName().toLowerCase())){
+								for(Exit e : current.getExits()) {
 									
-									if(e.canPassThrough(q)) {
-										
-										Game.charactersActions(q, deadEnnemies); //Penaliser la fuite contre des monstres
-										
-										current = e.getRoomOmmiting(current);
-										p.setLocation(e.getRoomOmmiting(current));
-										
-										HMI.message("You reach " + chosenRoom);
-										
-										hasFinishedTurn = false;
-										
-									}else {
-										HMI.message("Can try all you can but cannot open the door.");
-										hasFinishedTurn = true;
-									}
-								}
-							}
-						
-						}
-						break;
-						
-						
-					case HELP:
-						Command.help();
-						break;
-						
-						
-					case LOOK:
-						hasToClear = true;
-						HMI.message(current.toString());
-						break;
-						
-						
-					case QUIT:
-						if (HMI.confirm("Do you want to exit the game ?")) {
-							if (HMI.confirm("Do you wish to save your current progression ?")) {
-								Game.save(q);
-							}
-							hasQuitted = true;
-							hasFinishedTurn = true;
-						}
-						break;
-						
-						
-					case TAKE:
-						String messageTake = "What item do you want to pick up ?";
-						for(Item e : p.getLocation().getItems()) {	
-							messageTake += "\n" + e.getName();
-						}
-						
-						String inputTake = HMI.read(messageTake, Regex.regex(p.getLocation().getItems())+"|"+Regex.regex("back")); //Game.message(current.getExits());
-						
-						if(!Regex.areEquals(inputTake, "back")) {
-							for(Item e : p.getLocation().getItems()) {
+									Place i_place = e.getRoomOmmiting(current);
 									
-								if(Regex.areEquals(inputTake, e.getName())){
-									if (e.giveTo(p)) {
-										hasFinishedTurn = true;
-									}
-									
-								}
-							}
-						}
-						break;
-						
-						
-					case USE:
-						String messageUse = "What item do you want to use?";
-						for(Item e : p.getItems()) {	
-							messageUse += "\n" + e.getName();
-						}
-						
-						String inputUse = HMI.read(messageUse, Regex.regex(p.getItems())+"|"+Regex.regex("back")); //Game.message(current.getExits());
-						
-						if(!Regex.areEquals(inputUse, "back")) {
-							for(Item e : p.getItems()) {
-
-								if(Regex.areEquals(inputUse, e.getName())){
-									
-									if(!e.needsTarget()) {
-										assert(p.use(e, null)); //Si false, il y a inconsistance entre la classe et needsTarget -> crash
-										hasFinishedTurn = true;
-										break;
+									if(chosenRoom.toLowerCase().equals(i_place.getName().toLowerCase())){
 										
-									}else {
-										
-										String inputUseTarget = HMI.read("What do you want to use it on?", Regex.regex(p.getLocation().getNpcs())+"|"+Regex.regex("BACK")+"|"+Regex.regex("yourself"));
-										
-										if(Regex.areEquals(inputUseTarget, "yourself")) {
-											hasFinishedTurn = p.use(e, p);
-											if(!hasFinishedTurn) {
-												HMI.message("You cant' use that on yourself");
-											} else {
-                                                                                            p.removeItem(e);
-                                                                                        }
+										if(e.canPassThrough(q)) {
 											
-											break;
+											q.charactersActions(deadEnnemies); //Penaliser la fuite contre des monstres
+											
+											current = e.getRoomOmmiting(current);
+											p.setLocation(e.getRoomOmmiting(current));
+											
+											HMI.message("You reach " + chosenRoom);
+											
+											hasFinishedTurn = false;
+											
 										}else {
-											for(Character tar : p.getLocation().getNpcs()) {
+											HMI.message("Can try all you can but cannot open the door.");
+											hasFinishedTurn = true;
+										}
+									}
+								}
+							
+							}
+							break;
+							
+							
+						case HELP:
+							Command.help();
+							break;
+							
+							
+						case LOOK:
+							HMI.clear();
+							HMI.message(current.toString());
+							break;
+							
+							
+						case QUIT:
+							if (HMI.confirm("Do you want to exit the game ?")) {
+								if (HMI.confirm("Do you wish to save your current progression ?")) {
+									Game.save(q);
+								}
+								hasQuitted = true;
+								hasFinishedTurn = true;
+							}
+							break;
+							
+							
+						case TAKE:
+							String messageTake = "What item do you want to pick up ?";
+							for(Item e : p.getLocation().getItems()) {	
+								messageTake += "\n" + e.getName();
+							}
+							
+							String inputTake = HMI.read(messageTake, Regex.regex(p.getLocation().getItems())+"|"+Regex.regex("back")); //Game.message(current.getExits());
+							
+							if(!Regex.areEquals(inputTake, "back")) {
+								for(Item e : p.getLocation().getItems()) {
+										
+									if(Regex.areEquals(inputTake, e.getName())){
+										if (e.giveTo(p)) {
+											hasFinishedTurn = true;
+										}
+										
+									}
+								}
+							}
+							
+							hasToClear = true;
+							break;
+							
+							
+						case USE:
+							String messageUse = "What item do you want to use?";
+							for(Item e : p.getItems()) {	
+								messageUse += "\n" + e.getName();
+							}
+							
+							String inputUse = HMI.read(messageUse, Regex.regex(p.getItems())+"|"+Regex.regex("back")); //Game.message(current.getExits());
+							
+							if(!Regex.areEquals(inputUse, "back")) {
+								for(Item e : p.getItems()) {
 	
-												if(Regex.areEquals(inputUseTarget, tar.getName())){
-													hasFinishedTurn = p.use(e, tar);
-													if(!hasFinishedTurn) {
-														HMI.message("You can't use that on "+ inputUseTarget.toLowerCase());
+									if(Regex.areEquals(inputUse, e.getName())){
+										
+										if(!e.needsTarget()) {
+											//assert(p.use(e, null)); //Si false, il y a inconsistance entre la classe et needsTarget -> crash
+											p.use(e, null);
+											hasFinishedTurn = true;
+											break;
+											
+										}else {
+											
+											String inputUseTarget = HMI.read("What do you want to use it on?", Regex.regex(p.getLocation().getNpcs())+"|"+Regex.regex("BACK")+"|"+Regex.regex("yourself"));
+											
+											if(Regex.areEquals(inputUseTarget, "yourself")) {
+												hasFinishedTurn = p.use(e, p);
+												if(!hasFinishedTurn) {
+													HMI.message("You cant' use that on yourself");
+												} else {
+                                                    p.removeItem(e);
+                                                }
+												
+												break;
+											}else {
+												for(Character tar : p.getLocation().getNpcs()) {
+		
+													if(Regex.areEquals(inputUseTarget, tar.getName())){
+														hasFinishedTurn = p.use(e, tar);
+														if(!hasFinishedTurn) {
+															HMI.message("You can't use that on "+ inputUseTarget.toLowerCase());
+														}
+														break;
 													}
-													break;
 												}
 											}
 										}
 									}
 								}
 							}
-						}
-						break;
-						
-						
-					case BACK:
-						break;
-						
-						
-					case INTERACT:
-						
-						String message = "Who or what do you want to talk to?";
-						for(Character e : current.getNpcs()) {	
-							message += "\n" + e.getName();
-						}
-						
-						String input = HMI.read(message, Regex.regex(current.getNpcs())+"|"+Regex.regex("back")); //Game.message(current.getExits());
-						
-						if(!input.toLowerCase().equals("back")) {
-							for(Character e : current.getNpcs()) {
-
-								if(input.toLowerCase().equals(e.getName().toLowerCase())){
-									e.interact(q);
-								}
+							break;
+							
+							
+						case BACK:
+							break;
+							
+							
+						case INTERACT:
+							
+							String message = "Who or what do you want to talk to?";
+							for(Character e : current.getNpcs()) {	
+								message += "\n" + e.getName();
 							}
-						
-						hasFinishedTurn = true;
-						}
-						break;
-						
-                    case ME:
-                        
-                        HMI.message(p.toString());
-                        hasFinishedTurn = false;
-                        break;
-                        
-                                            
-					default:
-						HMI.error("Game.start() -> unknown Command -> no behavior defined -> please try again");
-						break;
+							
+							String input = HMI.read(message, Regex.regex(current.getNpcs())+"|"+Regex.regex("back")); //Game.message(current.getExits());
+							
+							if(!input.toLowerCase().equals("back")) {
+								for(Character e : current.getNpcs()) {
+	
+									if(input.toLowerCase().equals(e.getName().toLowerCase())){
+										e.interact(q);
+									}
+								}
+							
+							hasFinishedTurn = true;
+							}
+							break;
+							
+	                    case ME:
+	                        
+	                        HMI.message(p.toString());
+	                        hasFinishedTurn = false;
+	                        break;
+	                        
+	                                            
+						default:
+							HMI.error("Game.start() -> unknown Command -> no behavior defined -> please try again");
+							break;
+					}
 				}
+				
+				q.charactersActions(deadEnnemies);
+				
+				q.checkWinningConditions();
+				q.checkLoosingConditions();
 			}
-			
-			Game.charactersActions(q, deadEnnemies);
-			
-			victoryState = Game.checkWinningConditions(current, q);
-			victoryState = Game.checkLoosingConditions(q);
+		}catch(GameHasEnded e) {
+			e.printStackTrace(System.out);
+			HMI.close();
 		}
 	}
 	
@@ -256,7 +263,7 @@ public class Game {
         ArrayList<Character> monsterList = new ArrayList<>();
         Character[] roomNpcs = q.getPlayer().getLocation().getNpcs();
         
-        if (roomNpcs.length == 0) { // TODO : La length avec un monstre est de 0. Pourquoi? Prob du a la romm attribuee au player étant donne que le test marche.
+        if (roomNpcs.length == 0) { // TODO : La length avec un monstre est de 0. Pourquoi? Prob du a la romm attribuee au player etant donne que le test marche.
             HMI.message("There is nothing to satisfy your bloodlust here.");
             return null;
         }
@@ -278,93 +285,13 @@ public class Game {
             }
         }
     
-        HMI.message("You've tried to attack " + target + " howether it doesn't exit.");
+        HMI.message("You've tried to attack " + target + " however it doesn't exist.");
     	return null;
     }
 
 	/**GAMEPLAY loop fundamental elements**/
-    
-	private static Boolean checkWinningConditions(Place current, Quest q) {
-		Object objective = q.getObjectiveObject();
-		if(objective instanceof Place) {
-			if(current == objective) {
-				return true;
-			}
-		}else if(objective instanceof Monster) {
-			if(((Monster) objective).getState() == State.DEAD) {
-				return true;
-			}
-		}else if(objective instanceof Character) {
-			for(Character c : current.getNpcs()) {
-				if(c == objective) {
-					return true;
-				}
-			}
-		}else if(objective instanceof Item) {//Possession et non utilisation d'un item
-			for( Item i : q.getPlayer().getItems()){
-				if(i == objective) {
-					return true;
-				}
-			}
-		}
-		
-		return null;
-	}
-	
-	private static void charactersActions(Quest q, ArrayList<Character> deadEnnemies) {
-		Place current = q.getPlayer().getLocation();
-                Player p = q.getPlayer();
-        boolean is_alive = true;
-		
-		for(Character c : current.getNpcs()) {
-			for(Character dead_c : deadEnnemies) {
-				if(dead_c.equals(c)) {
-					is_alive = false;
-					break;
-				}
-			}
-			
-			if(c.getHP() <= 0 && c.getState() != State.DEAD && !is_alive) {
-				c.onDeath(q);
-				c.setState(State.DEAD);
-				deadEnnemies.add(c);
-			}
-			
-			if(c instanceof Monster && c.getState() != State.STUNNED && !is_alive) {
-				c.attack(p);
-			}
-		}
-                
-		if(p.getHP() <= 0 && p.getState() != State.DEAD) {
-            p.onDeath(q);
-            p.setState(State.DEAD);
-		}
-	}
-	private static Boolean checkLoosingConditions(Quest q) {
-		Player p = q.getPlayer();
-		
-		if(p.getState() == State.DEAD) {
-			Game.end("You lost all hp!", false);
-			return false;
-			
-		}else if(p.getLocation().getExits().length == 0) {
-			HMI.message("Dead end found");
-			//Game.end("Dead end found", false);
-			return false;
-		}
-		
-		return null;
-	}
 
-	public static void end(String message, boolean victoryState) {
-		
-		if(victoryState) {
-			HMI.message("Congratulations, you have won");
-			
-		}else {
-			
-			HMI.message("Aw, you lost. How sad.");
-		}
+	public static void end(String message, boolean victoryState) throws GameHasEnded {
 		
 		HMI.message(message);
 
@@ -375,7 +302,7 @@ public class Game {
 			//Le sleep n'est pas important mais agreable pour pouvoir lire le message
 		}
 		
-		HMI.close();
+		throw new GameHasEnded();
 	}
 	
 	/*

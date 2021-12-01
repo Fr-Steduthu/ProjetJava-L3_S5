@@ -62,8 +62,10 @@ public abstract class Item implements Serializable{
 	}
 	
 	public /*final*/ boolean use(Object target) {
+		HMI.debug(this.isUsable +"" + this.isCurrentlyUsable);
 		if(this.isUsable) {
             if(this.isCurrentlyUsable) {
+            	HMI.message("You use the " + this.getName() + ".");
                 return this.onUse(target);
             } else {
                 HMI.message("This item cannot be used yet");

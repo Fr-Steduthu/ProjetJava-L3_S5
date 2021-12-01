@@ -6,29 +6,6 @@ import main.core.places.Place;
 import main.core.character.Character;
 
 public final class Regex {
-	/*
-	public final String contents;
-	
-	public Regex(String s) {
-		this.contents = s;
-	}
-	
-	public Regex(Place s) {
-		this.contents = regex(s);
-	}
-	
-	public Regex(Exit e) {
-		/**Do not use**
-		this.contents = regex(e, null);
-	}
-	
-	public Regex(Item e) {
-		this.contents = regex(e);
-	}
-	
-	public Regex(Character e) {
-		this.contents = regex(e);
-	}*/
 	 
 	/**Static methods**/
 	
