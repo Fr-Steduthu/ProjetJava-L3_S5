@@ -10,11 +10,29 @@ public class Exit implements Serializable{
 
 	private static final long serialVersionUID = 5674585445142853986L;
 	
+        /**
+         * The connected rooms to the current exit
+         */
 	protected Place[] connectedRooms = new Place[2];
 
+        /**
+         * If the exit is open or not
+         */
 	protected boolean isOpen = true;
 
 	//@ParametersAreNonnullByDefault
+        /**
+         * Default exit constructor
+         * 
+         * @param roomA
+         * A room
+         * 
+         * @param roomB
+         * Another room
+         * 
+         * @throws IllegalArgumentException 
+         * Throws an IllegalArgumentException if the rooms are the same
+         */
 	public Exit(Place roomA, Place roomB) throws IllegalArgumentException{
 		if(roomA == roomB) {
 			throw new IllegalArgumentException("Rooms cannot be the same");
@@ -26,6 +44,9 @@ public class Exit implements Serializable{
 		}
 	}
 	
+        /**
+         * @return an array of connected rooms
+         */
 	public final Place[] getRooms() {
 		Place[] r = new Place[2];
 		r[0] = this.connectedRooms[0];
@@ -33,6 +54,14 @@ public class Exit implements Serializable{
 		return r;
 	}
 	
+        /**
+         * Returns the other room connected to the exit depending on the given place
+         * 
+         * @param p
+         * The place we do not want
+         * 
+         * @return the opposite room to the given one
+         */
 	public final Place getRoomOmmiting(Place p) {
 		if(p == this.connectedRooms[0]) {
 			return this.connectedRooms[1];
@@ -41,22 +70,48 @@ public class Exit implements Serializable{
 		}
 	}
 	
+        /**
+         * Adds a place to the exit
+         * 
+         * @param p 
+         * The place to add
+         */
 	public final void addTo(Place p) {
 		p.addExit(this);
 	}
 	
+        /**
+         * Removes a place from the exit
+         * 
+         * @param p 
+         * The place to remove
+         */
 	public final void removeFrom(Place p) {
 		p.removeExit(this);
 	}
 	
+        /**
+         * Returns if the exit is open or not
+         * 
+         * @param q
+         * The current quest 
+         * 
+         * @return if the exit is open or not
+         */
 	public boolean canPassThrough(Quest q) {
 		return this.isOpen;
 	}
 	
+        /**
+         * Opens the exit
+         */
 	public void open() {
 		this.isOpen= true;
 	}
 	
+        /**
+         * Closes the exit
+         */
 	public void close() {
 		this.isOpen = false;
 	}
