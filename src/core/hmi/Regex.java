@@ -1,6 +1,7 @@
 package core.hmi;
 
 import core.character.Character;
+import core.game.Quest;
 import core.item.Item;
 import core.place.Exit;
 import core.place.Place;
@@ -37,6 +38,10 @@ public final class Regex {
 	
 	public static String regex(Place e) {
 		return Regex.regex(e.getName());
+	}
+	
+	public static String regex(Quest q) {
+		return Regex.regex(q.getObjective());
 	}
 	
 	public static String regex(Exit e, Place placeToOmmit) {
@@ -90,6 +95,15 @@ public final class Regex {
 		
 		for(Item c : e) {
 			regex += "|" + Regex.regex(c);
+		}
+		return regex.substring(1);
+	}
+	
+	public static String regex(Quest[] q) {
+		String regex = "";
+		
+		for(Quest quest : q) {
+			regex += "|" + Regex.regex(quest);
 		}
 		return regex.substring(1);
 	}
