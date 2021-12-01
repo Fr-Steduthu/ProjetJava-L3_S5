@@ -29,12 +29,12 @@ public class Main {
 
 		availableQuests[0] = new TutorialQuest();
 		availableQuests[1] = new SC2();
-		HMI.message(availableQuests[0].getObjective());
-		HMI.message(availableQuests[1].getObjective());
+		//HMI.message(availableQuests[0].getObjective());
+		//HMI.message(availableQuests[1].getObjective());
 		
 		for (int i = 2; i < availableQuests.length; i++) {
 			availableQuests[i] = Game.load (files[i-2]);
-			HMI.message(availableQuests[i].getObjective());			
+			//HMI.message(availableQuests[i].getObjective());			
 		}
 		
 		Quest selectedQuest = null;
