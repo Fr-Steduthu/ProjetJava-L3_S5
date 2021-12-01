@@ -336,12 +336,12 @@ public class Game {
 		}
 	}
 	
-	public static void load(File saveFile) throws FileNotFoundException, IOException, ClassNotFoundException {
+	public static Quest load(File saveFile) throws FileNotFoundException, IOException, ClassNotFoundException {
 		Quest q_loadedSave;
 		
 			try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(saveFile))) {
 				q_loadedSave = (Quest)ois.readObject();
 			}
-		Game.start(q_loadedSave);
+		return q_loadedSave;
 	}
 }
