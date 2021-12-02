@@ -1,0 +1,13 @@
+core
+core.builtin
+core.builtin.characters.monsters
+core.builtin.characters.npcs
+core.builtin.items
+core.builtin.places
+core.character
+core.game
+core.hmi
+core.item
+core.place
+custom.characters.monsters
+custom.quests

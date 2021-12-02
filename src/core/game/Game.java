@@ -37,7 +37,6 @@ public class Game {
 		Player p = q.getPlayer();
 		
 		ArrayList<Character> deadEnnemies = new ArrayList<>();
-	// TODO PAS ATTAQUABLE ET PAS CAPABLE D ATTAQUER
 				
 		boolean hasQuitted = false;
 		
@@ -281,7 +280,7 @@ public class Game {
             ArrayList<Character> monsterList = new ArrayList<>();
             Character[] roomNpcs = q.getPlayer().getLocation().getNpcs();
 
-            if (roomNpcs.length == 0) { // TODO : La length avec un monstre est de 0. Pourquoi? Prob du a la romm attribuee au player etant donne que le test marche.
+            if (roomNpcs.length == 0) {
                 HMI.message("There is nothing to satisfy your bloodlust here.");
                 return null;
             }

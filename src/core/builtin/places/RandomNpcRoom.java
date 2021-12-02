@@ -14,7 +14,6 @@ public class RandomNpcRoom extends Place implements RandomlyPlacedNpcs {
 
 	@Override
 	public NPC[] getNpcList() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
