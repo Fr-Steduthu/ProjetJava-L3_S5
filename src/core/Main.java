@@ -32,8 +32,8 @@ public class Main {
 		//HMI.message(availableQuests[0].getObjective());
 		//HMI.message(availableQuests[1].getObjective());
 		
-		for (int i = 2; i < availableQuests.length; i++) {
-			availableQuests[i] = Game.load (files[i-2]);
+		for (int i = 1; i < availableQuests.length; i++) {
+			availableQuests[i] = Game.load (files[i-1]);
 			//HMI.message(availableQuests[i].getObjective());			
 		}
 		
