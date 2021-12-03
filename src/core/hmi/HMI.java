@@ -79,6 +79,41 @@ public final class HMI {
 			}
 		
 	}
+        
+        /**
+         * Reads a number
+         * 
+         * @param message
+         * The message to read
+         * 
+         * @param min
+         * The minimum number awaited
+         * 
+         * @param max
+         * The maximum number awaited
+         * 
+         * @return an integer if the function found one concording to the input
+         */
+	public static int readNumber(String message, int min, int max) {
+			HMI.message(message);
+			
+			if(input.hasNextInt()) {
+				int res = input.nextInt();
+                                if(res < min || max < res) {
+					HMI.message("The given number is not between " + min + " and " + max + ", please try again.");
+                                        return HMI.readNumber(message, min, max);
+				}
+				return res;
+				
+			}else {
+				String err = HMI.input.next();
+				if(!err.equals("")) {
+					HMI.message("An error has occured, please, try again.");
+				}
+				return HMI.readNumber(message, min, max);
+			}
+		
+	}
 	
         /**
          * Reads a command

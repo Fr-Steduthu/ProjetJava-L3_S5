@@ -41,17 +41,15 @@ public class Main {
 		
         HMI.message("Quests available :");
         
+        int i = 0;
         for (Quest q : availableQuests) {
-            HMI.message(q.getObjective());
+            HMI.message("[" + i + "] " + q.getObjective());
+            i++;
         }
         
-        String target = HMI.read("Choose a quest to play.",Regex.regex((Quest[])availableQuests)+"|BACK");
+        int target = HMI.readNumber("Choose the number of the corresponding quest you want to play.", 0, availableQuests.length - 1);
 
-        for (Quest quest : availableQuests) {
-            if (quest.getObjective().toLowerCase().equals(target.toLowerCase())) {
-                    selectedQuest =  quest;
-            }
-        }    
+        selectedQuest = availableQuests[target];
 		
         //HMI.message("You will experience a DEMOnstration for now of what we've done");
         //HMI.message("Please keep in mind that the rooms will be the same for every attempt you'll do, some items and monsters might not though.");
