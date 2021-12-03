@@ -25,10 +25,10 @@ public class Main {
 		if(files == null) {
 			files = new File[0];
 		}
-		Quest[] availableQuests = new Quest[files.length + 2];
+		Quest[] availableQuests = new Quest[files.length + 1];
 
 		availableQuests[0] = new TutorialQuest();
-		availableQuests[1] = new SC2();
+		//availableQuests[1] = new SC2();
 		//HMI.message(availableQuests[0].getObjective());
 		//HMI.message(availableQuests[1].getObjective());
 		

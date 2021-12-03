@@ -170,6 +170,8 @@ public final class Regex {
 	public static String regex(Exit[] e, Place placeToOmmit) {
 		String regex = "";
 		
+                if (e == null || e.length == 0) return regex;
+                
 		for(Exit c : e) {
 			regex += "|" + Regex.regex(c, placeToOmmit);
 		}
