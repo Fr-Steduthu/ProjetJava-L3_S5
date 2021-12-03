@@ -245,6 +245,7 @@ public class Game {
 	                    case ME:
 	                        
 	                        HMI.message(p.toString());
+                                HMI.message("Here is your current objective :\n" + q.getObjective());
 	                        hasFinishedTurn = false;
 	                        break;
 	                        
