@@ -19,6 +19,7 @@ import core.hmi.Regex;
 import core.item.Item;
 import core.place.Exit;
 import core.place.Place;
+import java.util.Arrays;
 
 public class Game {
 	
@@ -103,7 +104,7 @@ public class Game {
 											q.charactersActions(deadEnnemies); //Penaliser la fuite contre des monstres
 											
 											current = e.getRoomOmmiting(current);
-											p.setLocation(e.getRoomOmmiting(current));
+											p.setLocation(current);
 											
 											HMI.message("You reach " + chosenRoom);
 											
@@ -280,8 +281,17 @@ public class Game {
         private static Character selectAttack(Quest q){
             ArrayList<Character> monsterList = new ArrayList<>();
             Character[] roomNpcs = q.getPlayer().getLocation().getNpcs();
+            Character[] emptyRoom = new Character[]{};
+            
+            HMI.message("Test");
+            
+            for (Character charac : roomNpcs) {
+                if (charac instanceof Monster) {
+                    monsterList.add(charac);
+                }
+            }
 
-            if (roomNpcs.length == 0) {
+            if (monsterList.isEmpty()) {
                 HMI.message("There is nothing to satisfy your bloodlust here.");
                 return null;
             }
@@ -290,15 +300,14 @@ public class Game {
 
             for (Character charac : roomNpcs) {
                 if (charac instanceof Monster) {
-                    HMI.message(charac.toString());
-                    monsterList.add(charac);
+                    HMI.message(charac.getName());
                 }
             }
 
-            String target = HMI.read("Choose an ennemy to attack.",Regex.regex((Character[])monsterList.toArray())+"BACK");
+            String target = HMI.read("Choose an ennemy to attack.",Regex.regex((Character[])monsterList.toArray(emptyRoom))+"|BACK");
 
             for (Character charac : monsterList) {
-                if (charac.getName().equals(target)) {
+                if (Regex.areEquals(charac.getName(), target)) {
                         return charac;
                 }
             }
