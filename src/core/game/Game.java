@@ -283,8 +283,6 @@ public class Game {
             Character[] roomNpcs = q.getPlayer().getLocation().getNpcs();
             Character[] emptyRoom = new Character[]{};
             
-            HMI.message("Test");
-            
             for (Character charac : roomNpcs) {
                 if (charac instanceof Monster) {
                     monsterList.add(charac);
