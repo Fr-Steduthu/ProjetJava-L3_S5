@@ -1,2 +1,2 @@
-java -Xms512m -Xmx2048m -XX:PermSize=128m -jar game.jar
+java -jar game.jar
 pause
